@@ -8,11 +8,11 @@
   2. With so many UFO reports, how can we figure out which of these UFO reports are fake? 
   3. Are there any relationships between UFOs features or characteristics with corresponding weather or GIS information?
   
-# Data structure
+# Data structure http://www.nuforc.org/webreports.html
 
   data source: The National UFO Reporting Center Online Database (http://www.nuforc.org/webreports.html)
   
-  ![Data structure](https://github.com/jyan16/UFO/blob/master/img/data%20structure.png)
+  ![Data structure](https://github.com/jyan16/UFO/blob/master/docs/img/data%20structure.png)
         
 # Method & Technology
 
