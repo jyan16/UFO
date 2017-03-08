@@ -43,5 +43,5 @@
 	
   We will use D3, CG to create charts that show the features we extract from the witness summary data. D3 creates visualization of Big Data analysis results. Map to show the distribution of UFO witnesses, as well as visualizes their relation with weather and GIS. All of the above can be shown on a website. 
   
-# Recent Work
+# What to Do
   We are now working on Google Map API, to make map visualization of our witness report data. We are also on our way to create database. 
