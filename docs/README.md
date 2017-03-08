@@ -1,4 +1,18 @@
 # Introduction
 
+<<<<<<< HEAD
 Our project tends to analyze correlation between UFO reports and other data, like GIS and weather.
 
+=======
+  There are many UFO reports across the United States categorized by event date, state, shape of UFO and date posted.Our project tends to analyze correlation between UFO reports and other data, like GIS and weather.
+
+# Questions of interest
+
+  1. How can we predict when and where UFO will appear, and the trend of its occurrence? 
+  2. With so many UFO reports, how can we figure out which of these UFO reports are fake? 
+  3. Are there any relationships between UFOs features or characteristics with corresponding weather or GIS information?
+  
+# Data structure
+
+  data source: The National UFO Reporting Center Online Database (http://www.nuforc.org/webreports.html)
+>>>>>>> 9e44fbdb42bbe77a8972c99935204c4a23488ce8
