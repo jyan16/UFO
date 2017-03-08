@@ -15,7 +15,16 @@
   data source: The National UFO Reporting Center Online Database(http://www.nuforc.org/webreports.html)
   
   ![Data structure](https://raw.githubusercontent.com/jyan16/UFO/master/docs/img/data%20structure.png)
-        
+  
+  UFO report data before cleaning:
+  
+  b'<TR VALIGN=TOP>\\r\\n<TD><FONT style=FONT-SIZE:11pt FACE="Calibri" COLOR=#000000><A HREF=132/S132754.html>2/22/17 19:30</A></TD>\\r\\n<TD><FONT style=FONT-SIZE:11pt FACE="Calibri" COLOR=#000000>Swanville</TD>\\r\\n<TD><FONT style=FONT-SIZE:11pt FACE="Calibri" COLOR=#000000>ME</TD>\\r\\n<TD><FONT style=FONT-SIZE:11pt FACE="Calibri" COLOR=#000000>Light</TD>\\r\\n<TD><FONT style=FONT-SIZE:11pt FACE="Calibri" COLOR=#000000>45 minutes</TD>\\r\\n<TD><FONT style=FONT-SIZE:11pt FACE="Calibri" COLOR=#000000>Bright pulsating white light brighter than Venus in vicinity of Swanville, ME.  ((anonymous report)) ((NUFORC Note:  Venus.  PD))</TD>\\r\\n<TD><FONT style=FONT-SIZE:11pt FACE="Calibri" COLOR=#000000>2/22/17</TD>\\r\\n\\r\\n</TR>'
+  
+  UFO report data after cleaning:
+  
+  b'time'		b'city'		b'state'	b'shape'	b'duration'	b'summary'
+  b'2/22/17 19:30'	b'Swanville'	b'ME'		b'Light'	b'45 minutes'	b'Bright pulsating white light brighter than Venus in vicinity of Swanville, ME.  ((anonymous report)) ((NUFORC Note:  Venus.  PD))' 
+  
 # Method & Technology
 
   To clean UFO-report data, we plan to drop the witness data too early, because of the lack of weather data and the change of geography circumstance. 
