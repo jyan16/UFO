@@ -20,11 +20,11 @@
 
   Predicting about UFO needs correlation of many sources of data, including the UFO-report data, geography information, and the weather. UFO Reports is the basic data of our system. There are 5 steps regarding our data: 
   
-	1). Creating database of GIS, UFO-Reports and weather.	
-  	2). Using NLP technology to analyze summary data in the UFO Reports data. To extract features about UFO. Creating chart (style, color, characteristics) of UFO. 
-  	3). Indexed by date and location data of UFO Reports, scraping the corresponding GIS and weather data, and integrating them together. 
-	4). Using machine-learning or neural network to train our data, figure out patterns and correlation between UFO witness with GIS and weather at that time. 
-	5). Combining the information entered by user and weather forecasting data to do prediction In order to predict the possibility to see an UFO in the future. 
+1). Creating database of GIS, UFO-Reports and weather.	
+2). Using NLP technology to analyze summary data in the UFO Reports data. To extract features about UFO. Creating chart (style, color, characteristics) of UFO. 
+3). Indexed by date and location data of UFO Reports, scraping the corresponding GIS and weather data, and integrating them together. 
+4). Using machine-learning or neural network to train our data, figure out patterns and correlation between UFO witness with GIS and weather at that time. 
+5). Combining the information entered by user and weather forecasting data to do prediction In order to predict the possibility to see an UFO in the future. 
   
   We will use SQLite to store our data. We will create a system based in python that does Natural Language Processing, Classification and generating statistical results. With UFO-witness summaries, we are able to extract high probability features of UFO occurrence, such as shape, color, movement, brightness. We would then use these data to generate charts of all documented UFO characteristics. With time, location and weather data we could used to predict future events of UFO. By user inputting desired destination, time and weather condition, our system will generate a probability one would encounter UFO appearance. We will also build an interactive front-end for users to change parameters and see results.
   
