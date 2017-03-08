@@ -10,7 +10,7 @@
   
 # Data structure
 
-  data source: The National UFO Reporting Center Online Database (http://www.nuforc.org/webreports.html)
+  data source: The National UFO Reporting Center Online Database(http://www.nuforc.org/webreports.html)
   
   ![Data structure](https://raw.githubusercontent.com/jyan16/UFO/master/docs/img/data%20structure.png)
         
