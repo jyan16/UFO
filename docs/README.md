@@ -12,7 +12,7 @@
 
   data source: The National UFO Reporting Center Online Database (http://www.nuforc.org/webreports.html)
   
-  ![Data structure](https://github.com/jyan16/UFO/blob/master/docs/img/data%20structure.png)
+  ![Data structure](https://raw.githubusercontent.com/jyan16/UFO/master/docs/img/data%20structure.png)
         
 # Method & Technology
 
