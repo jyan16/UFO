@@ -1,8 +1,8 @@
 ### Data Science Final Project
 
-  #### Blogs & Reports
+#### Blogs & Reports
   
-    * [Blog I](https://github.com/jyan16/UFO/edit/master/docs/blog1.md)
+   * [Blog I](https://github.com/jyan16/UFO/edit/master/docs/blog1.md)
 
-  #### Members
+#### Members
   
