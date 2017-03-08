@@ -23,6 +23,7 @@
   UFO report data after cleaning:
   
   b'time'		b'city'		b'state'	b'shape'	b'duration'	b'summary'
+  
   b'2/22/17 19:30'	b'Swanville'	b'ME'		b'Light'	b'45 minutes'	b'Bright pulsating white light brighter than Venus in vicinity of Swanville, ME.  ((anonymous report)) ((NUFORC Note:  Venus.  PD))' 
   
 # Method & Technology
