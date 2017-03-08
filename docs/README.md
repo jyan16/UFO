@@ -1,10 +1,6 @@
 # Introduction
 
-<<<<<<< HEAD
-Our project tends to analyze correlation between UFO reports and other data, like GIS and weather.
-
-=======
-  There are many UFO reports across the United States categorized by event date, state, shape of UFO and date posted.Our project tends to analyze correlation between UFO reports and other data, like GIS and weather.
+  There are many UFO reports across the United States categorized by event date, state, shape of UFO and date posted.Our project tends to analyze correlation between UFO reports and other data, like GIS and weather. Our project tends to analyze correlation between UFO reports and other data, like GIS and weather.
 
 # Questions of interest
 
@@ -15,4 +11,5 @@ Our project tends to analyze correlation between UFO reports and other data, lik
 # Data structure
 
   data source: The National UFO Reporting Center Online Database (http://www.nuforc.org/webreports.html)
->>>>>>> 9e44fbdb42bbe77a8972c99935204c4a23488ce8
+  
+  ![Data structure](https://github.com/jyan16/UFO/blob/master/img/data%20structure.png)
