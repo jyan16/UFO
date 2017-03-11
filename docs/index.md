@@ -6,8 +6,4 @@
 
 #### Members
 
-   * Jin Yan 
-   * Lei Tian
-   * Yao Yao
-   * Jing Qian
-  
+   * Jin Yan, Lei Tian, Yao Yao, Jing Qian
