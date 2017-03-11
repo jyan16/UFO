@@ -2,12 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="df082b68-a791-43eb-aa12-9780bb866b2c" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/code/data-clean/geomap.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/code/web-show/GoogleMap.js" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/code/crawler.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/code/event_clean.py" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data/file_ufo_clean.csv" afterPath="$PROJECT_DIR$/data/file_ufo_clean.csv" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/img/file_ufo.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/img/file_ufo_clean.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/blog1.md" afterPath="$PROJECT_DIR$/docs/blog1.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/index.md" afterPath="$PROJECT_DIR$/docs/index.md" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -488,9 +486,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15997182" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15997182" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290653" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="DB Browser" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="DB Execution Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
