@@ -12,7 +12,7 @@ field = 'https://maps.googleapis.com/maps/api/geocode/json?'
 key = 'AIzaSyDKas4Uv-i2pOEG08AR3RTxdIGvh4PpSHI'
 
 #change the value of i
-i=1
+i=10
 
 event_file = open('../../data/location_'+str(i)+'.csv', 'r', encoding='utf-8')
 event_reader = csv.reader(event_file)
