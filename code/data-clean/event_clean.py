@@ -19,42 +19,52 @@ next(event_reader, None)
 event_clean_list = []
 pattern_1 = re.compile(r'COLOR=#000000>.+?</TD>')
 pattern_2 = re.compile(r'.html>.+?</A></TD>')
+pattern_3 = re.compile(r'(.+)\(.*\)')
 index = 1
 
-
+location_list = []
 #for each row in file_ufo.csv
 for row in event_reader:
     print(index)
     index += 1
-    match_1 = pattern_1.findall(row[0])
-    match_2 = pattern_2.findall(row[0])
-    tmp = [match_2[0][6:-9].encode('utf-8')]
+    try:
+        match_1 = pattern_1.findall(row[0])
+        match_2 = pattern_2.findall(row[0])
+        tmp = [index, match_2[0][6:-9].encode('utf-8')]
 
-    for i in range(1,len(match_1)-1):
-        tmp.append(match_1[i][14:-5].encode('utf-8'))
+        for i in range(1,len(match_1)-1):
+            tmp.append(match_1[i][14:-5].encode('utf-8'))
 
-    #eliminate invalid item
-    if '<BR>' not in str(tmp[1]) and 'unknown' not in str(tmp[1].lower()) and 'unspecified' not in str(tmp[1].lower())\
-            and '<BR>' not in str(tmp[2]) and '?' not in str(tmp[1]):
-        query = str(tmp[1])+','+str(tmp[2])
+        #eliminate invalid item
+        if '<BR>' not in str(tmp[2]) and 'unknown' not in str(tmp[2].lower()) and 'unspecified' not in str(tmp[2].lower())\
+                and '<BR>' not in str(tmp[3]) and '?' not in str(tmp[2]):
+            if '(' in str(tmp[2]):
+                location = pattern_3.match(str(tmp[2])[2:-1]).group(1)
 
-        #query longitude and latitude
-        try:
-            j = requests.get(url=field+'address='+query+'&key=AIzaSyDLN-xK0p13MpS8RQffOVRbwtqYEdv6YZg').json()
-            if check(j['results'][0]['geometry']['location']['lat'], j['results'][0]['geometry']['location']['lng']):
-                tmp.append(j['results'][0]['geometry']['location']['lat'])
-                tmp.append(j['results'][0]['geometry']['location']['lng'])
-                event_clean_list.append(tmp)
-        except:
-            print('error')
-
+            else:
+                location = str(tmp[2])[2:-1]+','+str(tmp[3])[2:-1]
+            if location not in location_list:
+                location_list.append(location)
+            tmp.append(location_list.index(location))
+            event_clean_list.append(tmp)
+    except:
+        print('error')
 
 #write file_ufo_clean.csv
 event_clean_file = open('../../data/file_ufo_clean.csv', 'w', encoding='utf-8')
 event_clean_writer = csv.writer(event_clean_file)
-event_clean_writer.writerow(['time'.encode('utf-8'), 'city'.encode('utf-8'), 'state'.encode('utf-8'), 'shape'.encode('utf-8'),
-                             'duration'.encode('utf-8'), 'summary'.encode('utf-8'), 'lat'.encode('utf-8'), 'lng'.encode('utf-8')])
+event_clean_writer.writerow(['event_id'.encode('utf-8'), 'time'.encode('utf-8'), 'city'.encode('utf-8'), 'state'.encode('utf-8'), 'shape'.encode('utf-8'),
+                             'duration'.encode('utf-8'), 'summary'.encode('utf-8'), 'location_id'.encode('utf-8')])
 
 for item in event_clean_list:
     event_clean_writer.writerow(item)
 
+
+for i in range(1,11):
+    location_file = open('../../data/location_'+str(i)+'.csv', 'w', encoding='utf-8')
+    location_writer = csv.writer(location_file)
+    #location_writer.writerow(['location_id'.encode('utf-8'), 'location'.encode('utf-8')])
+    for j in range(2400*(i-1), min(2400*i,len(location_list))):
+        location_writer.writerow([j, location_list[j]])
+#for item in location_list:
+#    location_writer.writerow([location_list.index(item), item])
