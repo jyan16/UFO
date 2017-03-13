@@ -58,13 +58,14 @@ event_clean_writer.writerow(['event_id'.encode('utf-8'), 'time'.encode('utf-8'),
 
 
 for item in event_clean_list:
-
     try:
         #format date
         time_list = str(item[1]).split(' ')
         day_list = time_list[0][2:].split('/')
         if day_list[2]<='17':
             day_list[2] = '20'+day_list[2]
+        elif '50'<=day_list[2]<='99':
+            day_list[2] = '19'+day_list[2]
         if len(day_list[1])==1:
             day_list[1] = '0'+day_list[1]
         if len(day_list[0])==1:
