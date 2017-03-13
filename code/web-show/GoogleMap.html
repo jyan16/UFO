@@ -6,16 +6,18 @@
          documentation:
          https://developers.google.com/maps/documentation/javascript/tutorial -->
     <link rel="stylesheet" href="https://developers.google.com/maps/documentation/javascript/demos/demos.css">
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDLN-xK0p13MpS8RQffOVRbwtqYEdv6YZg&libraries=visualization&callback=initMap"
+        async defer></script>
   </head>
   <body>
-          <div class="buttons" id="category">
+
+        <div class="buttons" id="category">
             <button class="button" onclick="change('fraud', selected_year)">Fraud</button>
         </div>
+
     <div id="map" style="height:500px;width:700px"></div>
+
     <script src="GoogleMap.js"></script>
 
-
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDLN-xK0p13MpS8RQffOVRbwtqYEdv6YZg&callback=initMap"
-        async defer></script>
   </body>
 </html>

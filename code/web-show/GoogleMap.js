@@ -14,6 +14,12 @@ function initMap() {
     		map: map
   	});
 
+    var marker = new google.maps.Marker({
+    position: myLatLng,
+    map: map,
+    title: 'Hello World!'
+    });
+
   	function getPoints() {
   		return [
   			new google.maps.LatLng(37.782551, -122.445368)
