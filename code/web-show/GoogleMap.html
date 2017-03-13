@@ -8,6 +8,19 @@
     <link rel="stylesheet" href="https://developers.google.com/maps/documentation/javascript/demos/demos.css">
   </head>
   <body>
+          <div class="buttons" id="category">
+            <button class="button" onclick="change('fraud', selected_year)">Fraud</button>
+            <button class="button" onclick="change('robbery', selected_year)">Robbery</button>
+            <button class="button" onclick="change('runaway', selected_year)">Runaway</button>
+            <button class="button" onclick="change('suicide', selected_year)">Suicide</button>
+            <button class="button" onclick="change('arson', selected_year)">Arson</button>
+            <button class="button" onclick="change('kidnapping', selected_year)">Kidnapping</button>
+            <button class="button" onclick="change('prostitution', selected_year)">Prostitution</button>
+            <button class="button" onclick="change('assault', selected_year)">Assault</button>
+            <button class="button" onclick="change('gambling', selected_year)">Gambling</button>
+            <button class="button" onclick="change('trespass', selected_year)">Trespass</button>
+            <button class="button" onclick="change('burglary', selected_year)">Burglary</button>
+        </div>
     <div id="map" style="height:500px;width:700px"></div>
     <script src="GoogleMap.js"></script>
 

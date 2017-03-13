@@ -45,7 +45,7 @@ def combine():
     info_writer = csv.writer(open('../../data/location_info.csv', 'w', encoding='utf-8'))
     info_writer.writerow(['location_id', 'city', 'state', 'lat', 'lng'])
     for i in range(1,11):
-        info_reader = csv.reader(open('../../data/location_'+str(i)+'_info.csv', 'r', encoding='utf-8'))
+        info_reader = csv.reader(open('../../data/location_raw/location_'+str(i)+'_info.csv', 'r', encoding='utf-8'))
         for row in info_reader:
             try:
                 info_writer.writerow([row[0], row[1].split(',')[0], row[1].split(',')[1], row[2], row[3]])
