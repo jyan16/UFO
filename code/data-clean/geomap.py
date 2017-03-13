@@ -2,6 +2,8 @@ import requests
 import re
 import csv
 
+
+#This python program gets lat and lng of location
 def check(lat, lng):
     return True if 25<lat<49 and -125<lng<-66 else False
 

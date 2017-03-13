@@ -69,7 +69,7 @@ for item in event_clean_list:
             day_list[1] = '0'+day_list[1]
         if len(day_list[0])==1:
             day_list[0] = '0'+day_list[0]
-        time = day_list[2]+'-'+day_list[0]+'-'+day_list[1]+'T'+time_list[1]+':00'
+        time = day_list[2]+'-'+day_list[0]+'-'+day_list[1]+'T'+time_list[1][0:-1]+':00'
         item[1] = time.encode('utf-8')
     except:
         print('error')
