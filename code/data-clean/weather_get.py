@@ -4,7 +4,7 @@ import json
 
 field1 = 'https://api.darksky.net/forecast/'
 field2 = '?exclude=hourly,flags,isd-stations,daily'
-key = '9d6e0098a074c6f8f077476aeb54b2f8'
+key = 'd9dcaa3fac6a59b265ee62ad1e45aa3b'
 
 
 geo_reader = csv.reader(open('../../data/location_info.csv', 'r', encoding='utf-8'))
@@ -26,8 +26,8 @@ for geo in geo_reader:
 ufo_writer.writerow(['event_id', 'year', 'month', 'day', 'time', 'city', 'state', 'shape', 'duration', 'summary', 'lat', 'lng'])
 next(ufo_reader, None)
 
-weather_writer.writerow(['event_id', 'unix_time', 'summary', 'icon', 'precipIntensity', 'precipProbability', 'temperature', 'apparentTemperature',
-                        'dewPoint', 'humidity', 'windSpeed', 'windBearing', 'visibility', 'cloudCover', 'pressure', 'ozone'])
+weather_writer.writerow(['event_id', 'summary', 'icon', 'temperature', 'apparentTemperature','dewPoint', 'humidity', 'windSpeed',
+                        'windBearing', 'visibility', 'pressure'])
 ufo_list = []
 
 index = 1
@@ -54,13 +54,14 @@ for ufo in ufo_reader:
         query = geo[0]+','+geo[1]+','+ufo[1][2:-1]
         ufo = [ufo[0]]+date+[hour]+ufo[2:-1]+geo
         ufo_writer.writerow(ufo)
-        '''
+
         try:
             weather = requests.get(url=field1+key+'/'+query+field2).json()
             weather = weather['currently']
-            tmp = [ufo[0]]
-            tmp.append(weather)
+            tmp = [ufo[0], weather['summary'], weather['icon'], weather['temperature'], weather['apparentTemperature'],
+                       weather['dewPoint'], weather['humidity'], weather['windSpeed'], weather['windBearing'], weather['visibility'],
+                       weather['pressure']]
             weather_writer.writerow(tmp)
-
         except:
-            print('error')'''
+            print('error')
+

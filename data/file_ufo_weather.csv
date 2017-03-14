@@ -1,1 +1,10 @@
-event_id,unix_time,summary,icon,precipIntensity,precipProbability,temperature,apparentTemperature,dewPoint,humidity,windSpeed,windBearing,visibility,cloudCover,pressure,ozone
+event_id,summary,icon,temperature,apparentTemperature,dewPoint,humidity,windSpeed,windBearing,visibility,pressure
+2,Clear,clear-night,5.91,-9.38,-7.51,0.53,11.04,23,10,1019.26
+3,Clear,clear-night,1.12,1.12,-6.29,0.7,2.08,89,10,1023.14
+4,Partly Cloudy,partly-cloudy-night,-11.14,-11.14,-16.02,0.78,1,183,8.39,1028.92
+5,Clear,clear-day,6.24,-9.64,-4.72,0.6,12.03,15,8.44,1020.16
+6,Foggy,fog,24.82,24.82,23.18,0.93,0.59,264,1.55,1021.37
+7,Partly Cloudy,partly-cloudy-night,35.07,29.48,30.1,0.82,6.57,198,10,1033.55
+8,Clear,clear-night,3.05,3.05,-0.32,0.85,1.55,110,9.75,1000.1
+9,Clear,clear-night,12.01,12.01,8.84,0.87,1.26,2,8.35,1040.18
+10,Clear,clear-night,7.29,7.29,4.27,0.87,1.35,59,2.11,1037.97
