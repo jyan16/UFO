@@ -15,7 +15,7 @@ function initMap() {
       for (var i = 0; i < data.length; i ++) {
         if (data[i].year == "2016") {
           var item = [data[i].lat, data[i].lng];
-          console.log(item);  
+          //console.log(item);  
           LatLng.push(item); 
         }
       };
