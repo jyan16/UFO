@@ -4,7 +4,7 @@ import json
 
 field1 = 'https://api.darksky.net/forecast/'
 field2 = '?exclude=hourly,flags,isd-stations,daily'
-key = 'd9dcaa3fac6a59b265ee62ad1e45aa3b'
+key = ''
 
 
 geo_reader = csv.reader(open('../../data/location_info.csv', 'r', encoding='utf-8'))
