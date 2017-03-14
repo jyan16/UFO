@@ -3,11 +3,12 @@ import csv
 
 def load():
     #initialization
-    conn = sqlite3.connect('event.db')
+    conn = sqlite3.connect('../../data/my_ufo.db')
     c = conn.cursor()
 
     # Delete table if already exists
     c.execute('DROP TABLE IF EXISTS "events";')
+    c.execute('DROP TABLE IF EXISTS "weathers";')
 
 
     # Create tables
@@ -28,8 +29,25 @@ def load():
                 PRIMARY KEY(event_id))
               ''')
 
+
+    c.execute('''
+            CREATE TABLE weathers(
+                event_id            int not null,
+                summary             text,
+                icon                text,
+                temperature         float,
+                apparentTemperature float,
+                dewPoint            float,
+                humidity            float,
+                windSpeed           float,
+                windBearing         int,
+                visibility          float,
+                pressure            float,
+                PRIMARY KEY(event_id))
+              ''')
     conn.commit()
     ufo_reader = csv.DictReader(open('../../data/file_ufo_lat.csv', 'r'))
+    weather_reader = csv.DictReader(open('../../data/file_ufo_weather.csv', 'r'))
     for row in ufo_reader:
         try:
             c.execute('''
@@ -41,6 +59,16 @@ def load():
         except:
             print('error')
 
+    for row in weather_reader:
+        try:
+            c.execute('''
+                        INSERT INTO weathers
+                        VALUES (?,?,?,?,?,?,?,?,?,?,?)''',
+                      (int(row['event_id']), row['summary'], row['icon'], float(row['temperature']),
+                       float(row['apparentTemperature']), float(row['dewPoint']), float(row['humidity']),
+                       float(row['windSpeed']), int(row['windBearing']), float(row['visibility']), float(row['pressure'])))
+        except:
+            print('error')
 
     conn.commit()
     conn.close()
