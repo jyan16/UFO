@@ -12,12 +12,12 @@
   GIS data has five columns: location_id, city, state, lat and lng.
   Here’s a glimpse of our GIS data stored as CSV file:
 
-![Geography Data](https://github.com/jyan16/UFO/blob/master/docs/img/geography_data.png)
+![Geography Data](https://raw.githubusercontent.com/jyan16/UFO/blob/master/docs/img/geography_data.png)
 
   Weather data has eleven columns: event_id, summary, icon, temperature, apparentTemp, dewPoint, humidity, windSpeed, windBearing, visibility and pressure.
   Here’s a glimpse of our weather data stored as CSV file:
   
-![Weather Data](https://github.com/jyan16/UFO/blob/master/docs/img/weather_data.png)
+![Weather Data](https://raw.githubusercontent.com/jyan16/UFO/blob/master/docs/img/weather_data.png)
 
   For the convenience of data analyzing, we create a relational database “my_ufo.db” which has two tables “events” and “weathers”.
   Here’s the schema of the two tables:
@@ -29,7 +29,7 @@
   We are investigating into the relationship of UFOs features or characteristics with corresponding weather or GIS information and probably predicting the occurrence of UFO at certain location and time. Thus we make use of Google heat map to show the distribution of UFO witnesses of a certain year.
   For example below is a heat map of UFO reports across United States in 2016:
   
-![Heat Map 2016](https://github.com/jyan16/UFO/blob/master/docs/img/heatmap_2016.png)
+![Heat Map 2016](https://raw.githubusercontent.com/jyan16/UFO/blob/master/docs/img/heatmap_2016.png)
 
 # Discussion
 
