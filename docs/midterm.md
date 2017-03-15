@@ -1,6 +1,6 @@
 ### [Return to Home Page](https://jyan16.github.io/UFO/)
 
-# Introduction
+# Data Analyzing
 
   We collect UFO reports data from website http://www.nuforc.org/, GIS data from Google’s API https://maps.googleapis.com/maps/api/geocode/ and weather data from https://darksky.net/.
 
