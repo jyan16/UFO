@@ -21,7 +21,9 @@
 
   For the convenience of data analyzing, we create a relational database “my_ufo.db” which has two tables “events” and “weathers”.
   Here’s the schema of the two tables:
+  
 	events(event_id:int, year:int, month:int, day:int, time:text, city:text, state:text, shape:text, duration:text, summary:text, lat:float, lng:float)
+	
 	weathers(event_id:int, summary:text, icon:text, temperature:float, apparentTemperature:float, dewPoint:float, humidity:float, windSpeed:float, windBearing:int, visibility:float, pressure:float)
 
   We are investigating into the relationship of UFOs features or characteristics with corresponding weather or GIS information and probably predicting the occurrence of UFO at certain location and time. Thus we make use of Google heat map to show the distribution of UFO witnesses of a certain year.
