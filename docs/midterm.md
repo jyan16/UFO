@@ -2,7 +2,7 @@
 
 # Introduction
 
-We collect UFO reports data from website http://www.nuforc.org/, GIS data from Google’s API https://maps.googleapis.com/maps/api/geocode/ and weather data from https://darksky.net/.
+	We collect UFO reports data from website http://www.nuforc.org/, GIS data from Google’s API https://maps.googleapis.com/maps/api/geocode/ and weather data from https://darksky.net/.
 
 After data cleaning, UFO reports data has eight columns: event_id, time, city, state, shape, duration, summary and location_id.
 Here’s a glimpse of our UFO reports data stored as CSV file:
@@ -23,3 +23,4 @@ For the convenience of data analyzing, we create a relational database “my_ufo
 
 	We are investigating into the relationship of UFOs features or characteristics with corresponding weather or GIS information and probably predicting the occurrence of UFO at certain location and time. Thus we make use of Google heat map to show the distribution of UFO witnesses of a certain year.
 	For example below is a heat map of UFO reports across United States in 2016:
+  
