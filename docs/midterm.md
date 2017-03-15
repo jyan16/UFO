@@ -7,7 +7,7 @@
   After data cleaning, UFO reports data has eight columns: event_id, time, city, state, shape, duration, summary and location_id.
   Here’s a glimpse of our UFO reports data stored as CSV file:
   
-![UFO Reports Data](https://github.com/jyan16/UFO/blob/master/docs/img/ufo_reports_data.png）
+![UFO Reports Data](https://github.com/jyan16/UFO/blob/master/docs/img/ufo_reports_data.png)
 
   GIS data has five columns: location_id, city, state, lat and lng.
   Here’s a glimpse of our GIS data stored as CSV file:
