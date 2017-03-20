@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6d041bbd-bfed-46bf-af4b-cd4b657ecc18" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/code/web-show/GoogleMap.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/code/web-show/GoogleMap.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/code/web-show/file_ufo_lat.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/code/web-show/my_ufo.db" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="6d041bbd-bfed-46bf-af4b-cd4b657ecc18" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
