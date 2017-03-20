@@ -1,4 +1,4 @@
-/*function initMap() {
+function initMap() {
     var myLatLng = {lat: 40.78, lng: -97.21};
     
     // Create a map object and specify the DOM element for display.
@@ -38,13 +38,5 @@
         map: map
       });
 
-    });*/
-window.addEventListener('load', function() {
-  shit();
-
-}, false);
-function shit() {
-$.get('/test', function(response) {
-  console.log(response);
-})}
+    });
 
