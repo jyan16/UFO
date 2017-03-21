@@ -13,7 +13,7 @@ function initMap() {
 
       var LatLng = [];
       for (var i = 0; i < data.length; i ++) {
-        if (data[i].year == "2017") {
+        if (data[i].year == "2016") {
           var item = [data[i].lat, data[i].lng];
           //console.log(item);  
           LatLng.push(item); 
