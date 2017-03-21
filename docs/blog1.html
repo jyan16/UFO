@@ -1,58 +1,67 @@
+<!DOCTYPE html>
 <html>
 <head>
-  <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta charst="utf-8">
-  <title>UFO</title>
-  <style type="text/css">
-    .img-responsive {
-        margin: 20 auto;
-    }
-    </style>
+  <title>Blog I</title>
 </head>
-<body>
-  <div class="row", align="justify">
-    <div class="col-md-2"></div>
-    <div class="col-md-8">
 
+<body>
+
+<div class="container">
+
+  <div class="row" align="justify">
     <h3><a href="https://jyan16.github.io/UFO/">Return to Home Page</a><h3>
-      <h2><b>Introduction</b></h2>
+  </div>
+
+  <div class="row" align="justify">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+   
+      <h2 align="center"><b>Introduction</b></h2>
       <p>
           There are many UFO reports across the United States categorized by event date, state, shape of UFO and date posted.Our project tends to analyze correlation between UFO reports and other data, like GIS and weather. Our project tends to analyze correlation between UFO reports and other data, like GIS and weather.
       </p>
  
-      <h2><b>Questions of interest</b></h2>
-        <ol>
-          <li>How can we predict when and where UFO will appear, and the trend of its occurrence? </li>
-          <li>With so many UFO reports, how can we figure out which of these UFO reports are fake? </li>
-          <li>Are there any relationships between UFOs features or characteristics with corresponding weather or GIS information?</li>
-        </ol> 
+      <h2 align="center"><b>Questions of interest</b></h2>
+      <ol>
+        <li>How can we predict when and where UFO will appear, and the trend of its occurrence? </li>
+        <li>With so many UFO reports, how can we figure out which of these UFO reports are fake? </li>
+        <li>Are there any relationships between UFOs features or characteristics with corresponding weather or GIS information?</li>
+      </ol> 
 
-      <h2><b>Data structure</b></h2>
+      <h2 align="center"><b>Data structure</b></h2>
       <p>
-        data source: <a href="http://www.nuforc.org/webreports.html">The National UFO Reporting Center Online Database</a>
+        Data source: <a href="http://www.nuforc.org/webreports.html">The National UFO Reporting Center Online Database</a>
       </p>
-      <p>
-        data structure:
-      </p>
-      <p>
-        <img src="https://raw.githubusercontent.com/jyan16/UFO/master/docs/img/data%20structure.png", class="img-responsive">
-      </p>
-      <p>
-        UFO report data before cleaning:
-<pre>
-  b'<TR VALIGN=TOP>\\r\\n<TD><FONT style=FONT-SIZE:11pt FACE="Calibri" COLOR=#000000><A HREF=132/S132754.html>2/22/17 19:30</A></TD>\\r\\n<TD><FONT style=FONT-SIZE:11pt FACE="Calibri" COLOR=#000000>Swanville</TD>\\r\\n<TD><FONT style=FONT-SIZE:11pt FACE="Calibri" COLOR=#000000>ME</TD>\\r\\n<TD><FONT style=FONT-SIZE:11pt FACE="Calibri" COLOR=#000000>Light</TD>\\r\\n<TD><FONT style=FONT-SIZE:11pt FACE="Calibri" COLOR=#000000>45 minutes</TD>\\r\\n<TD><FONT style=FONT-SIZE:11pt FACE="Calibri" COLOR=#000000>Bright pulsating white light brighter than Venus in vicinity of Swanville, ME.  ((anonymous report)) ((NUFORC Note:  Venus.  PD))</TD>\\r\\n<TD><FONT style=FONT-SIZE:11pt FACE="Calibri" COLOR=#000000>2/22/17</TD>\\r\\n\\r\\n</TR>'
-</pre>
-      </p>
-      <p>
-        UFO report data after cleaning:
- <pre>
-  b'time'   b'city'   b'state'  b'shape'  b'duration' b'summary'
-  
-  b'2/22/17 19:30'  b'Swanville'  b'ME'   b'Light'  b'45 minutes' b'Bright pulsating white light brighter than Venus in vicinity of Swanville, ME.  ((anonymous report)) ((NUFORC Note:  Venus.  PD))' 
-</pre>       
-      </p>
-      <h2><b>Method & Technology</b></h2>
+      <p>Data structure:</p>
+    </div>
+    <div class="col-md-1"></div>
+  </div>
+
+  <div class="row" align="justify">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+      <img src="https://raw.githubusercontent.com/jyan16/UFO/master/docs/img/data%20structure.png", class="img-responsive">
+    </div>
+    <div class="col-md-2"></div>
+  </div>
+
+  <div class="row" align="justify">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+      <p>UFO report data before cleaning:</p>
+      <pre>
+        b'<TR VALIGN=TOP>\\r\\n<TD><FONT style=FONT-SIZE:11pt FACE="Calibri" COLOR=#000000><A HREF=132/S132754.html>2/22/17 19:30</A></TD>\\r\\n<TD><FONT style=FONT-SIZE:11pt FACE="Calibri" COLOR=#000000>Swanville</TD>\\r\\n<TD><FONT style=FONT-SIZE:11pt FACE="Calibri" COLOR=#000000>ME</TD>\\r\\n<TD><FONT style=FONT-SIZE:11pt FACE="Calibri" COLOR=#000000>Light</TD>\\r\\n<TD><FONT style=FONT-SIZE:11pt FACE="Calibri" COLOR=#000000>45 minutes</TD>\\r\\n<TD><FONT style=FONT-SIZE:11pt FACE="Calibri" COLOR=#000000>Bright pulsating white light brighter than Venus in vicinity of Swanville, ME.  ((anonymous report)) ((NUFORC Note:  Venus.  PD))</TD>\\r\\n<TD><FONT style=FONT-SIZE:11pt FACE="Calibri" COLOR=#000000>2/22/17</TD>\\r\\n\\r\\n</TR>'
+      </pre>     
+      <p>UFO report data after cleaning:</p>
+      <pre>
+        b'time'   b'city'   b'state'  b'shape'  b'duration' b'summary'
+        
+        b'2/22/17 19:30'  b'Swanville'  b'ME'   b'Light'  b'45 minutes' b'Bright pulsating white light brighter than Venus in vicinity of Swanville, ME.  ((anonymous report)) ((NUFORC Note:  Venus.  PD))' 
+      </pre>       
+      <h2 align="center"><b>Method & Technology</b></h2>
       <p>
         Predicting about UFO needs correlation of many sources of data, including the UFO-report data, geography information, and the weather. UFO Reports is the basic data of our system. There are 5 steps regarding our data: 
         <ol>
@@ -76,19 +85,21 @@
       <p>
           We will use SQLite to store our data. We will create a system based in python that does Natural Language Processing, Classification and generating statistical results. With UFO-witness summaries, we are able to extract high probability features of UFO occurrence, such as shape, color, movement, brightness. We would then use these data to generate charts of all documented UFO characteristics. With time, location and weather data we could used to predict future events of UFO. By user inputting desired destination, time and weather condition, our system will generate a probability one would encounter UFO appearance. We will also build an interactive front-end for users to change parameters and see results.
       </p>
-      <h2><b>Visualization</b></h2>
+      <h2 align="center"><b>Visualization</b></h2>
       <p>
           We will incorporate HTML5 + CSS3 with Python Server to create a modern interactive web application. Users will be able to access using a computer or smartphone. By selecting parameters such as weather, location, and time, users will see the likelihood of an UFO occurrence. Users could also see visualizations of statistical data by selecting criteria such as time of the day, day of the month, month of the year, places, shapes, weather conditions etc. Finally we will provide a text-area where users could enter UFO reports, and our application will give probability of whether such report is a hoax or not based on analyzing the existing language contents of UFO events.
       </p>
       <p>
          We will use D3, CG to create charts that show the features we extract from the witness summary data. D3 creates visualization of Big Data analysis results. Map to show the distribution of UFO witnesses, as well as visualizes their relation with weather and GIS. All of the above can be shown on a website. 
       </p>
-      <h2><b>What to Do</b></h2>
+      <h2 align="center"><b>What to Do</b></h2>
       <p>
           We are now working on Google Map API, to make map visualization of our witness report data. We are also on our way to create database. 
       </p>
     </div>
+    <div class="col-md-1"></div>
   </div>
+</div>
 
 </body>
 </html>
