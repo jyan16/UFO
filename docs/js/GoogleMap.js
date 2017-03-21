@@ -8,7 +8,7 @@ function initMap() {
       zoom: 4
     });
 
-    d3.csv("https://github.com/jyan16/UFO/blob/master/data/file_ufo_lat.csv", function(data) {
+    d3.csv("data/file_ufo_lat.csv", function(data) {
       //console.log(data);
 
       var LatLng = [];
