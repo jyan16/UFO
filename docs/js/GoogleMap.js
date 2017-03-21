@@ -1,5 +1,6 @@
 $(document).ready(function() {
   
+  console.log("!!!!!");
   var year = 2017;
 
   initMap(year);
