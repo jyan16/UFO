@@ -12,26 +12,42 @@
 <div class="container">
 
   <div class="row" align="justify">
-    <h3><a href="https://jyan16.github.io/UFO/">Return to Home Page</a><h3>
+    <div class="col-md-12">
+      <h1 align="center" style="height: 250px; padding-top:100px;
+        color: #FFF; 
+        background:#14468A;
+            background:-webkit-gradient(left, 0 0, 0 100%, from(#14468A), to(#3C8749));
+            background:-moz-linear-gradient(right, #14468A, #3C8749);
+            background:-o-linear-gradient(right, #14468A, #3C8749);
+            background:linear-gradient(to right, #14468A, #3C8749);">
+            Data Science Final Project
+      </h1>
+    </div>
+  </div>
+
+  <div class="row" align="justify">
+    <div class="col-md-12">
+      <h3><a href="https://jyan16.github.io/UFO/">Return to Home Page</a></h3>
+    </div>
   </div>
 
   <div class="row" align="justify">
     <div class="col-md-1"></div>
     <div class="col-md-10">
    
-      <h2 align="center"><b>Introduction</b></h2>
+      <h2 align="center" style="color: #3C8749"><b>Introduction</b></h2>
       <p>
           There are many UFO reports across the United States categorized by event date, state, shape of UFO and date posted.Our project tends to analyze correlation between UFO reports and other data, like GIS and weather. Our project tends to analyze correlation between UFO reports and other data, like GIS and weather.
       </p>
  
-      <h2 align="center"><b>Questions of interest</b></h2>
+      <h2 align="center" style="color: #3C8749"><b>Questions of interest</b></h2>
       <ol>
         <li>How can we predict when and where UFO will appear, and the trend of its occurrence? </li>
         <li>With so many UFO reports, how can we figure out which of these UFO reports are fake? </li>
         <li>Are there any relationships between UFOs features or characteristics with corresponding weather or GIS information?</li>
       </ol> 
 
-      <h2 align="center"><b>Data structure</b></h2>
+      <h2 align="center" style="color: #3C8749"><b>Data structure</b></h2>
       <p>
         Data source: <a href="http://www.nuforc.org/webreports.html">The National UFO Reporting Center Online Database</a>
       </p>
@@ -61,7 +77,7 @@
         
         b'2/22/17 19:30'  b'Swanville'  b'ME'   b'Light'  b'45 minutes' b'Bright pulsating white light brighter than Venus in vicinity of Swanville, ME.  ((anonymous report)) ((NUFORC Note:  Venus.  PD))' 
       </pre>       
-      <h2 align="center"><b>Method & Technology</b></h2>
+      <h2 align="center" style="color: #3C8749"><b>Method & Technology</b></h2>
       <p>
         Predicting about UFO needs correlation of many sources of data, including the UFO-report data, geography information, and the weather. UFO Reports is the basic data of our system. There are 5 steps regarding our data: 
         <ol>
@@ -85,14 +101,14 @@
       <p>
           We will use SQLite to store our data. We will create a system based in python that does Natural Language Processing, Classification and generating statistical results. With UFO-witness summaries, we are able to extract high probability features of UFO occurrence, such as shape, color, movement, brightness. We would then use these data to generate charts of all documented UFO characteristics. With time, location and weather data we could used to predict future events of UFO. By user inputting desired destination, time and weather condition, our system will generate a probability one would encounter UFO appearance. We will also build an interactive front-end for users to change parameters and see results.
       </p>
-      <h2 align="center"><b>Visualization</b></h2>
+      <h2 align="center" style="color: #3C8749"><b>Visualization</b></h2>
       <p>
           We will incorporate HTML5 + CSS3 with Python Server to create a modern interactive web application. Users will be able to access using a computer or smartphone. By selecting parameters such as weather, location, and time, users will see the likelihood of an UFO occurrence. Users could also see visualizations of statistical data by selecting criteria such as time of the day, day of the month, month of the year, places, shapes, weather conditions etc. Finally we will provide a text-area where users could enter UFO reports, and our application will give probability of whether such report is a hoax or not based on analyzing the existing language contents of UFO events.
       </p>
       <p>
          We will use D3, CG to create charts that show the features we extract from the witness summary data. D3 creates visualization of Big Data analysis results. Map to show the distribution of UFO witnesses, as well as visualizes their relation with weather and GIS. All of the above can be shown on a website. 
       </p>
-      <h2 align="center"><b>What to Do</b></h2>
+      <h2 align="center" style="color: #3C8749"><b>What to Do</b></h2>
       <p>
           We are now working on Google Map API, to make map visualization of our witness report data. We are also on our way to create database. 
       </p>
