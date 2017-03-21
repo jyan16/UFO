@@ -14,6 +14,7 @@ $(document).ready(function() {
       year = year - 1;
     }
     initMap(year);
+    $('.btn').text = 'Year: ' + year;
     console.log(year);
   });
 
