@@ -1,11 +1,12 @@
 $(document).ready(function() {
   
-  console.log("!!!!!");
   var year = 2017;
 
   initMap(year);
 
   $('.btn btn-default').click(function() {
+
+    console.log("!!!!!");
     $('#map').empty();
     if (year == 1984) {
       year = 2017;
@@ -59,4 +60,4 @@ function initMap(year) {
       });
 
     });
-}
+};
