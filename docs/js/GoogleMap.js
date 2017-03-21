@@ -4,7 +4,7 @@ $(document).ready(function() {
 
   initMap(year);
 
-  $('.btn btn-default').click(function() {
+  $('.btn').click(function() {
 
     console.log("!!!!!");
     $('#map').empty();
