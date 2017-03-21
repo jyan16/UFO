@@ -6,7 +6,6 @@ $(document).ready(function() {
 
   $('.btn').click(function() {
 
-    console.log("!!!!!");
     $('#map').empty();
     if (year == 1984) {
       year = 2017;
@@ -15,6 +14,7 @@ $(document).ready(function() {
       year = year - 1;
     }
     initMap(year);
+    console.log(year);
   });
 
 });  
