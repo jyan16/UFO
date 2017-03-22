@@ -11,8 +11,8 @@ function key(d) {
 
 // Chart dimensions
 var margin = {top: 19.5, right: 19.5, bottom: 19.5, left: 39.5};
-var width = 700 - margin.right;
-var height = 600 - margin.top - margin.bottom;
+var width = 960 - margin.right;
+var height = 700 - margin.top - margin.bottom;
 
 
 // var color = d3.scaleThreshold()
@@ -39,7 +39,7 @@ var yearLabel = svg.append("text")
 
 
 // Load the data.
-d3.json("/data/statesPath.json", function(statesPath) {
+d3.json("statesPath.json", function(statesPath) {
 	var state = svg.append("g")
 					.attr("class", "states")
 					.selectAll()
@@ -54,7 +54,7 @@ d3.json("/data/statesPath.json", function(statesPath) {
 					.attr("d",function(d){ return d.d;})
 					.style("fill","white");
 
-	d3.json("/count_by_year.json", function(totals) {
+	d3.json("count_by_year.json", function(totals) {
 		// A bisector since many nation's data is sparsely-defined.
 		// We provide this to make it easier to linearly interpolate between years.
 		var bisect = d3.bisector(function(d) { return d[0]; });
@@ -90,7 +90,7 @@ d3.json("/data/statesPath.json", function(statesPath) {
 		// Tweens the entire chart by first tweening the year, and then the data.
 		// For the interpolated data, the dots and label are redrawn.
 		function tweenYear() {
-			var year = d3.interpolateNumber(1954, 2003);
+			var year = d3.interpolateNumber(1954, 2016);
 			return function(t) { 
 			  	yearLabel.text(Math.round(year(t)));
 				var totalList = totals[Math.round(year(t)) - 1954].state;
