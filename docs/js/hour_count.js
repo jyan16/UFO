@@ -48,7 +48,7 @@ d3.json("data/count_by_hour.json", function(hours) {
 	   .append("rect")
 	   .attr("width", width / 24 - xPadding)
 	   .attr("height", function(d) { return height - yScale(d.count);})
-	   .attr("x", function(d) {return margin.left + xScale(parseInt(d.hour)) - xPadding;})
+	   .attr("x", function(d) {return margin.left + xScale(parseInt(d.hour));})
 	   .attr("y", function (d) {return margin.top + yScale(d.count);})
      .attr("fill", "#3C8749");
 
