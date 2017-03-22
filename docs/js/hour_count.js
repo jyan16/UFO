@@ -9,7 +9,7 @@ var xScale = d3.scaleLinear().domain([-1, 24]).range([0, width]),
 var xAxis = d3.axisBottom(xScale).ticks(12),
     yAxis = d3.axisLeft(yScale).ticks(6);
 
-var svg = d3.select("#chart").append("svg")
+var svg = d3.select("#chart_histogram_hour").append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
@@ -40,7 +40,7 @@ yy.append("text")
 
 xPadding = xScale(0)/2;
 
-d3.json("data/count_by_hour.json", function(hours) {
+d3.json("/data/count_by_hour.json", function(hours) {
 	svg.append("g")
 	   .attr("class", "hours")
 	   .selectAll("rect")

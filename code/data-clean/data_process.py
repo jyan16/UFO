@@ -9,6 +9,7 @@ c = conn.cursor()
 
 def count_by_year():
     year_count_result = {}
+    max_count = 0
     for row in c.execute('''SELECT year, state, count(*)
                             FROM events
                             WHERE year>=1950 AND year<=2016
@@ -17,7 +18,8 @@ def count_by_year():
             year_count_result[row[0]] = [[row[1], row[2]]]
         else:
             year_count_result[row[0]].append([row[1], row[2]])
-
+        max_count = max(row[2], max_count)
+    print(max_count)
     result = []
     for key, value in year_count_result.items():
         result.append({"year" : key, "state" : value})

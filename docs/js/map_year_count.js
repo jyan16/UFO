@@ -11,8 +11,8 @@ function key(d) {
 
 // Chart dimensions
 var margin = {top: 19.5, right: 19.5, bottom: 19.5, left: 39.5};
-var width = 960 - margin.right;
-var height = 800 - margin.top - margin.bottom;
+var width = 700 - margin.right;
+var height = 600 - margin.top - margin.bottom;
 
 
 // var color = d3.scaleThreshold()
@@ -22,7 +22,7 @@ var height = 800 - margin.top - margin.bottom;
 //var color = d3.interpolateRgb(d3.rgb(198, 219, 239), d3.rgb(8, 48, 107));
 
 // Create the SVG container and set the origin
-var svg = d3.select("#chart").append("svg")
+var svg = d3.select("#chart_map_year_count").append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
     .append("g")
@@ -39,7 +39,7 @@ var yearLabel = svg.append("text")
 
 
 // Load the data.
-d3.json("/statesPath.json", function(statesPath) {
+d3.json("/data/statesPath.json", function(statesPath) {
 	var state = svg.append("g")
 					.attr("class", "states")
 					.selectAll()
