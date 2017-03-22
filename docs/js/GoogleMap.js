@@ -1,26 +1,26 @@
 $(document).ready(function() {
   
-  var year = 2017;
+  //var year = 2017;
 
-  initMap(year);
+  initMap();
 
-  $('.btn').click(function() {
+  // $('.btn').click(function() {
 
-    $('#map').empty();
-    if (year == 1984) {
-      year = 2017;
-    }
-    else {
-      year = year - 1;
-    }
-    initMap(year);
-    $('.btn').html = 'Year: ';
-    console.log(year);
-  });
+  //   $('#map').empty();
+  //   if (year == 1984) {
+  //     year = 2017;
+  //   }
+  //   else {
+  //     year = year - 1;
+  //   }
+  //   initMap(year);
+  //   $('.btn').html = 'Year: ';
+  //   console.log(year);
+  // });
 
 });  
 
-function initMap(year) {
+function initMap() {
     var myLatLng = {lat: 40.78, lng: -97.21};
     
     // Create a map object and specify the DOM element for display.
@@ -35,11 +35,11 @@ function initMap(year) {
 
       var LatLng = [];
       for (var i = 0; i < data.length; i ++) {
-        if (data[i].year == year) {
+        //if (data[i].year == year) {
           var item = [data[i].lat, data[i].lng];
           //console.log(item);  
           LatLng.push(item); 
-        }
+        //}
       };
 
       //console.log(LatLng);
