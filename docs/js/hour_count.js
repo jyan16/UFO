@@ -40,7 +40,7 @@ yy.append("text")
 
 xPadding = xScale(0)/2;
 
-d3.json("../data/count_by_hour.json", function(hours) {
+d3.json("data/count_by_hour.json", function(hours) {
 	svg.append("g")
 	   .attr("class", "hours")
 	   .selectAll("rect")
