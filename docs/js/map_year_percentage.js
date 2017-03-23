@@ -22,14 +22,14 @@ var height = 700 - margin.top - margin.bottom;
 //var color = d3.interpolateRgb(d3.rgb(198, 219, 239), d3.rgb(8, 48, 107));
 
 // Create the SVG container and set the origin
-var svg = d3.select("#chart_map_year_count").append("svg")
+var svg3 = d3.select("#chart_map_year_count").append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 // Year label
-var yearLabel = svg.append("text")
+var yearLabel = svg3.append("text")
                 .attr("class", "year label")
                 .attr("text-anchor", "end")
                 .attr("x", width)
@@ -40,7 +40,7 @@ var yearLabel = svg.append("text")
 
 // Load the data.
 d3.json("statesPath.json", function(statesPath) {
-	var state = svg.append("g")
+	var state = svg3.append("g")
 					.attr("class", "states")
 					.selectAll()
 					.data(statesPath)
@@ -81,7 +81,7 @@ d3.json("statesPath.json", function(statesPath) {
 		}
 
 		// Start a transition that interpolates the data based on year.
-		svg.transition()
+		svg3.transition()
 		  .duration(30000)
 		  .ease(d3.easeLinear)
 		  .tween("year", tweenYear)
@@ -95,7 +95,6 @@ d3.json("statesPath.json", function(statesPath) {
 			  	yearLabel.text(Math.round(year(t)));
 				var percentageList = percentage[Math.round(year(t)) - 1950].frequency;
 				for(var i = 0; i < percentageList.length; i++) {
-					console.log(d3.select("."+percentageList[i][0]));
 					d3.select("." + percentageList[i][0])
 					  .style("fill", function() {
 					  		return d3.interpolateBlues(percentageList[i][1] * 2);
