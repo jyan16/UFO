@@ -29,7 +29,7 @@ var svg3 = d3.select("#chart_map_year_count").append("svg")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 // Year label
-var yearLabel = svg3.append("text")
+var yearLabel3 = svg3.append("text")
                 .attr("class", "year label")
                 .attr("text-anchor", "end")
                 .attr("x", width)
