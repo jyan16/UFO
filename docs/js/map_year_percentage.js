@@ -34,7 +34,7 @@ var yearLabel = svg3.append("text")
                 .attr("text-anchor", "end")
                 .attr("x", width)
                 .attr("y", height - 20)
-                .text(1954);
+                .text(1950);
 
 
 
@@ -49,7 +49,7 @@ d3.json("statesPath.json", function(statesPath) {
 					.attr("class", "state")
 					.append("path")
 					.attr("class", function(d) {
-						return "statePath " + d.id;
+						return "statePath 3" + d.id;
 					})
 					.attr("d",function(d){ return d.d;})
 					.style("fill","white");
@@ -95,7 +95,7 @@ d3.json("statesPath.json", function(statesPath) {
 			  	yearLabel.text(Math.round(year(t)));
 				var percentageList = percentage[Math.round(year(t)) - 1950].frequency;
 				for(var i = 0; i < percentageList.length; i++) {
-					d3.select("." + percentageList[i][0])
+					d3.select(".3" + percentageList[i][0])
 					  .style("fill", function() {
 					  		return d3.interpolateBlues(percentageList[i][1] * 2);
 					  });
