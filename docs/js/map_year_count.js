@@ -93,7 +93,7 @@ d3.json("statesPath.json", function(statesPath) {
 			var year = d3.interpolateNumber(1950, 2016);
 			return function(t) { 
 			  	yearLabel.text(Math.round(year(t)));
-				var totalList = totals[Math.round(year(t)) - 1954].state;
+				var totalList = totals[Math.round(year(t)) - 1950].state;
 				for(var i = 0; i < totalList.length; i++) {
 					d3.select("." + totalList[i][0])
 					  .style("fill", function() {
