@@ -11,7 +11,7 @@ var svg2 = d3.select("#chart_pie_shape").append("svg")
     .attr("transform", "translate(" + (margin1.left + width1 / 2) + "," + (margin1.top + height1 / 2) + ")")
     
 
-d3.json("/data/shape_all.json", function(shapes) {
+d3.json("shape_all.json", function(shapes) {
 
     var pie = d3.pie()
                 .sort(null)
