@@ -30,30 +30,25 @@ function initMap() {
       zoom: 4
     });
 
-    d3.csv("data/file_ufo_lat.csv", function(data) {
+    d3.json("lat_lng_google.json", function(data) {
       //console.log(data);
 
-      var LatLng = [];
+      var res = [];   
       for (var i = 0; i < data.length; i ++) {
-        //if (data[i].year == year) {
-          var item = [data[i].lat, data[i].lng];
-          //console.log(item);  
-          LatLng.push(item); 
-        //}
-      };
+        
+          var LatLng = data[i].position;
+          //console.log(item);
+          for (var j = 0; j < LatLng.length; j++) {
+            var lat = LatLng[j][0];
+            var lng = LatLng[j][1];
+            var item = new google.maps.LatLng(lat, lng);
+            res.push(item);
 
-      //console.log(LatLng);
-      res = [];   
-      for (var i = 0; i < LatLng.length; i++) {
-        var lat = LatLng[i][0];
-        var lng = LatLng[i][1];
-        var item = new google.maps.LatLng(lat, lng);
-        //console.log(LatLng[i][0]);
-        //console.log(LatLng[i][1]);
-        //console.log(item);
-        res.push(item);
-      }
+          }  
+
+      };
       //console.log(res);
+      console.log(res.length);
 
       var heatmap = new google.maps.visualization.HeatmapLayer({
         data: res,
