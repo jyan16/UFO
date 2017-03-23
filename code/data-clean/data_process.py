@@ -1,7 +1,7 @@
 import sqlite3
 import json
 import re
-
+import random
 
 
 conn = sqlite3.connect('../../data/my_ufo.db')
@@ -77,6 +77,24 @@ def state_path_change():
     with open("../../data/statesPath_new.json", 'w') as outfile:
         json.dump(state_path_new, outfile, indent = 4)
 
+def lat_lng_year_google():
+
+    lat_lng_result = {}
+    for row in c.execute('''SELECT year, lat, lng
+                            FROM events
+                            WHERE year>=1950 AND year<=2016'''):
+        if row[0] not in lat_lng_result.keys():
+            lat_lng_result[row[0]] = [[row[1], row[2]]]
+        else:
+            lat_lng_result[row[0]].append([row[1], row[2]])
+
+    result = []
+    for key, value in lat_lng_result.items():
+        result.append({"year": key, "position" : value})
+
+    with open("../../data/lat_lng_google.json", 'w') as outfile:
+        json.dump(result, outfile, indent = 4)
+
 def shape_count():
 
     shapes = {}
@@ -99,7 +117,6 @@ def shape_count():
         if key != '<br>':
             result.append({"shape" : key, "count" : value})
 
-    result.sort(key = lambda x : x["count"])
     with open("../../data/shape_all.json", 'w') as outfile:
         json.dump(result, outfile, indent = 4)
 if __name__ == '__main__':
