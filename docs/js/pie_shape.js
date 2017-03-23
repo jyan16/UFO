@@ -26,13 +26,14 @@ d3.json("/data/shape_all.json", function(shapes) {
     var myarc = d3.arc()
     			.outerRadius(200)
     			.innerRadius(0); 
-    var colorScale = d3.scaleOrdinal([0, 1, 2, 3, 4, 5, 6])
 
-    var mycolor = ["1f77b4", "ff7f0e", "2ca02c", "d62728", "9467bd", "8c564b"]  
+
+    var colorScale = d3.interpolateRgb("red", "blue");
 
     arcs.append("path")
+        .attr("class", "pie")
     	.attr("d", myarc)
-    	.style("fill", function(d) {
-    		console.log(colorScale(d.shape))
-    		return mycolor(colorScale(d.shape));})
+    	.style("fill", function(d, i) {
+    		console.log(i)
+    		return colorScale(i/shapes.length);})
 })

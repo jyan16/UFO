@@ -80,19 +80,24 @@ def state_path_change():
 def shape_count():
 
     shapes = {}
-
+    other = 0
     for row in c.execute('''SELECT shape, count(*)
                             FROM events
                             WHERE year>=1950 AND year<=2016
                             GROUP BY shape'''):
-        if row[0].lower() not in shapes.keys():
-            shapes[row[0].lower()] = row[1]
+        if row[1]<1000:
+            other += row[1]
         else:
-            shapes[row[0]] += row[1]
-
+            if row[0].lower() not in shapes.keys():
+                shapes[row[0].lower()] = row[1]
+            else:
+                shapes[row[0]] += row[1]
+    shapes['other'] += other
+    shapes['unknown'] += shapes['<br>']
     result = []
     for key, value in shapes.items():
-        result.append({"shape" : key, "count" : value})
+        if key != '<br>':
+            result.append({"shape" : key, "count" : value})
 
     result.sort(key = lambda x : x["count"])
     with open("../../data/shape_all.json", 'w') as outfile:
