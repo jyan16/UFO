@@ -49,7 +49,7 @@ d3.json("statesPath.json", function(statesPath) {
 					.attr("class", "state")
 					.append("path")
 					.attr("class", function(d) {
-						return "statePath 3" + d.id;
+						return "statePath " + d.id + "3";
 					})
 					.attr("d",function(d){ return d.d;})
 					.style("fill","white");
@@ -92,13 +92,13 @@ d3.json("statesPath.json", function(statesPath) {
 		function tweenYear() {
 			var year = d3.interpolateNumber(1950, 2016);
 			return function(t) { 
-			  	yearLabel.text(Math.round(year(t)));
+			  	yearLabel3.text(Math.round(year(t)));
 				var percentageList = percentage[Math.round(year(t)) - 1950].frequency;
 				for(var i = 0; i < percentageList.length; i++) {
-					console.log(d3.select(".3" + percentageList[i][0]));
-					d3.select(".3" + percentageList[i][0])
+
+					d3.select("." + percentageList[i][0] + "3")
 					  .style("fill", function() {
-					  		return d3.interpolateBlues(percentageList[i][1] * 2);
+					  		return d3.interpolatePuRd(percentageList[i][1] * 2);
 					  });
 
 				}

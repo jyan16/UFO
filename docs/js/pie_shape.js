@@ -34,6 +34,8 @@ d3.json("shape_all.json", function(shapes) {
         .attr("class", "pie")
     	.attr("d", myarc)
     	.style("fill", function(d, i) {
-    		console.log(i)
     		return colorScale(i/shapes.length);})
+    	.append("title")
+    	.text(function(d) {
+    		return d.data.shape;})
 })
