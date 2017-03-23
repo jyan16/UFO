@@ -11,9 +11,19 @@
         integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
         crossorigin="anonymous"></script>
     <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <style type="text/css">
+        body, p, h1, h2, h3, h4, h5, li{
+          font-family: 'Roboto', sans-serif;
+        }
         p {
             font-size: 15pt;
+            margin-top: 20px;
+            margin-bottom: 15px;
+        }
+        li {
+            font-size: 15pt; 
+            margin-top: 10px;
         }
         .label {
             fill: #777;
@@ -80,10 +90,10 @@
     <div class="col-md-10">
       <h2 align="center" style="color: #3C8749"><b>Data Analysis</b></h2>
       <p>
-           We collect UFO reports data from website <a href="http://www.nuforc.org/">http://www.nuforc.org/</a>, GIS data from Google’s API <a href="https://maps.googleapis.com/maps/api/geocode/">https://maps.googleapis.com/maps/api/geocode/</a> and weather data from <a href="https://darksky.net/">https://darksky.net/</a>.
+           We collect UFO reports data from website <a href="http://www.nuforc.org/">http://www.nuforc.org/</a>, GIS data from Google's API <a href="https://maps.googleapis.com/maps/api/geocode/">https://maps.googleapis.com/maps/api/geocode/</a> and weather data from <a href="https://darksky.net/">https://darksky.net/</a>.
       </p>
       <p>
-          After data cleaning, UFO reports data has eight columns: event_id, time, city, state, shape, duration, summary and location_id. Here’s a glimpse of our UFO reports data stored as CSV file:
+          After data cleaning, UFO reports data has eight columns: event_id, time, city, state, shape, duration, summary and location_id. Here's a glimpse of our UFO reports data stored as CSV file:
       </p>
     </div> 
     <div class="col-md-1"></div>
@@ -100,7 +110,7 @@
     <div class="col-md-1"></div>
     <div class="col-md-10">
       <p>
-          GIS data has five columns: location_id, city, state, lat and lng. Here’s a glimpse of our GIS data stored as CSV file:
+          GIS data has five columns: location_id, city, state, lat and lng. Here's a glimpse of our GIS data stored as CSV file:
       </p>
     </div> 
     <div class="col-md-1"></div>
@@ -116,7 +126,7 @@
     <div class="col-md-1"></div>
     <div class="col-md-10">
       <p>
-          Weather data has eleven columns: event_id, summary, icon, temperature, apparentTemp, dewPoint, humidity, windSpeed, windBearing, visibility and pressure. Here’s a glimpse of our weather data stored as CSV file:
+          Weather data has eleven columns: event_id, summary, icon, temperature, apparentTemp, dewPoint, humidity, windSpeed, windBearing, visibility and pressure. Here's a glimpse of our weather data stored as CSV file:
       </p>
     </div> 
     <div class="col-md-1"></div>
@@ -132,7 +142,7 @@
     <div class="col-md-1"></div>
     <div class="col-md-10">
       <p>
-          For the convenience of data analyzing, we create a relational database “my_ufo.db” which has two tables “events” and “weathers”. Here’s the schema of the two tables:
+          For the convenience of data analyzing, we create a relational database "my_ufo.db" which has two tables "events" and "weathers". Here's the schema of the two tables:
         <pre>
           events(event_id:int, year:int, month:int, day:int, time:text, city:text, state:text, shape:text, duration:text, summary:text, lat:float, lng:float)
           
@@ -230,10 +240,10 @@
         <p>
           <ul>
             <li>
-              We think that data collecting and leaning is the hardest part we’ve encountered so far, because it’s sometimes very difficult to find the data we need to further analyze.
+              We think that data collecting and leaning is the hardest part we've encountered so far, because it's sometimes very difficult to find the data we need to further analyze.
             </li>
             <li>
-              Our hypothesis is that the probability of UFO events’ appearance is much higher where altitude is high and when humidity is high.
+              Our hypothesis is that the probability of UFO events' appearance is much higher where altitude is high and when humidity is high.
             </li>
             <li>
               We find that the west and east coast of United States are locations where UFO witnesses occurred the most. And maybe it has something to do with local geography and weather condition.
@@ -242,7 +252,7 @@
               Moving forward, we think the biggest problems are using machine-learning to train our data, figure out patterns and correlation between UFO witness with GIS and weather at that time.  
             </li>
             <li>
-              Given our initial exploration of the data, we think we are on track with our project and it’s worth proceeding with our project.
+              Given our initial exploration of the data, we think we are on track with our project and it's worth proceeding with our project.
             </li>
           </ul>
         </p>
