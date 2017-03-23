@@ -95,6 +95,7 @@ d3.json("statesPath.json", function(statesPath) {
 			  	yearLabel.text(Math.round(year(t)));
 				var percentageList = percentage[Math.round(year(t)) - 1950].frequency;
 				for(var i = 0; i < percentageList.length; i++) {
+					console.log(d3.select(".3" + percentageList[i][0]));
 					d3.select(".3" + percentageList[i][0])
 					  .style("fill", function() {
 					  		return d3.interpolateBlues(percentageList[i][1] * 2);
