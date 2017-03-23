@@ -1,8 +1,8 @@
-$(document).ready(function() {
+//$(document).ready(function() {
   
   //var year = 2017;
 
-  initMap();
+  //initMap();
 
   // $('.btn').click(function() {
 
@@ -18,7 +18,7 @@ $(document).ready(function() {
   //   console.log(year);
   // });
 
-});  
+//});  
 
 function initMap() {
     var myLatLng = {lat: 40.78, lng: -97.21};
