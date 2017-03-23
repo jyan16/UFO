@@ -34,7 +34,7 @@ var yearLabel = svg.append("text")
                 .attr("text-anchor", "end")
                 .attr("x", width)
                 .attr("y", height - 20)
-                .text(1954);
+                .text(1950);
 
 
 
@@ -90,7 +90,7 @@ d3.json("statesPath.json", function(statesPath) {
 		// Tweens the entire chart by first tweening the year, and then the data.
 		// For the interpolated data, the dots and label are redrawn.
 		function tweenYear() {
-			var year = d3.interpolateNumber(1954, 2016);
+			var year = d3.interpolateNumber(1950, 2016);
 			return function(t) { 
 			  	yearLabel.text(Math.round(year(t)));
 				var totalList = totals[Math.round(year(t)) - 1954].state;
