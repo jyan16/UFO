@@ -32,7 +32,18 @@
         text {
             font: 10px sans-serif;
         }
-        </style>
+        #chart_map_year_count {
+          zoom: 0.85;
+        }
+        .arc text {
+          font: 10px sans-serif;
+          text-anchor: middle;
+        }
+
+        .arc path {
+          stroke: #fff;
+        }
+    </style>
 </head>
 
 <body>
@@ -162,10 +173,21 @@
   </div>
 
   <div class="row" align="justify">
-    <div class="col-md-12">
+    <div class="col-md-2"></div>
+        <div class="col-md-8">
+      <div id="chart_pie_shape"></div>
+         <script src="js/pie_shape.js"></script>
+    </div>
+    <div class="col-md-2"></div>
+  </div>
+
+  <div class="row" align="justify">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
       <div id="chart_map_year_count"></div>
          <script src="js/map_year_count.js"></script>  
-    </div>  
+    </div>
+    <div class="col-md-1"></div>
   </div>
 
   <div class="row" align="justify"> 
