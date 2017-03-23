@@ -91,7 +91,6 @@ d3.json("statesPath.json", function(statesPath) {
 		// For the interpolated data, the dots and label are redrawn.
 		function tweenYear() {
 			var year = d3.interpolateNumber(1950, 2016);
-			console.log(percentage);
 			return function(t) { 
 			  	yearLabel.text(Math.round(year(t)));
 				var percentageList = percentage[Math.round(year(t)) - 1950].frequency;
