@@ -10,6 +10,7 @@ from sklearn.metrics import confusion_matrix
 from sklearn import preprocessing
 from sklearn.model_selection import cross_val_score
 from sklearn.model_selection import ShuffleSplit
+from sklearn.linear_model import LogisticRegression
 import random
 #connect to database
 conn = sqlite3.connect('../../data/my_ufo.db')
@@ -93,17 +94,33 @@ def outlier_svm():
 	print(confusion_matrix([-1] * len(novelty_features), predict_result))
 
 def classifier_num():
+	#defining cross validation score parameter cv
+	cv = ShuffleSplit(n_splits=5, test_size=0.2)
+
+	#init data
 	(true_features, fake_features) = load_database(c)
 	train_labels = [1] * len(true_features) + [0] * len(fake_features)
 	train_features = numpy.array(list(true_features) + list(fake_features))
+
+	#svm
 	classifier_svm = svm.SVC(kernel = 'rbf', class_weight={0:10})
 	classifier_svm.fit(train_features, train_labels)
-	score = cross_val_score(classifier_svm, train_features, train_labels, score='accuracy', cv=ShuffleSplit())
-	print(score)
+	score = cross_val_score(classifier_svm, train_features, train_labels, scoring='accuracy', cv=cv)
+	print('SVM -- cross validation mean and std:')
+	print(score.mean(), score.std())
 	predict_result = classifier_svm.predict(train_features)
-	print('confusion matrix:')
+	print('SVM -- confusion matrix:')
 	print(confusion_matrix(train_labels, predict_result))
 
+	#logistic regression
+	classifier_logistic = LogisticRegression(class_weight={0:10})
+	classifier_logistic.fit(train_features, train_labels)
+	score = cross_val_score(classifier_logistic, train_features, train_labels, scoring='accuracy', cv=cv)
+	print('Logistic -- cross validation mean and std:')
+	print(score.mean(), score.std())
+	predict_result = classifier_logistic.predict(train_features)
+	print('Logistic -- confusion matrix:')
+	print(confusion_matrix(train_labels, predict_result))
 
 def main():
 

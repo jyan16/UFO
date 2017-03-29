@@ -20,8 +20,8 @@
       <file leaf-file-name="fake_detection.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/code/machine_learning/fake_detection.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="328">
-              <caret line="101" column="16" lean-forward="true" selection-start-line="101" selection-start-column="16" selection-end-line="101" selection-end-column="16" />
+            <state relative-caret-position="428">
+              <caret line="117" column="58" lean-forward="true" selection-start-line="117" selection-start-column="58" selection-end-line="117" selection-end-column="58" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
               </folding>
@@ -738,8 +738,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/code/machine_learning/fake_detection.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="328">
-          <caret line="101" column="16" lean-forward="true" selection-start-line="101" selection-start-column="16" selection-end-line="101" selection-end-column="16" />
+        <state relative-caret-position="428">
+          <caret line="117" column="58" lean-forward="true" selection-start-line="117" selection-start-column="58" selection-end-line="117" selection-end-column="58" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
           </folding>
