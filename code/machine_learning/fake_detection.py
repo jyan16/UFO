@@ -62,7 +62,7 @@ def load_database(c):
 
 	return (train_features, novelty_features)
 
-def classifier_svm():
+def classifier_svm_text():
 	#preprocessing summary data
 	tokenizer = Tokenizer()
 	vectorizer = CountVectorizer(binary=True, lowercase=True, decode_error='replace', tokenizer=tokenizer)
@@ -89,13 +89,24 @@ def outlier_svm():
 	classifier.fit(training_features)
 	predict_result = classifier.predict(novelty_features)
 	print(confusion_matrix([-1] * len(novelty_features), predict_result))
+
+def classifier_svm_num():
+	(true_features, fake_features) = load_database(c)
+	train_labels = [1] * len(true_features) + [0] * len(fake_features)
+	train_features = numpy.array(list(true_features) + list(fake_features))
+	classifier = svm.SVC(kernel = 'rbf', class_weight={0:10})
+	classifier.fit(train_features, train_labels)
+
+	predict_result = classifier.predict(train_features)
+	print('confusion matrix:')
+	print(confusion_matrix(train_labels, predict_result))
+
+
 def main():
 
 	#classifier_svm()
 	#load data from my_ufo.db
-	conn = sqlite3.connect('../../data/my_ufo.db')
-	c = conn.cursor()
-	outlier_svm()
+	classifier_svm_num()
 
 
 
