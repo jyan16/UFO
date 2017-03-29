@@ -2,7 +2,6 @@ import numpy as np
 from sklearn.cluster import KMeans
 import sqlite3
 from sklearn import preprocessing
-from kmodes import kmodes
 from sklearn import metrics
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import cross_val_score

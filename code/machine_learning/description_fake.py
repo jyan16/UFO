@@ -1,25 +1,20 @@
 from __future__ import division
-import sys
 import csv
-import argparse
-from collections import defaultdict
-
+import sqlite3
 import util
-
+from tokenizer import Tokenizer
 import numpy
 from sklearn.feature_extraction.text import CountVectorizer
+from sklearn import svm
 from sklearn.metrics import confusion_matrix
-from sklearn.model_selection import cross_val_score
-from sklearn.naive_bayes import BernoulliNB
-from sklearn.linear_model import LogisticRegression
-from sklearn.svm import LinearSVC
-from sklearn.metrics import classification_report
-from tokenizer import Tokenizer
+from sklearn import preprocessing
+import random
+#connect to database
+conn = sqlite3.connect('../../data/my_ufo.db')
+c = conn.cursor()
 
-#load data from file, assign fake labels to event that doesn't have nuforc in summary
+#load summary data from file, assign fake labels to event that doesn't have nuforc in summary
 def load_file(file_path):
-	count_0 = 0
-	count_1 = 0
 	confidence = []
 	description = []
 	with open(file_path, 'r', encoding='latin1') as file_reader:
@@ -29,142 +24,70 @@ def load_file(file_path):
 			text = row[9].lower()
 			if 'nuforc' in text or 'hoax' in text:
 				confidence.append(0)
-				count_0 += 1
+				description.append(row[9])
 			else:
-				confidence.append(1)
-				count_1 += 1
-			description.append(row[9])
-	print(count_0, count_1)
+				if random.randint(1,10)==1:
+					confidence.append(1)
+					description.append(row[9])
 	return (confidence, description)
 
-def main():
+#load other data from table weathers and events, with scale and numerical processing
+def load_database(c):
+	summary_list = []
+	for row in c.execute('''SELECT distinct summary
+	                        FROM weathers'''):
+		summary_list.append(row[0].lower())
+	le_weather = preprocessing.LabelEncoder().fit(summary_list)
+	shape_list = []
+	for row in c.execute('''SELECT distinct shape
+	                        FROM events'''):
+		shape_list.append(row[0].lower())
+	le_shape = preprocessing.LabelEncoder().fit(shape_list)
+	train_features = []
+	novelty_features = []
+	for row in c.execute('''SELECT e.lat, e.lng, e.time, e.shape, w.summary, w.visibility, e.summary
+	                        FROM events e, weathers w
+	                        WHERE e.year>=1950 AND e.year<=2017 AND e.event_id=w.event_id
+	                     '''):
+		text = row[6].lower()
+		if 'nuforc' in text or 'hoax' in text:
+			novelty_features.append([row[0], row[1], int(row[2].split(':')[0]), le_shape.transform([row[3].lower()])[0],
+						  le_weather.transform([row[4].lower()])[0]])
+		else:
+			train_features.append([row[0], row[1], int(row[2].split(':')[0]), le_shape.transform([row[3].lower()])[0],
+						  le_weather.transform([row[4].lower()])[0]])
 
+	train_features = preprocessing.scale(train_features)
+	novelty_features = preprocessing.scale(novelty_features)
+
+def main():
+	#preprocessing summary data
 	tokenizer = Tokenizer()
 	vectorizer = CountVectorizer(binary=True, lowercase=True, decode_error='replace', tokenizer=tokenizer)
-	#vectorizer = CountVectorizer(binary=True, lowercase=True, decode_error='replace')
-
-	# Load training text and training labels
 	(training_labels, training_texts) = load_file('../../data/processed/file_ufo_lat.csv')
-	# Get training features using vectorizer
 	training_features = vectorizer.fit_transform(training_texts)
-	# Transform training labels to numpy array (numpy.array)
 	training_labels = numpy.array(training_labels)
-	############################################################
 
-	##### TRAIN THE MODEL ######################################
-	# Initialize the corresponding type of the classifier
-	# NOTE: Be sure to name the variable for your classifier "classifier" so that our stencil works for you!
-	if opts.classifier == 'nb':
-		# TODO: Initialize Naive Bayes
-		classifier = BernoulliNB(binarize=None)
-	elif opts.classifier == 'log':
-		# TODO: Initialize Logistic Regression
-		classifier = LogisticRegression()
-	elif opts.classifier == 'svm':
-		# TODO: Initialize SVM
-		classifier = LinearSVC()
-	else:
-		raise Exception('Unrecognized classifier!')
+	#using svm to train data
+	classifier_svm = svm.SVC(kernel = 'rbf')
+	classifier_svm.fit(training_features, training_labels)
 
-	# TODO: Train your classifier using 'fit'
-	classifier.fit(training_features, training_labels)
-	############################################################
+	#training accuracy
+	print('training mean accuracy:')
+	print(classifier_svm.score(training_features, training_labels))
 
+	#confusion matrix
+	predict_result = classifier_svm.predict(training_features)
+	print('confusion matrix:')
+	print(confusion_matrix(training_labels, predict_result))
 
-	###### VALIDATE THE MODEL ##################################
-	# TODO: Print training mean accuracy using 'score'
-	if opts.p:
-		print('training mean accuracy:')
-		print(classifier.score(training_features, training_labels))
-	# TODO: Perform 10 fold cross validation (cross_val_score) with scoring='accuracy'
-	score = cross_val_score(classifier, training_features,
-							training_labels, scoring='accuracy', cv=10 )
+	#load data from my_ufo.db
+	conn = sqlite3.connect('../../data/my_ufo.db')
+	c = conn.cursor()
 
-	# TODO: Print the mean and std deviation of the cross validation score
-	if opts.p:
-		print('mean and std dev for cross validation scores:')
-		print('mean = %f, std = %f' % (score.mean(), score.std()))
-
-	############################################################
-
-	##### EXAMINE THE MODEL ####################################
-	if (opts.top is not None) and opts.p:
-		# Print top n most informative features for positive and negative classes
-		print('most informative features:')
-		util.print_most_informative_features(opts.classifier, vectorizer, classifier, opts.top)
-	############################################################
+	training_features = load_database(c)
 
 
-	##### TEST THE MODEL #######################################
-	if opts.test is None:
-		# Test the classifier on one sample test tweet
-		# James Cameron 9:04 AM - 28 Jan 11
-		test_tweet = 'ryan seacrest told me I had to get on Twitter.  So here I am.  First tweet.  I feel younger already.'
-		# TODO: Extract features from the test tweet and transform them using vectorizer
-		# HINT: vectorizer.transform() expects a list of tweets
-		test_feature = vectorizer.transform([test_tweet])
-		# TODO: Print the predicted label of the test tweet
-		if opts.p:
-			print('predicted label for test tweet:')
-			print(classifier.predict(test_feature))
-
-
-		# TODO: Print the predicted probability of each label.
-		if opts.p:
-			print('predicted probability for each label:')
-		if opts.classifier != 'svm':
-			# Use predict_proba
-			print(classifier.predict_proba(test_feature))
-
-		else:
-			# Use decision_function
-			print(classifier.decision_function(test_feature))
-
-	else:
-		# Test the classifier on the given test set
-		# TODO: Load test labels and texts using load_file()
-
-		(test_labels, test_texts) = load_file(opts.test)
-
-		test_labels = numpy.array(test_labels)
-
-		# TODO: Extract test features using vectorizer.transform()
-		test_features = vectorizer.transform(test_texts)
-
-		# TODO: Predict the labels for the test set
-		test_result = classifier.predict(test_features)
-
-		# TODO: Print mean test accuracy
-		if opts.p:
-			right_result = 0
-			print('predicted mean accuracy:')
-			for label_true, label_pred in zip(test_labels, test_result):
-				if label_true == label_pred:
-					right_result += 1
-			print(right_result/len(test_labels))
-		# TODO: Print the confusion matrix using your implementation
-			print('our confusion matrix:')
-			TP = FN = FP = TN = 0
-			for label_true, label_pred in zip(test_labels, test_result):
-				if label_true == 1 and label_pred == 1:
-					TP += 1
-				if label_true == 1 and label_pred == 0:
-					FN += 1
-				if label_true == 0 and label_pred == 1:
-					FP += 1
-				if label_true == 0 and label_pred == 0:
-					TN += 1
-			print('          Positive    Negtive')
-			print('Positive  %8d    %7d' % (TP, FN))
-			print('Negtive   %8d    %7d' % (FP, TN))
-		# TODO: Print the confusion matrix using sklearn's implementation
-			print('sklearn confusion matrix:')
-			sk_confusion = confusion_matrix(test_labels, test_result)
-			print('          Positive    Negtive')
-			print('Positive  %8d    %7d' % (sk_confusion[1][1], sk_confusion[1][0]))
-			print('Negtive   %8d    %7d' % (sk_confusion[0][1], sk_confusion[0][0]))
-
-	############################################################
 
 
 if __name__ == '__main__':
