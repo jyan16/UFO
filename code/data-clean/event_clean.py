@@ -3,6 +3,8 @@ import re
 import json
 import requests
 
+#This script cleans NUFORC report data
+
 def check(lat, lng):
     return True if 25<lat<49 and -125<lng<-66 else False
 

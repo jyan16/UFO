@@ -1,6 +1,8 @@
 import sqlite3
 import csv
 
+
+#This script creates database --- my_ufo.db
 def load():
     #initialization
     conn = sqlite3.connect('../../data/my_ufo.db')
@@ -9,6 +11,8 @@ def load():
     # Delete table if already exists
     c.execute('DROP TABLE IF EXISTS "events";')
     c.execute('DROP TABLE IF EXISTS "weathers";')
+    c.execute('DROP TABLE IF EXISTS "populations";')
+    c.execute('DROP TABLE IF EXISTS "areas";')
 
 
     # Create tables
@@ -45,9 +49,25 @@ def load():
                 pressure            float,
                 PRIMARY KEY(event_id))
               ''')
+
+    c.execute('''
+            CREATE TABLE populations(
+                state       text not null,
+                year        int,
+                population  int)
+              ''')
+
+    c.execute('''
+            CREATE TABLE areas(
+                state       text not null,
+                area        float,
+                PRIMARY KEY(state))
+              ''')
     conn.commit()
     ufo_reader = csv.DictReader(open('../../data/file_ufo_lat.csv', 'r'))
     weather_reader = csv.DictReader(open('../../data/file_ufo_weather.csv', 'r'))
+    population_reader = csv.DictReader(open('../../data/file_us_population.csv', 'r'))
+    area_reader = csv.DictReader(open('../../data/file_us_area.csv', 'r'))
     for row in ufo_reader:
         try:
             c.execute('''
@@ -58,7 +78,6 @@ def load():
                        row['summary'][2:-1], float(row['lat']), float(row['lng'])))
         except:
             print('error')
-
     for row in weather_reader:
         try:
             c.execute('''
@@ -69,6 +88,18 @@ def load():
                        float(row['windSpeed']), int(row['windBearing']), float(row['visibility']), float(row['pressure'])))
         except:
             print('error')
+
+    for row in population_reader:
+        c.execute('''
+                    INSERT INTO populations
+                    VALUES (?,?,?)''',
+                  (row['state'], int(row['year']), int(row['population'])))
+
+    for row in area_reader:
+        c.execute('''
+                    INSERT INTO areas
+                    VALUES (?,?)''',
+                  (row['state'], float(row['area'])))
 
     conn.commit()
     conn.close()

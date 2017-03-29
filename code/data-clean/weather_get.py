@@ -2,6 +2,9 @@ import requests
 import csv
 import json
 
+
+#This script gathers weather data from darksky via API
+
 field1 = 'https://api.darksky.net/forecast/'
 field2 = '?exclude=hourly,flags,isd-stations,daily'
 key = ''

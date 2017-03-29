@@ -2,6 +2,9 @@ import urllib3
 import re
 import csv
 
+#This script is a crawler of NUFORC website for extracting ufo reports
+
+
 url = 'http://www.nuforc.org/webreports/'
 http = urllib3.PoolManager()
 check_list = ['ndxl.html', 'ndxlAB.html', 'ndxlBC.html', 'ndxlHI.html', 'ndxlMB.html', 'ndxlNB.html',

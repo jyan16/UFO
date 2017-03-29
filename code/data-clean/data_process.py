@@ -2,7 +2,7 @@ import sqlite3
 import json
 import re
 import random
-
+#This script creats different json file for visualization and web app.
 
 conn = sqlite3.connect('../../data/my_ufo.db')
 c = conn.cursor()
