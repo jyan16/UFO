@@ -25,11 +25,11 @@ for row in c.execute('''SELECT e.year, population, area, count(*)
                         GROUP BY e.state, e.year'''):
 
 	x_train.append([row[0], row[1], row[2]])
-	y_train.append([row[3]])
+	y_train.append(row[3])
 
 
 
-featurizer = preprocessing.PolynomialFeatures(degree=3)
+featurizer = preprocessing.PolynomialFeatures(degree=4)
 X_train_transform = featurizer.fit_transform(x_train)
 regressor = LinearRegression()
 regressor.fit(X_train_transform, y_train)
