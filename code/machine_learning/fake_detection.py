@@ -8,6 +8,8 @@ from sklearn.feature_extraction.text import CountVectorizer
 from sklearn import svm
 from sklearn.metrics import confusion_matrix
 from sklearn import preprocessing
+from sklearn.model_selection import cross_val_score
+from sklearn.model_selection import ShuffleSplit
 import random
 #connect to database
 conn = sqlite3.connect('../../data/my_ufo.db')
@@ -90,14 +92,15 @@ def outlier_svm():
 	predict_result = classifier.predict(novelty_features)
 	print(confusion_matrix([-1] * len(novelty_features), predict_result))
 
-def classifier_svm_num():
+def classifier_num():
 	(true_features, fake_features) = load_database(c)
 	train_labels = [1] * len(true_features) + [0] * len(fake_features)
 	train_features = numpy.array(list(true_features) + list(fake_features))
-	classifier = svm.SVC(kernel = 'rbf', class_weight={0:10})
-	classifier.fit(train_features, train_labels)
-
-	predict_result = classifier.predict(train_features)
+	classifier_svm = svm.SVC(kernel = 'rbf', class_weight={0:10})
+	classifier_svm.fit(train_features, train_labels)
+	score = cross_val_score(classifier_svm, train_features, train_labels, score='accuracy', cv=ShuffleSplit())
+	print(score)
+	predict_result = classifier_svm.predict(train_features)
 	print('confusion matrix:')
 	print(confusion_matrix(train_labels, predict_result))
 
@@ -106,7 +109,7 @@ def main():
 
 	#classifier_svm()
 	#load data from my_ufo.db
-	classifier_svm_num()
+	classifier_num()
 
 
 
