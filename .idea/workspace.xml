@@ -2,31 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6d041bbd-bfed-46bf-af4b-cd4b657ecc18" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/code/data-clean/check.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/code/data-clean/k_means.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/code/data-clean/population_area.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/code/data-clean/regression.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/data/raw_csv_data/1990-1999.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/data/raw_csv_data/2000-2009.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/data/raw_csv_data/2010-2016.csv" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/data/count_by_hour.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/data/count_by_year.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/data/file_ufo_clean.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/data/file_ufo_lat.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/data/file_ufo_weather.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/data/frequency_by_year.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/data/lat_lng_google.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/data/location.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/data/location_info.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/data/statesPath.json" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/data/file_ufo.csv" afterPath="$PROJECT_DIR$/data/raw_csv_data/file_ufo.csv" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/code/data-clean/crawler.py" afterPath="$PROJECT_DIR$/code/data-clean/crawler.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/code/data-clean/data_process.py" afterPath="$PROJECT_DIR$/code/data-clean/data_process.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/code/data-clean/event_clean.py" afterPath="$PROJECT_DIR$/code/data-clean/event_clean.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/code/data-clean/load.py" afterPath="$PROJECT_DIR$/code/data-clean/load.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/code/data-clean/weather_get.py" afterPath="$PROJECT_DIR$/code/data-clean/weather_get.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data/my_ufo.db" afterPath="$PROJECT_DIR$/data/my_ufo.db" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/code/data-clean/ml_description.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -51,11 +27,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="k_means.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/code/data-clean/k_means.py">
+      <file leaf-file-name="ml_description.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/code/data-clean/ml_description.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="38">
-              <caret line="12" column="98" lean-forward="false" selection-start-line="12" selection-start-column="98" selection-end-line="12" selection-end-column="98" />
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -103,6 +79,7 @@
         <option value="$PROJECT_DIR$/code/data-clean/regression.py" />
         <option value="$PROJECT_DIR$/code/data-clean/weather_get.py" />
         <option value="$PROJECT_DIR$/code/data-clean/check.py" />
+        <option value="$PROJECT_DIR$/code/data-clean/ml_description.py" />
       </list>
     </option>
   </component>
@@ -515,13 +492,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/code/data-clean/weather_get.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/code/data-clean/load.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="836">
@@ -698,13 +668,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/code/data-clean/population_area.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="33">
-          <caret line="4" column="52" lean-forward="false" selection-start-line="4" selection-start-column="52" selection-end-line="4" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/code/data-clean/load.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="57">
@@ -712,17 +675,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/code/data-clean/regression.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="8" column="82" lean-forward="false" selection-start-line="8" selection-start-column="82" selection-end-line="8" selection-end-column="82" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/code/data-clean/weather_get.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="57">
           <caret line="5" column="54" lean-forward="false" selection-start-line="5" selection-start-column="54" selection-end-line="5" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/code/data-clean/population_area.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="38">
+          <caret line="4" column="52" lean-forward="false" selection-start-line="4" selection-start-column="52" selection-end-line="4" selection-end-column="52" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/code/data-clean/regression.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="38">
+          <caret line="8" column="82" lean-forward="false" selection-start-line="8" selection-start-column="82" selection-end-line="8" selection-end-column="82" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/code/data-clean/k_means.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="38">
+          <caret line="12" column="98" lean-forward="false" selection-start-line="12" selection-start-column="98" selection-end-line="12" selection-end-column="98" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -734,10 +714,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/code/data-clean/k_means.py">
+    <entry file="file://$PROJECT_DIR$/code/data-clean/ml_description.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="12" column="98" lean-forward="false" selection-start-line="12" selection-start-column="98" selection-end-line="12" selection-end-column="98" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
