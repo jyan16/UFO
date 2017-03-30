@@ -77,7 +77,7 @@ def check():
 	train_features = numpy.array(list(true_features) + list(fake_features))
 	#svm
 	for i in range(1, 20):
-		print('training svm with weight' + str(i) + '......')
+		print('training svm with weight: ' + str(i) + '......')
 		classifier_svm = svm.SVC(kernel = 'rbf', class_weight={0:i})
 		classifier_svm.fit(train_features, train_labels)
 		score = cross_val_score(classifier_svm, train_features, train_labels, scoring='accuracy', cv=cv)
