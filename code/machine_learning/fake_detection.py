@@ -151,7 +151,7 @@ def classifier_num():
 
 
 def main():
-	
+
 	classifier_num()
 	outlier_svm()
 	classifier_text()
