@@ -31,9 +31,8 @@ def load_file(file_path):
 				confidence.append(0)
 				description.append(row[9])
 			else:
-				if random.randint(1,10)==1:
-					confidence.append(1)
-					description.append(row[9])
+				confidence.append(1)
+				description.append(row[9])
 	return (confidence, description)
 
 #load other data from table weathers and events, with scale and numerical processing
