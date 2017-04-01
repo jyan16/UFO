@@ -58,7 +58,7 @@ def load_database(c):
 						  le_weather.transform([row[4].lower()])[0], row[5]])
 		else:
 			train_features.append([row[0], row[1], int(row[2].split(':')[0]), le_shape.transform([row[3].lower()])[0],
-						  le_weather.transform([row[4].lower()])[0]], row[5])
+						  le_weather.transform([row[4].lower()])[0], row[5]])
 
 	train_features = preprocessing.scale(train_features)
 	novelty_features = preprocessing.scale(novelty_features)
