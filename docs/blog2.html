@@ -46,10 +46,6 @@
   <div class="row" align="justify">
     <div class="col-md-1"></div>
     <div class="col-md-10">
-    	<h2 align="center" style="color: #3C8749"><b>More Data Sources</b></h2>
-    	<p>
-    	Based on previous discussion of our data, we add population and area data for each state, and build another two tables in our database, say, populations and areas. These data are used to analyze macroscopic character of UFO sightings.
-    	</p>
     	<h2 align="center" style="color: #3C8749"><b>Data Characters and Preprocessing</b></h2>
     	<p>
     	At first glance, our data are very difficult to handle. There are two kinds of data for each UFO events: description summary, which is a text information, and numeric features, which are easy to digitalize. This means it is not possible to analyze all of them at the same time. Another thing is that our data has no label, which means supervised learning will not be applicable.
@@ -69,7 +65,7 @@
 </pre>
 		<p>
 		Cross_valid_core reflect the whole accuracy of model, while TP / (TP + FN) reflects how many fake reports are detected. By alternating class weight, SVM with RBF Kernel, Logistic Regression and Linear SVM models can solve unbalanced dataset problems better and we use this judge_score to find out best class weight for each model. Finally, we build two kinds of model, for numeric features (lat, lng, time, shape, weather and visibility) and description summary separately:
-
+		</p>
 		<table border="1", align = "center", style = "font-size:18px", cellpadding="5">
 		<tr>
 		<td>Features</td>
@@ -99,50 +95,43 @@
 		<td>7</td>
 		<td>0.412</td>
 		</tr>
-		</table>		
-    	</p>
-      <p>
-      	Note: 
+		</table>
+      	<p>
+      	Note:
+	  	</p>
       	<ol>
       	<li> We discard Logistic Regression model for numeric features, and SVM with RBF Kernel for description features. This is because they are too sensitive to class weight, i.e., assign all samples to '1' for weight n while assign all samples to '0' if weight n increases slightly. Another reason is that SVM with RBF Kernel consumes too long to train for description features.</li>
       	<li> We do preprocessing.scale for features when training SVM - RBF kernel, because it has higher accuracy and shorter training time. To maintain consistency, we also do this step for one-class SVM model.</li>
       	<li> Since one-class SVM is some kind of novelty detection algorithm, cross validation score makes no sense for it. The judge_score is just calculated by TP / (TP + FN). The meaning of this model is to detect reports that is most likey fake.</li>
       	</ol>
-      </p>
-      <p>
-          Below is the cross validation values and confusion matrixes of different classifiers:
-      </p>
+		<p>
+		Below is the cross validation values and confusion matrixes of different classifiers:
+      	</p>
     </div> 
     <div class="col-md-1"></div>
   </div>
 
-  <div class="row" align="justify">
     <div class="col-md-2"></div>
     <div class="col-md-8">
-      <img src="https://github.com/jyan16/UFO/blob/master/docs/img/ml_results.JPG", class="img-responsive">
-    </div> 
+      <img src="https://raw.githubusercontent.com/jyan16/UFO/master/docs/img/fake_detection.png", class="img-responsive">
+    </div>
     <div class="col-md-2"></div>
   </div>
+
 
   <div class="row" align="justify">
     <div class="col-md-1"></div>
     <div class="col-md-10">
+       	<h2 align="center" style="color: #3C8749"><b>More Data Sources</b></h2>
+    	<p>
+    	Based on previous discussion of our data, we add population and area data for each state, and build another two tables in our database, say, populations and areas. These data are used to analyze macroscopic character of UFO sightings.
+    	</p>
+    <h2 align="center" style="color: #3C8749"><b>Machine Learning for Event Counting</b></h2>
       <p>
           We can see from our d3 chart in midterm report that there is a very obvious relationship between state, year and the number of UFO reports. And the differences among states lie in their areas and populations. For example, from year 1950 to 2016, the total number of UFO reports across the nation displays an increasing trend. California has large area and great population, and it has most UFO reports in the year range. Thus we use polynomial regression with degree 4 to predict the number of UFO reports for a given areas, populations and year. The cross validation score is 0.76. Our model fits well with our training and testing data. 
       </p>
-      <p>
-          Below is the accuracy mean of weighted SVM with different weight of class '0': 
-      </p>
     </div> 
     <div class="col-md-1"></div>   
-  </div>
-
-  <div class="row" align="justify">
-    <div class="col-md-2"></div>
-    <div class="col-md-8">
-      <img src="https://github.com/jyan16/UFO/blob/master/docs/img/SVM_accuracy.png", class="img-responsive">
-    </div> 
-    <div class="col-md-2"></div>
   </div>
 
 </div>
