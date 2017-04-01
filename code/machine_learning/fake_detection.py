@@ -14,10 +14,6 @@ from sklearn.linear_model import LogisticRegression
 import random
 
 
-#connect to database
-conn = sqlite3.connect('../../data/my_ufo.db')
-c = conn.cursor()
-
 #load summary data from file, assign fake labels to event that doesn't have nuforc in summary
 def load_file(file_path):
 	confidence = []
@@ -56,15 +52,14 @@ def load_database(c):
 		text = row[6].lower()
 		if 'nuforc' in text or 'hoax' in text:
 			novelty_features.append([row[0], row[1], int(row[2].split(':')[0]), le_shape.transform([row[3].lower()])[0],
-						  le_weather.transform([row[4].lower()])[0]])
+						  le_weather.transform([row[4].lower()])[0], row[5]])
 		else:
 			train_features.append([row[0], row[1], int(row[2].split(':')[0]), le_shape.transform([row[3].lower()])[0],
-						  le_weather.transform([row[4].lower()])[0]])
+						  le_weather.transform([row[4].lower()])[0], row[5]])
 
 	train_features = preprocessing.scale(train_features)
 	novelty_features = preprocessing.scale(novelty_features)
-
-	return (train_features, novelty_features)
+	return (numpy.array(train_features), numpy.array(novelty_features))
 
 def classifier_text():
 	print('*********The following result is based on UFO description summary**********')
@@ -76,6 +71,20 @@ def classifier_text():
 	(training_labels, training_texts) = load_file('../../data/processed/file_ufo_lat.csv')
 	training_features = vectorizer.fit_transform(training_texts)
 	training_labels = numpy.array(training_labels)
+
+
+	#using logistic regression to train data
+	print('training logistic regression......')
+	classifier_logistic = LogisticRegression(class_weight={0:7})
+	classifier_logistic.fit(training_features, training_labels)
+	score = cross_val_score(classifier_logistic, training_features, training_labels, scoring='accuracy', cv=cv)
+	print(score)
+	print('Logistic -- cross validation mean and std:')
+	print(score.mean(), score.std())
+	predict_result = classifier_logistic.predict(training_features)
+	print('Logistic -- confusion matrix:')
+	print(confusion_matrix(training_labels, predict_result))
+
 
 	#using svm to train data
 	print('training svm......')
@@ -89,19 +98,9 @@ def classifier_text():
 	print('SVM -- confusion matrix:')
 	print(confusion_matrix(training_labels, predict_result))
 	print('***********************************************************************')
-	#using logistic regression to train data
-	print('training logistic regression......')
-	classifier_logistic = LogisticRegression(class_weight={0:7})
-	classifier_logistic.fit(training_features, training_labels)
-	score = cross_val_score(classifier_logistic, training_features, training_labels, scoring='accuracy', cv=cv)
-	print(score)
-	print('Logistic -- cross validation mean and std:')
-	print(score.mean(), score.std())
-	predict_result = classifier_logistic.predict(training_features)
-	print('Logistic -- confusion matrix:')
-	print(confusion_matrix(training_labels, predict_result))
 
-def outlier_svm():
+
+def outlier_svm(c):
 	(training_features, novelty_features)= load_database(c)
 	classifier = svm.OneClassSVM(kernel='rbf')
 	print('train outlier svm......')
@@ -111,10 +110,11 @@ def outlier_svm():
 	print(confusion_matrix([-1] * len(novelty_features), predict_result))
 	print('***********************************************************************')
 
+
 	############################################
 	#below we train model with numeric features#
 	############################################
-def classifier_num():
+def classifier_num(c):
 	print('*********The following result is based on UFO numerical data**********')
 	#defining cross validation score parameter cv
 	cv = ShuffleSplit(n_splits=5, test_size=0.2)
@@ -140,9 +140,12 @@ def classifier_num():
 
 
 def main():
+	# connect to database
+	conn = sqlite3.connect('../../data/my_ufo.db')
+	c = conn.cursor()
 
-	classifier_num()
-	outlier_svm()
+	classifier_num(c)
+	outlier_svm(c)
 	classifier_text()
 
 
