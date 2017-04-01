@@ -75,9 +75,9 @@ def check():
 	train_labels = [1] * len(true_features) + [0] * len(fake_features)
 	train_features = numpy.array(list(true_features) + list(fake_features))
 	#logistic regression
-	for i in range(1870, 1880):
-		print('training logistic regression with weight: ' + str(i/100) + '......')
-		classifier_lr = LogisticRegression(class_weight={0:i/100})
+	for i in range(180, 190):
+		print('training logistic regression with weight: ' + str(i/10) + '......')
+		classifier_lr = LogisticRegression(class_weight={0:i/10})
 		classifier_lr.fit(train_features, train_labels)
 		score = cross_val_score(classifier_lr, train_features, train_labels, scoring='accuracy', cv=cv)
 		print(score)
