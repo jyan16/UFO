@@ -79,7 +79,7 @@ def classifier_text():
 
 	#using svm to train data
 	print('training svm......')
-	classifier_svm = svm.SVC(kernel = 'rbf', class_weight = {0:6})
+	classifier_svm = svm.LinearSVC(class_weight = {0:7})
 	classifier_svm.fit(training_features, training_labels)
 	score = cross_val_score(classifier_svm, training_features, training_labels, scoring='accuracy', cv=cv)
 	print(score)
@@ -88,16 +88,16 @@ def classifier_text():
 	predict_result = classifier_svm.predict(training_features)
 	print('SVM -- confusion matrix:')
 	print(confusion_matrix(training_labels, predict_result))
-
+	print('***********************************************************************')
 	#using logistic regression to train data
 	print('training logistic regression......')
-	classifier_logistic = LogisticRegression(class_weight={0:15})
+	classifier_logistic = LogisticRegression(class_weight={0:7})
 	classifier_logistic.fit(training_features, training_labels)
 	score = cross_val_score(classifier_logistic, training_features, training_labels, scoring='accuracy', cv=cv)
 	print(score)
 	print('Logistic -- cross validation mean and std:')
 	print(score.mean(), score.std())
-	predict_result = classifier_svm.predict(training_features)
+	predict_result = classifier_logistic.predict(training_features)
 	print('Logistic -- confusion matrix:')
 	print(confusion_matrix(training_labels, predict_result))
 
@@ -109,7 +109,7 @@ def outlier_svm():
 	predict_result = classifier.predict(novelty_features)
 	print('Outlier SVM -- confusion matrix:')
 	print(confusion_matrix([-1] * len(novelty_features), predict_result))
-
+	print('***********************************************************************')
 
 	############################################
 	#below we train model with numeric features#
@@ -134,18 +134,7 @@ def classifier_num():
 	predict_result = classifier_svm.predict(train_features)
 	print('SVM -- confusion matrix:')
 	print(confusion_matrix(train_labels, predict_result))
-
-	#logistic regression
-	print('training logistic regression......')
-	classifier_logistic = LogisticRegression(class_weight={0:15})
-	classifier_logistic.fit(train_features, train_labels)
-	score = cross_val_score(classifier_logistic, train_features, train_labels, scoring='accuracy', cv=cv)
-	print(score)
-	print('Logistic -- cross validation mean and std:')
-	print(score.mean(), score.std())
-	predict_result = classifier_logistic.predict(train_features)
-	print('Logistic -- confusion matrix:')
-	print(confusion_matrix(train_labels, predict_result))
+	print('***********************************************************************')
 
 	#Since our data is really imbalanced, here we don't even need to try Naive Bayes...
 

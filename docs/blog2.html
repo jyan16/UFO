@@ -46,20 +46,68 @@
   <div class="row" align="justify">
     <div class="col-md-1"></div>
     <div class="col-md-10">
+    	<h2 align="center" style="color: #3C8749"><b>More Data Sources</b></h2>
+    	<p>
+    	Based on previous discussion of our data, we add population and area data for each state, and build another two tables in our database, say, populations and areas. These data are used to analyze macroscopic character of UFO sightings.
+    	</p>
+    	<h2 align="center" style="color: #3C8749"><b>Data Characters and Preprocessing</b></h2>
+    	<p>
+    	At first glance, our data are very difficult to handle. There are two kinds of data for each UFO events: description summary, which is a text information, and numeric features, which are easy to digitalize. This means it is not possible to analyze all of them at the same time. Another thing is that our data has no label, which means supervised learning will not be applicable.
+    	</p>
+    	<p>
+    	By investigating NUFORC<a href="http://www.nuforc.org/">(The National UFO Reporting Center)</a>'s comment for each event, we found that they make notes on reporters' description summary of some flawed, or even hoaxed, reports. For example, someone reported sighting of white flashing orb-like object and NUFORC comments that it was possible sighting of Venus instead of sighting of UFO. In our 90000+ records of data, there are 4000+ reports that are believed by NUFORC to be flawed reports, thus we add a label '0'(fake) to these reports, and add a label '1'(genuine) to the remaining 80000+ reports.
+    	</p>
+    	<p>
+    	However, this rises another issue of our dataset --- the proportions of data with '0' and '1' are very unbalanced, with only a small percentage of data(about 4.5%) being labeled '0'. We need to be very careful for this unbalanced dataset, because a high accuracy (up to 95%) maybe easily get by simply assigning '1' to all samples.
+    	</p>
+    	<h2 align="center" style="color: #3C8749"><b>Machine Learning for Fake Detection</b></h2>
+    	<p>
+    	Our first goal is to build machine learning algorithms for fake report detection. Based on this goal, we developed a new score to judge one model: 
+    	</p>
+<pre>
+    	judge_score = (cross_valid_score * 0.8 + TP / (TP + FN) * 0.2) / 2
+</pre>
+		<p>
+		Cross_valid_core reflect the whole accuracy of model, while TP / (TP + FN) reflects how many fake reports are detected. By alternating class weight, SVM with RBF Kernel, Logistic Regression and Linear SVM models can solve unbalanced dataset problems better and we use this judge_score to find out best class weight for each model. Finally, we build two kinds of model, for numeric features (lat, lng, time, shape, weather and visibility) and description summary separately:
+
+		<table border="1", align = "center", style = "font-size:18px", cellpadding="5">
+		<tr>
+		<td>Features</td>
+		<td>Model</td>
+		<td>Best Weight</td>
+		<td>judge_score</td>
+		</tr>
+		<tr>
+		<td rowspan="2">numeric</td>
+		<td>SVM (RBF)</td>
+		<td>10</td>
+		<td>0.487</td>
+		</tr>
+		<tr>
+		<td>SVM (one-class)</td>
+		<td>--</td>
+		<td>0.497</td>
+		</tr>
+		<tr>
+		<td rowspan="2">description</td>
+		<td>Logistic Regression</td>
+		<td>7</td>
+		<td>0.413</td>
+		</tr>
+		<tr>
+		<td>Linear SVM</td>
+		<td>7</td>
+		<td>0.412</td>
+		</tr>
+		</table>		
+    	</p>
       <p>
-          NUFORC<a href="http://www.nuforc.org/">(The National UFO Reporting Center)</a> has proofread the UFO reports data, and they make notes on reporters' description summary of some flawed, or even hoaxed, reports. For example, someone reported sighting of white flashing orb-like object and NUFORC comments that it was possible sighting of Venus instead of sighting of UFO. In our 90000+ records of data, there are 4000+ reports that are believed by NUFORC to be flawed reports, thus we add a label '0'(fake) to these reports, and add a label '1'(genuine) to the remaining 80000+ reports.
-      </p>
-      <p>
-          Although we manage to label our data with '0' and '1', the proportions of data with '0' and '1' are very unbalanced, with only a small percentage of data(about 4.5%) being labeled '0'. If we train on this unbalanced dataset, we might get a high accuracy(about 95%), but the accuracy is only reflecting the unbalanced distribution of the two classes of data, and our model will always predict label '1'.
-      </p>
-      <p>
-          To solve problems of unbalanced dataset, we tried to extracted features from summary of UFO reports using bag-of-words model and train a weighted SVM-based classifier with RBF kernel. In the standard SVM, training sets with uneven class sizes results in classification biases towards the class with the large training size. By setting a greater penalty for the training data with label '0', the weighted SVM might compensate for the effects caused by the uneven training class size. But the classifier failed to predict label for our data. The confusion matrix showed that when we set weight to 10, the classifier would always predict label '1', and when we set weight 15 or 20, the classifier would always predict label '0'. We think that it might has something to do with our model too sensitive to our classes' weighting, so it always predicted one label.
-      </p>
-      <p>
-          Then we turn to extract latitude, longitude, time, shape, weather summary and visibility as training features and employ the method of one-class SVM with RBF kernel. One-class SVM is an unsupervised algorithm that learns a decision function for outlier detection: classifying new data as similar or different to the training set(http://scikit-learn.org/stable/auto_examples/svm/plot_oneclass.html). We use data with label '1' as training observations to set the learned frontier. If data with label '0' is within the frontier, it is regarded as regular observation(genuine reports), and if data with label '0' is out of the frontier, it is regarded as abnormal observation(fake reports). We can see from confusion matrix that out of 4546 reports with label '0', there are 2258 reports being predicted label '0'. That's to say, if we input data with label '0'(fake reports), we can correctly detect 49.7% of these reports.
-      </p>
-      <p>
-          And we also train a weighted SVM classifier and weighted Logistic Regression classifier using lat, lng, time, shape, weather and visibility as training features. For SVM models, we assign weight 10 to class '0' and for Logistic Regression, we assign 15. Results show that SVM performs pretty well, while Logistic Regression can not handle situation of unbalanced data.
+      	Note: 
+      	<ol>
+      	<li> We discard Logistic Regression model for numeric features, and SVM with RBF Kernel for description features. This is because they are too sensitive to class weight, i.e., assign all samples to '1' for weight n while assign all samples to '0' if weight n increases slightly. Another reason is that SVM with RBF Kernel consumes too long to train for description features.</li>
+      	<li> We do preprocessing.scale for features when training SVM - RBF kernel, because it has higher accuracy and shorter training time. To maintain consistency, we also do this step for one-class SVM model.</li>
+      	<li> Since one-class SVM is some kind of novelty detection algorithm, cross validation score makes no sense for it. The judge_score is just calculated by TP / (TP + FN). The meaning of this model is to detect reports that is most likey fake.</li>
+      	</ol>
       </p>
       <p>
           Below is the cross validation values and confusion matrixes of different classifiers:

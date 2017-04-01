@@ -76,7 +76,7 @@ def check():
 	train_features = numpy.array(list(true_features) + list(fake_features))
 
 	#logistic regression
-	'''for i in range(1, 20):
+	for i in range(1, 20):
 		print('training logistic regression with weight: ' + str(i) + '......')
 		classifier_lr = LogisticRegression(class_weight={0:i})
 		classifier_lr.fit(train_features, train_labels)
@@ -100,7 +100,7 @@ def check():
 		predict_result = classifier_svm.predict(train_features)
 		print('confusion matrix:')
 		print(confusion_matrix(train_labels, predict_result))
-		print('******************************************************************')'''
+		print('******************************************************************')
 
 	print('*********The following result is based on UFO description summary**********')
 	#defining cross validation score parameter cv
@@ -113,7 +113,7 @@ def check():
 	training_labels = numpy.array(training_labels)
 
 	#using logistic regression to train data
-	'''for i in range(1, 20):
+	for i in range(1, 20):
 		print('training logistic regression with weight: ' + str(i) + '......')
 		classifier_logistic = LogisticRegression(class_weight={0:i})
 		classifier_logistic.fit(training_features, training_labels)
@@ -138,7 +138,7 @@ def check():
 		predict_result = classifier_svm.predict(training_features)
 		print('SVM -- confusion matrix:')
 		print(confusion_matrix(training_labels, predict_result))
-		print('******************************************************************')'''
+		print('******************************************************************')
 
 	for i in range(1, 20):
 		print('training svm with weight: ' + str(i) + '......')
