@@ -60,10 +60,10 @@ def load_database(c):
 			train_features.append([row[0], row[1], int(row[2].split(':')[0]), le_shape.transform([row[3].lower()])[0],
 						  le_weather.transform([row[4].lower()])[0], row[5]])
 
-	train_features = preprocessing.scale(train_features)
-	novelty_features = preprocessing.scale(novelty_features)
+	#train_features = preprocessing.scale(train_features)
+	#novelty_features = preprocessing.scale(novelty_features)
 
-	return (train_features, novelty_features)
+	return (numpy.array(train_features), numpy.array(novelty_features))
 
 def check():
 	print('*********The following result is based on UFO numerical data**********')
@@ -75,9 +75,9 @@ def check():
 	train_labels = [1] * len(true_features) + [0] * len(fake_features)
 	train_features = numpy.array(list(true_features) + list(fake_features))
 	#logistic regression
-	for i in range(1870, 1880):
-		print('training logistic regression with weight: ' + str(i/100) + '......')
-		classifier_lr = LogisticRegression(class_weight={0:i/100})
+	for i in range(1, 20):
+		print('training logistic regression with weight: ' + str(i) + '......')
+		classifier_lr = LogisticRegression(class_weight={0:i})
 		classifier_lr.fit(train_features, train_labels)
 		score = cross_val_score(classifier_lr, train_features, train_labels, scoring='accuracy', cv=cv)
 		print(score)
