@@ -74,19 +74,6 @@ def check():
 	(true_features, fake_features) = load_database(c)
 	train_labels = [1] * len(true_features) + [0] * len(fake_features)
 	train_features = numpy.array(list(true_features) + list(fake_features))
-	#linear svc
-	for i in range(1, 20):
-		print('training linearSVC with weight: ' + str(i) + '......')
-		classifier_lsvm = svm.LinearSVC(class_weight={0:i})
-		classifier_lsvm.fit(train_features, train_labels)
-		score = cross_val_score(classifier_lsvm, train_features, train_labels, scoring='accuracy', cv=cv)
-		print(score)
-		print('cross validation mean and std:')
-		print(score.mean(), score.std())
-		predict_result = classifier_lsvm.predict(train_features)
-		print('confusion matrix:')
-		print(confusion_matrix(train_labels, predict_result))
-		print('******************************************************************')
 
 	#logistic regression
 	'''for i in range(1, 20):
