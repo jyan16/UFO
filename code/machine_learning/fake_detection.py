@@ -79,7 +79,7 @@ def classifier_text():
 
 	#using svm to train data
 	print('training svm......')
-	classifier_svm = svm.SVC(kernel = 'rbf', class_weight = {0:10})
+	classifier_svm = svm.SVC(kernel = 'rbf', class_weight = {0:6})
 	classifier_svm.fit(training_features, training_labels)
 	score = cross_val_score(classifier_svm, training_features, training_labels, scoring='accuracy', cv=cv)
 	print(score)
