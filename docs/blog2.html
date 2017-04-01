@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+    <title>Blog II</title>
+    <style type="text/css">
+        body, p, h1, h2, h3, h4, h5, li{
+          font-family: 'Roboto', sans-serif;
+        }
+        p {
+            font-size: 15pt;
+            margin-top: 20px;
+            margin-bottom: 15px;
+        }
+        li {
+            font-size: 15pt; 
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="row" align="justify">
+    <div class="col-md-12">
+      <h1 align="center" style="height: 250px; padding-top:100px;
+        color: #FFF; 
+        background:#14468A;
+            background:-webkit-gradient(left, 0 0, 0 100%, from(#14468A), to(#3C8749));
+            background:-moz-linear-gradient(right, #14468A, #3C8749);
+            background:-o-linear-gradient(right, #14468A, #3C8749);
+            background:linear-gradient(to right, #14468A, #3C8749);">
+            Data Science Final Project
+      </h1>
+    </div>
+  </div>
+
+  <div class="row" align="justify">
+    <div class="col-md-12">
+      <h3><a href="https://jyan16.github.io/UFO/">Return to Home Page</a></h3>
+    </div>
+  </div>
+
+  <div class="row" align="justify">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+      <p>
+          NUFORC<a href="http://www.nuforc.org/">(The National UFO Reporting Center)</a> has proofread the UFO reports data, and they make notes on reporters' description summary of some flawed, or even hoaxed, reports. For example, someone reported sighting of white flashing orb-like object and NUFORC comments that it was possible sighting of Venus instead of sighting of UFO. In our 90000+ records of data, there are 4000+ reports that are believed by NUFORC to be flawed reports, thus we add a label '0'(fake) to these reports, and add a label '1'(genuine) to the remaining 80000+ reports.
+      </p>
+      <p>
+          Although we manage to label our data with '0' and '1', the proportions of data with '0' and '1' are very unbalanced, with only a small percentage of data(about 4.5%) being labeled '0'. If we train on this unbalanced dataset, we might get a high accuracy(about 95%), but the accuracy is only reflecting the unbalanced distribution of the two classes of data, and our model will always predict label '1'.
+      </p>
+      <p>
+          To solve problems of unbalanced dataset, we tried to extracted features from summary of UFO reports using bag-of-words model and train a weighted SVM-based classifier with RBF kernel. In the standard SVM, training sets with uneven class sizes results in classification biases towards the class with the large training size. By setting a greater penalty for the training data with label '0', the weighted SVM might compensate for the effects caused by the uneven training class size. But the classifier failed to predict label for our data. The confusion matrix showed that when we set weight to 10, the classifier would always predict label '1', and when we set weight 15 or 20, the classifier would always predict label '0'. We think that it might has something to do with our model too sensitive to our classes' weighting, so it always predicted one label.
+      </p>
+      <p>
+          Then we turn to extract latitude, longitude, time, shape, weather summary and visibility as training features and employ the method of one-class SVM with RBF kernel. One-class SVM is an unsupervised algorithm that learns a decision function for outlier detection: classifying new data as similar or different to the training set(http://scikit-learn.org/stable/auto_examples/svm/plot_oneclass.html). We use data with label '1' as training observations to set the learned frontier. If data with label '0' is within the frontier, it is regarded as regular observation(genuine reports), and if data with label '0' is out of the frontier, it is regarded as abnormal observation(fake reports). We can see from confusion matrix that out of 4546 reports with label '0', there are 2258 reports being predicted label '0'. That's to say, if we input data with label '0'(fake reports), we can correctly detect 49.7% of these reports.
+      </p>
+      <p>
+          And we also train a weighted SVM classifier and weighted Logistic Regression classifier using lat, lng, time, shape, weather and visibility as training features. For SVM models, we assign weight 10 to class '0' and for Logistic Regression, we assign 15. Results show that SVM performs pretty well, while Logistic Regression can not handle situation of unbalanced data.
+      </p>
+      <p>
+          Below is the cross validation values and confusion matrixes of different classifiers:
+      </p>
+    </div> 
+    <div class="col-md-1"></div>
+  </div>
+
+  <div class="row" align="justify">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+      <img src="https://github.com/jyan16/UFO/blob/master/docs/img/ml_results.JPG", class="img-responsive">
+    </div> 
+    <div class="col-md-2"></div>
+  </div>
+
+  <div class="row" align="justify">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+      <p>
+          We can see from our d3 chart in midterm report that there is a very obvious relationship between state, year and the number of UFO reports. And the differences among states lie in their areas and populations. For example, from year 1950 to 2016, the total number of UFO reports across the nation displays an increasing trend. California has large area and great population, and it has most UFO reports in the year range. Thus we use polynomial regression with degree 4 to predict the number of UFO reports for a given areas, populations and year. The cross validation score is 0.76. Our model fits well with our training and testing data. 
+      </p>
+      <p>
+          Below is the accuracy mean of weighted SVM with different weight of class '0': 
+      </p>
+    </div> 
+    <div class="col-md-1"></div>   
+  </div>
+
+  <div class="row" align="justify">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+      <img src="https://github.com/jyan16/UFO/blob/master/docs/img/SVM_accuracy.png", class="img-responsive">
+    </div> 
+    <div class="col-md-2"></div>
+  </div>
+
+</div>
+
+</body>
+</html>
