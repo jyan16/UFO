@@ -1,0 +1,4 @@
+for machine learning:
+
+maybe we can use density estimation to do some nonparametric estimation? 
+one thing I still can't figure out is why svm--numeric features can have such a great classification result? doesn't make sense.... And if this is true, actually I don't need to think about nonparametric estimation any more..

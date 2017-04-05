@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+    <title>Blog II</title>
+    <style type="text/css">
+        body, p, h1, h2, h3, h4, h5, li{
+          font-family: 'Roboto', sans-serif;
+        }
+        p {
+            font-size: 15pt;
+            margin-top: 20px;
+            margin-bottom: 15px;
+        }
+        li {
+            font-size: 15pt; 
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="row" align="justify">
+    <div class="col-md-12">
+      <h1 align="center" style="height: 250px; padding-top:100px;
+        color: #FFF; 
+        background:#14468A;
+            background:-webkit-gradient(left, 0 0, 0 100%, from(#14468A), to(#3C8749));
+            background:-moz-linear-gradient(right, #14468A, #3C8749);
+            background:-o-linear-gradient(right, #14468A, #3C8749);
+            background:linear-gradient(to right, #14468A, #3C8749);">
+            Data Science Final Project
+      </h1>
+    </div>
+  </div>
+
+  <div class="row" align="justify">
+    <div class="col-md-12">
+      <h3><a href="https://jyan16.github.io/UFO/">Return to Home Page</a></h3>
+    </div>
+  </div>
+
+  <div class="row" align="justify">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+    	<h2 align="center" style="color: #3C8749"><b>Data Characters and Preprocessing</b></h2>
+    	<p>
+    	At first glance, our data are very difficult to handle. There are two kinds of data for each UFO events: description summary, which is a text information, and numeric features, which are easy to digitalize. This means it is not possible to analyze all of them at the same time. Another thing is that our data has no label, which means supervised learning will not be applicable.
+    	</p>
+    	<p>
+    	By investigating NUFORC<a href="http://www.nuforc.org/">(The National UFO Reporting Center)</a>'s comment for each event, we found that they make notes on reporters' description summary of some flawed, or even hoaxed, reports. For example, someone reported sighting of white flashing orb-like object and NUFORC comments that it was possible sighting of Venus instead of sighting of UFO. In our 90000+ records of data, there are 4000+ reports that are believed by NUFORC to be flawed reports, thus we add a label '0'(fake) to these reports, and add a label '1'(genuine) to the remaining 80000+ reports.
+    	</p>
+    	<p>
+    	However, this rises another issue of our dataset --- the proportions of data with '0' and '1' are very unbalanced, with only a small percentage of data(about 4.5%) being labeled '0'. We need to be very careful for this unbalanced dataset, because a high accuracy (up to 95%) maybe easily get by simply assigning '1' to all samples.
+    	</p>
+    	<h2 align="center" style="color: #3C8749"><b>Machine Learning for Fake Detection</b></h2>
+    	<p>
+    	Our first goal is to build machine learning algorithms for fake report detection. Based on this goal, we developed a new score to judge one model: 
+    	</p>
+<pre>
+    	judge_score = (cross_valid_score * 0.8 + TP / (TP + FN) * 0.2) / 2
+</pre>
+		<p>
+		Cross_valid_core reflect the whole accuracy of model, while TP / (TP + FN) reflects how many fake reports are detected. By alternating class weight, SVM with RBF Kernel, Logistic Regression and Linear SVM models can solve unbalanced dataset problems better and we use this judge_score to find out best class weight for each model. Finally, we build two kinds of model, for numeric features (lat, lng, time, shape, weather and visibility) and description summary separately:
+		</p>
+		<table border="1", align = "center", style = "font-size:18px", cellpadding="5">
+		<tr>
+		<td>Features</td>
+		<td>Model</td>
+		<td>Best Weight</td>
+		<td>judge_score</td>
+		</tr>
+		<tr>
+		<td rowspan="2">numeric</td>
+		<td>SVM (RBF)</td>
+		<td>10</td>
+		<td>0.487</td>
+		</tr>
+		<tr>
+		<td>SVM (one-class)</td>
+		<td>--</td>
+		<td>0.497</td>
+		</tr>
+		<tr>
+		<td rowspan="2">description</td>
+		<td>Logistic Regression</td>
+		<td>7</td>
+		<td>0.413</td>
+		</tr>
+		<tr>
+		<td>Linear SVM</td>
+		<td>7</td>
+		<td>0.412</td>
+		</tr>
+		</table>
+      	<p>
+      	Note:
+	  	</p>
+      	<ol>
+      	<li> We discard Logistic Regression model for numeric features, and SVM with RBF Kernel for description features. This is because they are too sensitive to class weight, i.e., assign all samples to '1' for weight n while assign all samples to '0' if weight n increases slightly. Another reason is that SVM with RBF Kernel consumes too long to train for description features.</li>
+      	<li> We do preprocessing.scale for features when training SVM - RBF kernel, because it has higher accuracy and shorter training time. To maintain consistency, we also do this step for one-class SVM model.</li>
+      	<li> Since one-class SVM is some kind of novelty detection algorithm, cross validation score makes no sense for it. The judge_score is just calculated by TP / (TP + FN). The meaning of this model is to detect reports that is most likey fake.</li>
+      	</ol>
+		<p>
+		Below is the cross validation values and confusion matrixes of different classifiers:
+      	</p>
+    </div> 
+    <div class="col-md-1"></div>
+  </div>
+
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+      <img src="https://raw.githubusercontent.com/jyan16/UFO/master/docs/img/fake_detection.png", class="img-responsive">
+    </div>
+    <div class="col-md-2"></div>
+  </div>
+
+
+  <div class="row" align="justify">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+       	<h2 align="center" style="color: #3C8749"><b>More Data Sources</b></h2>
+    	<p>
+    	Based on previous discussion of our data, we add population and area data for each state, and build another two tables in our database, say, populations and areas. These data are used to analyze macroscopic character of UFO sightings.
+    	</p>
+    <h2 align="center" style="color: #3C8749"><b>Machine Learning for Event Counting</b></h2>
+      <p>
+          We can see from our d3 chart in midterm report that there is a very obvious relationship between state, year and the number of UFO reports. And the differences among states lie in their areas and populations. For example, from year 1950 to 2016, the total number of UFO reports across the nation displays an increasing trend. California has large area and great population, and it has most UFO reports in the year range. Thus we use polynomial regression with degree 4 to predict the number of UFO reports for a given areas, populations and year. The cross validation score is 0.76. Our model fits well with our training and testing data. 
+      </p>
+    </div> 
+    <div class="col-md-2"></div>   
+  </div>
+
+</div>
+
+</body>
+</html>
