@@ -1,0 +1,70 @@
+[
+    {
+        "shape": "chevron",
+        "count": 1079
+    },
+    {
+        "shape": "diamond",
+        "count": 1286
+    },
+    {
+        "shape": "cylinder",
+        "count": 1354
+    },
+    {
+        "shape": "rectangle",
+        "count": 1474
+    },
+    {
+        "shape": "flash",
+        "count": 1568
+    },
+    {
+        "shape": "cigar",
+        "count": 2114
+    },
+    {
+        "shape": "changing",
+        "count": 2174
+    },
+    {
+        "shape": "formation",
+        "count": 2788
+    },
+    {
+        "shape": "oval",
+        "count": 3994
+    },
+    {
+        "shape": "disk",
+        "count": 5305
+    },
+    {
+        "shape": "sphere",
+        "count": 5848
+    },
+    {
+        "shape": "fireball",
+        "count": 7198
+    },
+    {
+        "shape": "other",
+        "count": 8308
+    },
+    {
+        "shape": "triangle",
+        "count": 8649
+    },
+    {
+        "shape": "unknown",
+        "count": 8907
+    },
+    {
+        "shape": "circle",
+        "count": 9112
+    },
+    {
+        "shape": "light",
+        "count": 18322
+    }
+]

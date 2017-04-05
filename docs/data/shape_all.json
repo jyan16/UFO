@@ -1,79 +1,31 @@
 [
     {
-        "shape": "crescent",
-        "count": 1
-    },
-    {
-        "shape": "flare",
-        "count": 1
-    },
-    {
-        "shape": "hexagon",
-        "count": 1
-    },
-    {
-        "shape": "changed",
-        "count": 1
-    },
-    {
-        "shape": "pyramid",
-        "count": 1
-    },
-    {
-        "shape": "round",
-        "count": 2
-    },
-    {
-        "shape": "delta",
-        "count": 7
-    },
-    {
-        "shape": "cross",
-        "count": 273
-    },
-    {
-        "shape": "cone",
-        "count": 353
-    },
-    {
-        "shape": "egg",
-        "count": 756
-    },
-    {
-        "shape": "teardrop",
-        "count": 798
-    },
-    {
         "shape": "chevron",
         "count": 1079
     },
     {
         "shape": "diamond",
-        "count": 1288
+        "count": 1286
     },
     {
         "shape": "cylinder",
-        "count": 1358
+        "count": 1354
     },
     {
         "shape": "rectangle",
-        "count": 1477
+        "count": 1474
     },
     {
         "shape": "flash",
-        "count": 1569
+        "count": 1568
     },
     {
         "shape": "cigar",
-        "count": 2117
+        "count": 2114
     },
     {
         "shape": "changing",
-        "count": 2175
-    },
-    {
-        "shape": "<br>",
-        "count": 2539
+        "count": 2174
     },
     {
         "shape": "formation",
@@ -81,7 +33,7 @@
     },
     {
         "shape": "oval",
-        "count": 3996
+        "count": 3994
     },
     {
         "shape": "disk",
@@ -89,30 +41,30 @@
     },
     {
         "shape": "sphere",
-        "count": 5854
-    },
-    {
-        "shape": "other",
-        "count": 6022
-    },
-    {
-        "shape": "unknown",
-        "count": 6369
+        "count": 5848
     },
     {
         "shape": "fireball",
-        "count": 7200
+        "count": 7198
+    },
+    {
+        "shape": "other",
+        "count": 8308
     },
     {
         "shape": "triangle",
-        "count": 8662
+        "count": 8649
+    },
+    {
+        "shape": "unknown",
+        "count": 8907
     },
     {
         "shape": "circle",
-        "count": 9118
+        "count": 9112
     },
     {
         "shape": "light",
-        "count": 18370
+        "count": 18322
     }
 ]
