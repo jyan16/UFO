@@ -13,7 +13,7 @@ from sklearn.model_selection import ShuffleSplit
 from sklearn.linear_model import LogisticRegression
 import random
 from sklearn.externals import joblib
-
+import argparse
 
 #connect to database
 conn = sqlite3.connect('../../data/my_ufo.db')
@@ -78,6 +78,10 @@ def load_database(c):
 	return (numpy.array(train_features), numpy.array(novelty_features))
 
 def check():
+	parser = argparse.ArgumentParser()
+	parser.add_argument('-i', required=True, help='Path to training data')
+	opts = parser.parse_args()
+
 	print('*********The following result is based on UFO numerical data**********')
 	#defining cross validation score parameter cv
 	cv = ShuffleSplit(n_splits=5, test_size=0.2)
@@ -86,33 +90,44 @@ def check():
 	(true_features, fake_features) = load_database(c)
 	train_labels = [1] * len(true_features) + [0] * len(fake_features)
 	train_features = numpy.array(list(true_features) + list(fake_features))
+	print('training svm with weight: ' + opts.i + '......')
+	classifier_svm = svm.SVC(kernel='rbf', class_weight={0: int(opts.i)})
+	classifier_svm.fit(train_features, train_labels)
+	score = cross_val_score(classifier_svm, train_features, train_labels, scoring='accuracy', cv=cv)
+	print(score)
+	print('cross validation mean and std:')
+	print(score.mean(), score.std())
+	predict_result = classifier_svm.predict(train_features)
+	print('confusion matrix:')
+	print(confusion_matrix(train_labels, predict_result))
+	print('******************************************************************')
 
-	#logistic regression
-	for i in range(10, 20):
-		print('training logistic regression with weight: ' + str(i) + '......')
-		classifier_lr = LogisticRegression(class_weight={0:i})
-		classifier_lr.fit(train_features, train_labels)
-		score = cross_val_score(classifier_lr, train_features, train_labels, scoring='accuracy', cv=cv)
-		print(score)
-		print('cross validation mean and std:')
-		print(score.mean(), score.std())
-		predict_result = classifier_lr.predict(train_features)
-		print('confusion matrix:')
-		print(confusion_matrix(train_labels, predict_result))
-		print('******************************************************************')
+	# #logistic regression
+	# for i in range(10, 20):
+	# 	print('training logistic regression with weight: ' + str(i) + '......')
+	# 	classifier_lr = LogisticRegression(class_weight={0:i})
+	# 	classifier_lr.fit(train_features, train_labels)
+	# 	score = cross_val_score(classifier_lr, train_features, train_labels, scoring='accuracy', cv=cv)
+	# 	print(score)
+	# 	print('cross validation mean and std:')
+	# 	print(score.mean(), score.std())
+	# 	predict_result = classifier_lr.predict(train_features)
+	# 	print('confusion matrix:')
+	# 	print(confusion_matrix(train_labels, predict_result))
+	# 	print('******************************************************************')
 	#svm
-	for i in range(15, 25):
-		print('training svm with weight: ' + str(i) + '......')
-		classifier_svm = svm.SVC(kernel = 'rbf', class_weight={0:i})
-		classifier_svm.fit(train_features, train_labels)
-		score = cross_val_score(classifier_svm, train_features, train_labels, scoring='accuracy', cv=cv)
-		print(score)
-		print('cross validation mean and std:')
-		print(score.mean(), score.std())
-		predict_result = classifier_svm.predict(train_features)
-		print('confusion matrix:')
-		print(confusion_matrix(train_labels, predict_result))
-		print('******************************************************************')
+	# for i in range(15, 25):
+	# 	print('training svm with weight: ' + str(i) + '......')
+	# 	classifier_svm = svm.SVC(kernel = 'rbf', class_weight={0:i})
+	# 	classifier_svm.fit(train_features, train_labels)
+	# 	score = cross_val_score(classifier_svm, train_features, train_labels, scoring='accuracy', cv=cv)
+	# 	print(score)
+	# 	print('cross validation mean and std:')
+	# 	print(score.mean(), score.std())
+	# 	predict_result = classifier_svm.predict(train_features)
+	# 	print('confusion matrix:')
+	# 	print(confusion_matrix(train_labels, predict_result))
+	# 	print('******************************************************************')
 
 	# print('*********The following result is based on UFO description summary**********')
 	# #defining cross validation score parameter cv

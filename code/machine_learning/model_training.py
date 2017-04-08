@@ -125,7 +125,7 @@ def outlier_svm(c):
 	classifier.fit(training_features)
 	joblib.dump(classifier, '../models/numeric_outlier.pkl')  # save numeric outlier
 
-	predict_result = classifier.predict(training_features + novelty_features)
+	predict_result = classifier.predict(numpy.array(list(training_features) + list(novelty_features)))
 	print('Outlier SVM -- confusion matrix:')
 	print(confusion_matrix([1] * len(training_features) + [-1] * len(novelty_features), predict_result))
 	print('***********************************************************************')
