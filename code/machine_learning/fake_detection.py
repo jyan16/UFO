@@ -62,7 +62,7 @@ def load_database(c):
 			train_features.append([row[0], row[1], int(row[2].split(':')[0]), le_shape.transform([row[3].lower()])[0],
 						  le_weather.transform([row[4].lower()])[0], row[5]])
 
-	le_scale = preprocessing.StandardScaler.fit(train_features + novelty_features)
+	le_scale = preprocessing.StandardScaler().fit(train_features + novelty_features)
 	joblib.dump(le_scale, '../models/data_scale.pkl') #save scale model
 
 	train_features = le_scale.transform(train_features)
@@ -70,9 +70,6 @@ def load_database(c):
 
 	# train_features = preprocessing.scale(train_features)
 	# novelty_features = preprocessing.scale(novelty_features)
-
-	train_features = preprocessing.StandardScaler.fit_transform(train_features)
-	novelty_features = preprocessing.StandardScaler.fit_transform(novelty_features)
 
 	return (numpy.array(train_features), numpy.array(novelty_features))
 
