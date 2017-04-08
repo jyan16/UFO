@@ -12,6 +12,7 @@ from sklearn.model_selection import cross_val_score
 from sklearn.model_selection import ShuffleSplit
 from sklearn.linear_model import LogisticRegression
 import random
+from sklearn.externals import joblib
 
 
 #load summary data from file, assign fake labels to event that doesn't have nuforc in summary
@@ -38,11 +39,15 @@ def load_database(c):
 	                        FROM weathers'''):
 		summary_list.append(row[0].lower())
 	le_weather = preprocessing.LabelEncoder().fit(summary_list)
+	joblib.dump(le_weather, '../models/weather_trans.pkl') #save le_weather
+
 	shape_list = []
 	for row in c.execute('''SELECT distinct shape
 	                        FROM events'''):
 		shape_list.append(row[0].lower())
 	le_shape = preprocessing.LabelEncoder().fit(shape_list)
+	joblib.dump(le_shape, '../models/shape_trans.pkl') #save le_shape
+
 	train_features = []
 	novelty_features = []
 	for row in c.execute('''SELECT e.lat, e.lng, e.time, e.shape, w.summary, w.visibility, e.summary
@@ -57,8 +62,18 @@ def load_database(c):
 			train_features.append([row[0], row[1], int(row[2].split(':')[0]), le_shape.transform([row[3].lower()])[0],
 						  le_weather.transform([row[4].lower()])[0], row[5]])
 
-	train_features = preprocessing.scale(train_features)
-	novelty_features = preprocessing.scale(novelty_features)
+	le_scale = preprocessing.StandardScaler.fit(train_features + novelty_features)
+	joblib.dump(le_scale, '../models/data_scale.pkl') #save scale model
+
+	train_features = le_scale.transform(train_features)
+	novelty_features = le_scale.transform(novelty_features)
+
+	# train_features = preprocessing.scale(train_features)
+	# novelty_features = preprocessing.scale(novelty_features)
+
+	train_features = preprocessing.StandardScaler.fit_transform(train_features)
+	novelty_features = preprocessing.StandardScaler.fit_transform(novelty_features)
+
 	return (numpy.array(train_features), numpy.array(novelty_features))
 
 def classifier_text():
@@ -70,6 +85,8 @@ def classifier_text():
 	vectorizer = CountVectorizer(binary=True, lowercase=True, decode_error='replace', tokenizer=tokenizer)
 	(training_labels, training_texts) = load_file('../../data/processed/file_ufo_lat.csv')
 	training_features = vectorizer.fit_transform(training_texts)
+	joblib.dump(vectorizer,'../models/vectorizer.pkl') #save vectorizer
+
 	training_labels = numpy.array(training_labels)
 
 
@@ -77,10 +94,12 @@ def classifier_text():
 	print('training logistic regression......')
 	classifier_logistic = LogisticRegression(class_weight={0:7})
 	classifier_logistic.fit(training_features, training_labels)
-	score = cross_val_score(classifier_logistic, training_features, training_labels, scoring='accuracy', cv=cv)
-	print(score)
-	print('Logistic -- cross validation mean and std:')
-	print(score.mean(), score.std())
+	joblib.dump(classifier_logistic, '../models/summary_log.pkl') #save summary logistic
+
+	# score = cross_val_score(classifier_logistic, training_features, training_labels, scoring='accuracy', cv=cv)
+	# print(score)
+	# print('Logistic -- cross validation mean and std:')
+	# print(score.mean(), score.std())
 	predict_result = classifier_logistic.predict(training_features)
 	print('Logistic -- confusion matrix:')
 	print(confusion_matrix(training_labels, predict_result))
@@ -90,10 +109,12 @@ def classifier_text():
 	print('training svm......')
 	classifier_svm = svm.LinearSVC(class_weight = {0:7})
 	classifier_svm.fit(training_features, training_labels)
-	score = cross_val_score(classifier_svm, training_features, training_labels, scoring='accuracy', cv=cv)
-	print(score)
-	print('SVM -- cross validation mean and std:')
-	print(score.mean(), score.std())
+	joblib.dump(classifier_svm, '../models/summary_svm.pkl')  # save summary svm
+
+	# score = cross_val_score(classifier_svm, training_features, training_labels, scoring='accuracy', cv=cv)
+	# print(score)
+	# print('SVM -- cross validation mean and std:')
+	# print(score.mean(), score.std())
 	predict_result = classifier_svm.predict(training_features)
 	print('SVM -- confusion matrix:')
 	print(confusion_matrix(training_labels, predict_result))
@@ -105,6 +126,8 @@ def outlier_svm(c):
 	classifier = svm.OneClassSVM(kernel='rbf')
 	print('train outlier svm......')
 	classifier.fit(training_features)
+	joblib.dump(classifier, '../models/numeric_outlier.pkl')  # save numeric outlier
+
 	predict_result = classifier.predict(novelty_features)
 	print('Outlier SVM -- confusion matrix:')
 	print(confusion_matrix([-1] * len(novelty_features), predict_result))
@@ -127,10 +150,12 @@ def classifier_num(c):
 	print('training svm......')
 	classifier_svm = svm.SVC(kernel = 'rbf', class_weight={0:10})
 	classifier_svm.fit(train_features, train_labels)
-	score = cross_val_score(classifier_svm, train_features, train_labels, scoring='accuracy', cv=cv)
-	print(score)
-	print('SVM -- cross validation mean and std:')
-	print(score.mean(), score.std())
+	joblib.dump(classifier_svm, '../models/numeric_svm.pkl')  # save numeric svm
+
+	# score = cross_val_score(classifier_svm, train_features, train_labels, scoring='accuracy', cv=cv)
+	# print(score)
+	# print('SVM -- cross validation mean and std:')
+	# print(score.mean(), score.std())
 	predict_result = classifier_svm.predict(train_features)
 	print('SVM -- confusion matrix:')
 	print(confusion_matrix(train_labels, predict_result))
