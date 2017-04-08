@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+
+    <!-- javascript source-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+</head>
+<body>
+    <button type="button" id="fake">Click Me!</button>
+    <script>
+        $(document).ready(function(){
+            $('#fake').click(function() {
+                var year = '2011';
+                $.get('/button', {year: year}, function(response) {
+                    console.log('my shit' + response);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
