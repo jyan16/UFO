@@ -5,7 +5,7 @@ $(document).ready(function(){
     $('#fake').click(function() {
         var year = '2011';
         $.get('/button', {year: year}, function(response) {
-            console.log(response);
+            console.log('my shit' + response);
         });
     });
 });

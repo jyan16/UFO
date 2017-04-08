@@ -101,7 +101,7 @@ def check():
 		print(confusion_matrix(train_labels, predict_result))
 		print('******************************************************************')
 	#svm
-	for i in range(10, 20):
+	for i in range(15, 25):
 		print('training svm with weight: ' + str(i) + '......')
 		classifier_svm = svm.SVC(kernel = 'rbf', class_weight={0:i})
 		classifier_svm.fit(train_features, train_labels)

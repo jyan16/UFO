@@ -86,9 +86,9 @@ def main():
 	opts = parser.parse_args()
 	print('what the fuck')
 
-	conn = sqlite3.connect('../../data/my_ufo.db')
-	c = conn.cursor()
-	test(c)
+	# conn = sqlite3.connect('../../data/my_ufo.db')
+	# c = conn.cursor()
+	# test(c)
 
 
 

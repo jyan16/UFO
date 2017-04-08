@@ -125,9 +125,9 @@ def outlier_svm(c):
 	classifier.fit(training_features)
 	joblib.dump(classifier, '../models/numeric_outlier.pkl')  # save numeric outlier
 
-	predict_result = classifier.predict(novelty_features)
+	predict_result = classifier.predict(training_features + novelty_features)
 	print('Outlier SVM -- confusion matrix:')
-	print(confusion_matrix([-1] * len(novelty_features), predict_result))
+	print(confusion_matrix([1] * len(training_features) + [-1] * len(novelty_features), predict_result))
 	print('***********************************************************************')
 
 
@@ -145,7 +145,7 @@ def classifier_num(c):
 	train_features = numpy.array(list(true_features) + list(fake_features))
 	#svm
 	print('training svm......')
-	classifier_svm = svm.SVC(kernel = 'rbf', class_weight={0:10})
+	classifier_svm = svm.SVC(kernel = 'rbf', class_weight={0:16})
 	classifier_svm.fit(train_features, train_labels)
 	joblib.dump(classifier_svm, '../models/numeric_svm.pkl')  # save numeric svm
 
@@ -166,9 +166,9 @@ def main():
 	conn = sqlite3.connect('../../data/my_ufo.db')
 	c = conn.cursor()
 
-	classifier_num(c)
+	#classifier_num(c)
 	outlier_svm(c)
-	classifier_text()
+	#classifier_text()
 
 
 
