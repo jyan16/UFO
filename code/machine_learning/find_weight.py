@@ -43,14 +43,12 @@ def load_database(c):
 	                        FROM weathers'''):
 		summary_list.append(row[0].lower())
 	le_weather = preprocessing.LabelEncoder().fit(summary_list)
-	joblib.dump(le_weather, '../models/weather_trans.pkl') #save le_weather
 
 	shape_list = []
 	for row in c.execute('''SELECT distinct shape
 	                        FROM events'''):
 		shape_list.append(row[0].lower())
 	le_shape = preprocessing.LabelEncoder().fit(shape_list)
-	joblib.dump(le_shape, '../models/shape_trans.pkl') #save le_shape
 
 	train_features = []
 	novelty_features = []
@@ -66,11 +64,10 @@ def load_database(c):
 			train_features.append([row[0], row[1], int(row[2].split(':')[0]), le_shape.transform([row[3].lower()])[0],
 						  le_weather.transform([row[4].lower()])[0], row[5]])
 
-	le_scale = preprocessing.StandardScaler().fit(train_features + novelty_features)
-	joblib.dump(le_scale, '../models/data_scale.pkl') #save scale model
-
-	train_features = le_scale.transform(train_features)
-	novelty_features = le_scale.transform(novelty_features)
+	# le_scale = preprocessing.StandardScaler().fit(train_features + novelty_features)
+	#
+	# train_features = le_scale.transform(train_features)
+	# novelty_features = le_scale.transform(novelty_features)
 
 	# train_features = preprocessing.scale(train_features)
 	# novelty_features = preprocessing.scale(novelty_features)
@@ -102,7 +99,7 @@ def check():
 	print(confusion_matrix(train_labels, predict_result))
 	print('******************************************************************')
 
-	# #logistic regression
+	#logistic regression
 	# for i in range(10, 20):
 	# 	print('training logistic regression with weight: ' + str(i) + '......')
 	# 	classifier_lr = LogisticRegression(class_weight={0:i})
