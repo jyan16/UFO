@@ -11,7 +11,7 @@ from sklearn import preprocessing
 from sklearn.model_selection import cross_val_score
 from sklearn.model_selection import ShuffleSplit
 from sklearn.linear_model import LogisticRegression
-import random
+
 from sklearn.externals import joblib
 
 
@@ -62,14 +62,6 @@ def load_database(c):
 			train_features.append([row[0], row[1], int(row[2].split(':')[0]), le_shape.transform([row[3].lower()])[0],
 						  le_weather.transform([row[4].lower()])[0], row[5]])
 
-	le_scale = preprocessing.StandardScaler().fit(train_features + novelty_features)
-	joblib.dump(le_scale, '../models/data_scale.pkl') #save scale model
-
-	train_features = le_scale.transform(train_features)
-	novelty_features = le_scale.transform(novelty_features)
-
-	# train_features = preprocessing.scale(train_features)
-	# novelty_features = preprocessing.scale(novelty_features)
 
 	return (numpy.array(train_features), numpy.array(novelty_features))
 
@@ -89,7 +81,7 @@ def classifier_text():
 
 	#using logistic regression to train data
 	print('training logistic regression......')
-	classifier_logistic = LogisticRegression(class_weight={0:7})
+	classifier_logistic = LogisticRegression(class_weight={0:10})
 	classifier_logistic.fit(training_features, training_labels)
 	joblib.dump(classifier_logistic, '../models/summary_log.pkl') #save summary logistic
 
@@ -104,7 +96,7 @@ def classifier_text():
 
 	#using svm to train data
 	print('training svm......')
-	classifier_svm = svm.LinearSVC(class_weight = {0:7})
+	classifier_svm = svm.LinearSVC(class_weight = {0:10})
 	classifier_svm.fit(training_features, training_labels)
 	joblib.dump(classifier_svm, '../models/summary_svm.pkl')  # save summary svm
 
@@ -145,7 +137,7 @@ def classifier_num(c):
 	train_features = numpy.array(list(true_features) + list(fake_features))
 	#svm
 	print('training svm......')
-	classifier_svm = svm.SVC(kernel = 'rbf', class_weight={0:16})
+	classifier_svm = svm.SVC(kernel = 'rbf', class_weight={0:12})
 	classifier_svm.fit(train_features, train_labels)
 	joblib.dump(classifier_svm, '../models/numeric_svm.pkl')  # save numeric svm
 
@@ -166,9 +158,9 @@ def main():
 	conn = sqlite3.connect('../../data/my_ufo.db')
 	c = conn.cursor()
 
-	#classifier_num(c)
-	outlier_svm(c)
-	#classifier_text()
+	classifier_num(c)
+	#outlier_svm(c)
+	classifier_text()
 
 
 

@@ -37,7 +37,6 @@ def load_database(c):
 	#load preprocessing model
 	le_shape = joblib.load('../models/shape_trans.pkl')
 	le_weather = joblib.load('../models/weather_trans.pkl')
-	le_scale = joblib.load('../models/data_scale.pkl')
 
 	#load data
 	train_features = []
@@ -55,40 +54,60 @@ def load_database(c):
 						  le_weather.transform([row[4].lower()])[0], row[5]])
 
 	#preprocessing data
-	train_features = le_scale.transform(train_features)
-	novelty_features = le_scale.transform(novelty_features)
 
 	return (numpy.array(train_features), numpy.array(novelty_features))
 
 def test(c):
 	#load models
 	vectorizer = joblib.load('../models/vectorizer.pkl')
-	numeric_outlier = joblib.load('../models/numeric_outlier.pkl')
 	numeric_svm = joblib.load('../models/numeric_svm.pkl')
 	summary_log = joblib.load('../models/summary_log.pkl')
 	summary_svm = joblib.load('../models/summary_svm.pkl')
 
-	#load data
+	#load data to test
 
-	print('*********The following result is based on UFO description summary**********')
-	(true_features, fake_features) = load_database(c)
-
-
-
-	(training_labels, training_texts) = load_file('../../data/processed/file_ufo_lat.csv')
-	training_features = vectorizer.transform(training_texts)
-
+	# (training_labels, training_texts) = load_file('../../data/processed/file_ufo_lat.csv')
+	# training_features = vectorizer.transform(training_texts)
+	# training_labels = numpy.array(training_labels)
+	#
+	# # score_sum_svm = summary_svm.score(training_features, training_labels)
+	# # print('summary_svm accuracy: ' + str(score_sum_svm))
+	# predict_result = summary_svm.predict(training_features)
+	# print('summary_svm -- confusion matrix:')
+	# print(confusion_matrix(training_labels, predict_result))
+	#
+	#
+	#
+	# # score_sum_log = summary_log.score(training_features, training_labels)
+	# # print('summary_log accuracy: ' + str(score_sum_log))
+	# predict_result = summary_log.predict(training_features)
+	# print('summary_log -- confusion matrix:')
+	# print(confusion_matrix(training_labels, predict_result))
+	#
+	#
+	# #load data to test
+	# (true_features, fake_features) = load_database(c)
+	# train_labels = [1] * len(true_features) + [0] * len(fake_features)
+	# train_features = numpy.array(list(true_features) + list(fake_features))
+	# # score_num_svm = numeric_svm.score(train_features, train_labels)
+	# # print('numeric_svm accuracy: ' + str(score_num_svm))
+	# predict_result = numeric_svm.predict(train_features)
+	# print('numeric_svm -- confusion matrix:')
+	# print(confusion_matrix(train_labels, predict_result))
 
 
 def main():
 	parser = argparse.ArgumentParser()
-	parser.add_argument('-year', required = True, default = '2017')
+	parser.add_argument('-y', required = False, default = '2017')
+	parser.add_argument('-m', required = True)
+	parser.add_argument('-d', required = True)
+	parser.add_argument('-h', required = True,)
 	opts = parser.parse_args()
 	print('what the fuck')
 
-	# conn = sqlite3.connect('../../data/my_ufo.db')
-	# c = conn.cursor()
-	# test(c)
+	conn = sqlite3.connect('../../data/my_ufo.db')
+	c = conn.cursor()
+	test(c)
 
 
 
