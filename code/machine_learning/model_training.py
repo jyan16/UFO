@@ -74,7 +74,7 @@ def classifier_text():
 	vectorizer = CountVectorizer(binary=True, lowercase=True, decode_error='replace', tokenizer=tokenizer)
 	(training_labels, training_texts) = load_file('../../data/processed/file_ufo_lat.csv')
 	training_features = vectorizer.fit_transform(training_texts)
-	joblib.dump(vectorizer,'../models/vectorizer.pkl') #save vectorizer
+	#joblib.dump(vectorizer,'../models/vectorizer.pkl') #save vectorizer
 
 	training_labels = numpy.array(training_labels)
 
@@ -83,32 +83,32 @@ def classifier_text():
 	print('training logistic regression......')
 	classifier_logistic = LogisticRegression(class_weight={0:10})
 	classifier_logistic.fit(training_features, training_labels)
-	joblib.dump(classifier_logistic, '../models/summary_log.pkl') #save summary logistic
+	# joblib.dump(classifier_logistic, '../models/summary_log.pkl') #save summary logistic
 
 	# score = cross_val_score(classifier_logistic, training_features, training_labels, scoring='accuracy', cv=cv)
 	# print(score)
 	# print('Logistic -- cross validation mean and std:')
 	# print(score.mean(), score.std())
-	predict_result = classifier_logistic.predict(training_features)
-	print('Logistic -- confusion matrix:')
-	print(confusion_matrix(training_labels, predict_result))
-
+	# predict_result = classifier_logistic.predict(training_features)
+	# print('Logistic -- confusion matrix:')
+	# print(confusion_matrix(training_labels, predict_result))
+	util.print_most_informative_features('log', vectorizer, classifier_logistic)
 
 	#using svm to train data
 	print('training svm......')
 	classifier_svm = svm.LinearSVC(class_weight = {0:10})
 	classifier_svm.fit(training_features, training_labels)
-	joblib.dump(classifier_svm, '../models/summary_svm.pkl')  # save summary svm
-
-	# score = cross_val_score(classifier_svm, training_features, training_labels, scoring='accuracy', cv=cv)
-	# print(score)
-	# print('SVM -- cross validation mean and std:')
-	# print(score.mean(), score.std())
-	predict_result = classifier_svm.predict(training_features)
-	print('SVM -- confusion matrix:')
-	print(confusion_matrix(training_labels, predict_result))
-	print('***********************************************************************')
-
+	# joblib.dump(classifier_svm, '../models/summary_svm.pkl')  # save summary svm
+	#
+	# # score = cross_val_score(classifier_svm, training_features, training_labels, scoring='accuracy', cv=cv)
+	# # print(score)
+	# # print('SVM -- cross validation mean and std:')
+	# # print(score.mean(), score.std())
+	# predict_result = classifier_svm.predict(training_features)
+	# print('SVM -- confusion matrix:')
+	# print(confusion_matrix(training_labels, predict_result))
+	# print('***********************************************************************')
+	util.print_most_informative_features('svm', vectorizer, classifier_svm)
 
 def outlier_svm(c):
 	(training_features, novelty_features)= load_database(c)
@@ -155,11 +155,11 @@ def classifier_num(c):
 
 def main():
 	# connect to database
-	conn = sqlite3.connect('../../data/my_ufo.db')
-	c = conn.cursor()
+	# conn = sqlite3.connect('../../data/my_ufo.db')
+	# c = conn.cursor()
 
-	classifier_num(c)
-	#outlier_svm(c)
+	# classifier_num(c)
+	# outlier_svm(c)
 	classifier_text()
 
 

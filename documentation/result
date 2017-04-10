@@ -1,0 +1,22 @@
+training logistic regression......
+	-7.4131	nuforc         		3.3642	rept
+	-5.4969	hoax           		3.1230	maneuv
+	-4.5635	meteoer        		2.8517	cigarett
+	-4.0940	press          		2.8346	miami
+	-3.9971	unhuman        		2.7724	treelin
+	-3.5864	barrow         		2.7538	disapp
+	-3.5250	odin           		2.7277	instantli
+	-3.4655	simsburi       		2.7028	nearbi
+	-3.2717	ussauali       		2.6493	curv
+	-3.2431	milbi          		2.6135	how
+training svm......
+	-4.3145	nuforc         		2.6820	heavi
+	-3.0925	spectra        		2.4939	aviat
+	-3.0647	hoax           		2.3825	usaf
+	-3.0319	milbi          		2.2746	anywai
+	-2.9870	toeast         		2.2120	those
+	-2.9154	attatch        		2.2022	hesit
+	-2.9035	guidanc        		2.1969	develop
+	-2.8838	xbox           		2.1739	peripheri
+	-2.7452	floti          		2.1585	god
+	-2.7144	meteoer        		2.0490	unidentif

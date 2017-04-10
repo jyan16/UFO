@@ -16,10 +16,16 @@ app.get('/', function (request, response) {
 
 app.get('/button', function(request, response) {
    var year = request.query.year;
-   exec('python3 code/interactive/detect_fake.py -year ' + year, function(error, stdout, stderr) {
-
-      console.log('fuck');
-      //console.log(stdout);
+   var month = request.query.month;
+   var day = request.query.day;
+   var time = request.query.time;
+   var summary = request.query.summary;
+   var shape = request.query.shape;
+   var city = request.query.city;
+   var state = request.query.state;
+   var execute = 'python3 code/interactive/fake_detection.py -y ' + year + ' -m ' + month + ' -d' + day
+                 + ' -t ' + time + ' -sum ' + summary + ' -shape ' + shape + ' -c ' + city + ' -s ' + state;
+   exec(execute, function(error, stdout, stderr) {
       response.json(stdout);
       if (error) {
          console.log('stderr' + stderr);
