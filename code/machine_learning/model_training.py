@@ -89,7 +89,10 @@ def classifier_text():
 	# print(score)
 	# print('Logistic -- cross validation mean and std:')
 	# print(score.mean(), score.std())
-	# predict_result = classifier_logistic.predict(training_features)
+	predict_result = classifier_logistic.predict(training_features)
+	for i in range(len(training_labels)):
+		if training_labels[i]==predict_result[i] and training_labels[i]==1:
+			print(training_texts[i])
 	# print('Logistic -- confusion matrix:')
 	# print(confusion_matrix(training_labels, predict_result))
 	util.print_most_informative_features('log', vectorizer, classifier_logistic)
@@ -154,7 +157,7 @@ def classifier_num(c):
 
 
 def main():
-	# connect to database
+	#connect to database
 	# conn = sqlite3.connect('../../data/my_ufo.db')
 	# c = conn.cursor()
 

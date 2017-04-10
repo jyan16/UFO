@@ -14,7 +14,7 @@ app.get('/', function (request, response) {
     response.render('index.html');
 });
 
-app.get('/button', function(request, response) {
+app.get('/submit', function(request, response) {
    var year = request.query.year;
    var month = request.query.month;
    var day = request.query.day;

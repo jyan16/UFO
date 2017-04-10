@@ -26,22 +26,23 @@ def get_weather(opts, lat, lng):
 	weather = weather['currently']
 	return weather
 
+
 def test(opts):
 
 	#load models
-	# le_shape = joblib.load('./code/models/shape_trans.pkl')
-	# le_weather = joblib.load('./code/models/weather_trans.pkl')
-	# vectorizer = joblib.load('./code/models/vectorizer.pkl')
-	# numeric_svm = joblib.load('./code/models/numeric_svm.pkl')
-	# summary_log = joblib.load('./code/models/summary_log.pkl')
-	# summary_svm = joblib.load('./code/models/summary_svm.pkl')
+	le_shape = joblib.load('./code/models/shape_trans.pkl')
+	le_weather = joblib.load('./code/models/weather_trans.pkl')
+	vectorizer = joblib.load('./code/models/vectorizer.pkl')
+	numeric_svm = joblib.load('./code/models/numeric_svm.pkl')
+	summary_log = joblib.load('./code/models/summary_log.pkl')
+	summary_svm = joblib.load('./code/models/summary_svm.pkl')
 
-	le_shape = joblib.load('../models/shape_trans.pkl')
-	le_weather = joblib.load('../models/weather_trans.pkl')
-	vectorizer = joblib.load('../models/vectorizer.pkl')
-	numeric_svm = joblib.load('../models/numeric_svm.pkl')
-	summary_log = joblib.load('../models/summary_log.pkl')
-	summary_svm = joblib.load('../models/summary_svm.pkl')
+	# le_shape = joblib.load('../models/shape_trans.pkl')
+	# le_weather = joblib.load('../models/weather_trans.pkl')
+	# vectorizer = joblib.load('../models/vectorizer.pkl')
+	# numeric_svm = joblib.load('../models/numeric_svm.pkl')
+	# summary_log = joblib.load('../models/summary_log.pkl')
+	# summary_svm = joblib.load('../models/summary_svm.pkl')
 
 	lat, lng = get_lat_lng(opts.c, opts.s)
 	weather_dict = get_weather(opts, lat, lng)
@@ -100,8 +101,9 @@ def main():
 	parser.add_argument('-c', required = True, help = 'city name')
 	parser.add_argument('-s', required = True, help = 'state name')
 	opts = parser.parse_args()
-	opts.sum = ' '.join(opts.sum.split('_'))
+	opts.sum = ' '.join(opts.sum.lower().split('_'))
 	test(opts)
+
 
 
 

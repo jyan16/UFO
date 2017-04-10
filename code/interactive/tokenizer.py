@@ -15,7 +15,7 @@ class Tokenizer(object):
     def process_tweet(self, tweet):
         # TODO: Change the text processing here
         # HINT: Refer to porter_stemmer_example.py to see how to use PorterStemmer
-        tweet = re.sub(r'\(\(.*\)\)','', tweet[2:])
+        tweet = re.sub(r'\(\(.*\)\)','', tweet)
         tweet = re.sub(r'\W', ' ', tweet)
         tweet_list = tweet.split()
         tweet_list = list(filter(lambda x : x not in stop, tweet_list))

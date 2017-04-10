@@ -3,18 +3,20 @@
  */
 $(document).ready(function(){
     $('#fake').click(function() {
-        var year = '2017';
-        var month = '04';
-        var day = '01';
-        var time = '10:00:00';
-        var summary = 'heavy_reptile';
-        var shape = 'circle';
-        var city = 'providence';
-        var state = 'RI';
-        $.get('/button', {year: year, month: month, day: day, time: time, summary: summary,
+        //get report information
+
+        var year = document.getElementById("year").value;
+        var month = document.getElementById("month").value;
+        var day = document.getElementById("day").value;
+        var time = document.getElementById("time").value;
+        var summary = document.getElementById("summary").value;
+        var shape = document.getElementById("shape").value;
+        var city = document.getElementById("city").value;
+        var state = document.getElementById("state").value;
+        $.get('/submit', {year: year, month: month, day: day, time: time, summary: summary,
                           shape: shape, city: city, state: state}, function(response) {
-            console.log(summary)
-            console.log(response);
+            document.getElementById("result").value = response;
+
         });
     });
 });
