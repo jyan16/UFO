@@ -18,7 +18,6 @@ app.get('/', function (request, response) {
 
 //visit report html
 app.get('/report', function (request, response) {
-   console.log('fuck!!!123')
    response.render('report.html');
 
 })

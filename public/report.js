@@ -4,7 +4,6 @@
 $(document).ready(function(){
     $('#fake').click(function() {
         //get report information
-
         var year = document.getElementById("year").value;
         var month = document.getElementById("month").value;
         var day = document.getElementById("day").value;
