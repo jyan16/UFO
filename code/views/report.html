@@ -6,7 +6,6 @@
 
     <!-- javascript source-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-    <script src="/report.js"></script>
     <script src="https://surveyjs.azureedge.net/0.12.5/survey.jquery.min.js"></script>
 
     <!-- css source-->
@@ -40,26 +39,26 @@
     <input type="text" id="result"/>
 </div>
 -->
-<div id = "surveyContainer">
+<div id = "surveyContainer"></div>
     <script>
-        var surveyJSON = {
-            pages: [
-                {
+        var surveyJSON = { pages: [
+                {   name: "report",
+                    navigationButtonsVisibility: "iherit",
                     questions: [
-                        {
-                            type: "text",
-                            inputType: "date",
-                            name: "date",
-                            title: "Date"
-                        },
-                        {
-                            type: "text",
-                            inputType: "time",
-                            name: "time",
-                            title: "Time"
-                        },
-                        {
-                            type: "dropdown",
+                    {
+                        type: "text",
+                        inputType: "date",
+                        name: "date",
+                        title: "Date"
+                    },
+                    {
+                        type: "text",
+                        inputType: "time",
+                        name: "time",
+                        title: "Time"
+                    },
+                    {
+                        type: "dropdown",
                             choices: [
                                 {
                                     value: "1",
@@ -144,18 +143,18 @@
                             ],
                             name: "shape",
                             title: "Shape"
-                        },
-                        {
+                    },
+                    {
                             type: "text",
                             name: "summary",
                             title: "Summary"
-                        },
-                        {
+                    },
+                    {
                             type: "text",
                             name: "city",
                             title: "City"
-                        },
-                        {
+                    },
+                    {
                             type: "dropdown",
                             choices: [
                                 {
@@ -361,22 +360,19 @@
                             ],
                             name: "state",
                             title: "State"
-                        }
-                    ],
-                    name: "report"
-                }
-            ],
-            title: "my report"
-        };
+                        }],
+                    title: "Report Information"
+                }],
+                sendResultOnPageNext: true
+            }
 
-        Survey.defaultBootstrapCss.navigationButton = "btn";
-        Survey.Survey.cssType = "bootstrap";
-        var survey = new Survey.Model(surveyJSON);
-        $("surveyContainer").Survey({
-            model:survey
-        });
+            Survey.Survey.cssType = "bootstrap";
+            var survey = new Survey.Model(surveyJSON);
+            $("#surveyContainer").Survey({
+                model:survey
+            });
+
     </script>
-</div>
 
 </body>
 </html>
