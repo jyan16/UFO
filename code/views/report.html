@@ -10,134 +10,120 @@
 
     <!-- css source-->
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/style.css">
 </head>
 <body>
 
+<div class="container">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
 
-<!--
-<div>
-    time:
-    <input type="text" id="year" value="2017"/>
-    <input type="text" id="month" value="04"/>
-    <input type="text" id="day" value="01"/>
-    <input type="text" id="time" value="22:00:00"/>
+            <div id="surveyContainer"></div>
+
+        </div>
+    </div>
 </div>
-<div>
-    summary:
-    <input type="text" id="summary" value="strange_lights_around_Cody_area" size = "35"/>
-    <input type="text" id="shape" value="circle"/>
-</div>
-<div>
-    location:
-    <input type="text" id="city" value="providence"/>
-    <input type="text" id="state" value="RI"/>
-</div>
-<div>
-    <button type="button" id="fake">Report!!!!</button>
-</div>
-<div>
-    <input type="text" id="result"/>
-</div>
--->
-<div id = "surveyContainer"></div>
+
     <script>
         var surveyJSON = { pages: [
                 {   name: "report",
                     navigationButtonsVisibility: "iherit",
                     questions: [
-                    {
-                        type: "text",
-                        inputType: "date",
-                        name: "date",
-                        title: "Date"
-                    },
-                    {
-                        type: "text",
-                        inputType: "time",
-                        name: "time",
-                        title: "Time"
-                    },
+                        {
+                            type: "text",
+                            inputType: "date",
+                            name: "date",
+                            title: "When did you see? (date)"
+
+                        },
+                        {
+                            type: "text",
+                            inputType: "time",
+                            name: "time",
+                            title: "When did you see? (time)",
+                            startWithNewLine: false
+                        },
                     {
                         type: "dropdown",
                             choices: [
                                 {
-                                    value: "1",
+                                    value: "Light",
                                     text: "Light"
                                 },
                                 {
-                                    value: "2",
+                                    value: "Circle",
                                     text: "Circle"
                                 },
                                 {
-                                    value: "3",
+                                    value: "Triangle",
                                     text: "Triangle"
                                 },
                                 {
-                                    value: "4",
+                                    value: "Fireball",
                                     text: "Fireball"
                                 },
                                 {
-                                    value: "5",
+                                    value: "Sphere",
                                     text: "Sphere"
                                 },
                                 {
-                                    value: "6",
+                                    value: "Disk",
                                     text: "Disk"
                                 },
                                 {
-                                    value: "7",
+                                    value: "Oval",
                                     text: "Oval"
                                 },
                                 {
-                                    value: "8",
+                                    value: "Formation",
                                     text: "Formation"
                                 },
                                 {
-                                    value: "9",
+                                    value: "Changing",
                                     text: "Changing"
                                 },
                                 {
-                                    value: "10",
+                                    value: "Cigar",
                                     text: "Cigar"
                                 },
                                 {
-                                    value: "11",
+                                    value: "Flash",
                                     text: "Flash"
                                 },
                                 {
-                                    value: "12",
+                                    value: "Rectangle",
                                     text: "Rectangle"
                                 },
                                 {
-                                    value: "13",
+                                    value: "Cylinder",
                                     text: "Cylinder"
                                 },
                                 {
-                                    value: "14",
+                                    value: "Diamond",
                                     text: "Diamond"
                                 },
                                 {
-                                    value: "15",
+                                    value: "Chevron",
                                     text: "Chevron"
                                 },
                                 {
-                                    value: "16",
+                                    value: "Teardrop",
                                     text: "Teardrop"
                                 },
                                 {
-                                    value: "17",
+                                    value: "Egg",
                                     text: "Egg"
                                 },
                                 {
-                                    value: "18",
+                                    value: "Cone",
                                     text: "Cone"
                                 },
                                 {
-                                    value: "19",
+                                    value: "Cross",
                                     text: "Cross"
                                 },
                                 {
-                                    value: "20",
+                                    value: "Unknown",
                                     text: "Unknown"
                                 }
                             ],
@@ -158,203 +144,203 @@
                             type: "dropdown",
                             choices: [
                                 {
-                                    value: "1",
+                                    value: "AL",
                                     text: "AL"
                                 },
                                 {
-                                    value: "2",
+                                    value: "AK",
                                     text: "AK"
                                 },
                                 {
-                                    value: "3",
+                                    value: "AZ",
                                     text: "AZ"
                                 },
                                 {
-                                    value: "4",
+                                    value: "AR",
                                     text: "AR"
                                 },
                                 {
-                                    value: "5",
+                                    value: "CA",
                                     text: "CA"
                                 },
                                 {
-                                    value: "6",
+                                    value: "CO",
                                     text: "CO"
                                 },
                                 {
-                                    value: "7",
+                                    value: "CT",
                                     text: "CT"
                                 },
                                 {
-                                    value: "8",
+                                    value: "DE",
                                     text: "DE"
                                 },
                                 {
-                                    value: "9",
+                                    value: "FL",
                                     text: "FL"
                                 },
                                 {
-                                    value: "10",
+                                    value: "GA",
                                     text: "GA"
                                 },
                                 {
-                                    value: "11",
+                                    value: "HI",
                                     text: "HI"
                                 },
                                 {
-                                    value: "12",
+                                    value: "ID",
                                     text: "ID"
                                 },
                                 {
-                                    value: "13",
+                                    value: "IL",
                                     text: "IL"
                                 },
                                 {
-                                    value: "14",
+                                    value: "IA",
                                     text: "IA"
                                 },
                                 {
-                                    value: "15",
+                                    value: "KS",
                                     text: "KS"
                                 },
                                 {
-                                    value: "16",
+                                    value: "KY",
                                     text: "KY"
                                 },
                                 {
-                                    value: "17",
+                                    value: "LA",
                                     text: "LA"
                                 },
                                 {
-                                    value: "18",
+                                    value: "ME",
                                     text: "ME"
                                 },
                                 {
-                                    value: "19",
+                                    value: "MD",
                                     text: "MD"
                                 },
                                 {
-                                    value: "20",
+                                    value: "MA",
                                     text: "MA"
                                 },
                                 {
-                                    value: "21",
+                                    value: "MI",
                                     text: "MI"
                                 },
                                 {
-                                    value: "22",
+                                    value: "MN",
                                     text: "MN"
                                 },
                                 {
-                                    value: "23",
+                                    value: "MS",
                                     text: "MS"
                                 },
                                 {
-                                    value: "24",
+                                    value: "MO",
                                     text: "MO"
                                 },
                                 {
-                                    value: "25",
+                                    value: "MT",
                                     text: "MT"
                                 },
                                 {
-                                    value: "26",
+                                    value: "NE",
                                     text: "NE"
                                 },
                                 {
-                                    value: "27",
+                                    value: "NV",
                                     text: "NV"
                                 },
                                 {
-                                    value: "28",
+                                    value: "NH",
                                     text: "NH"
                                 },
                                 {
-                                    value: "29",
+                                    value: "NJ",
                                     text: "NJ"
                                 },
                                 {
-                                    value: "30",
+                                    value: "NM",
                                     text: "NM"
                                 },
                                 {
-                                    value: "31",
+                                    value: "NY",
                                     text: "NY"
                                 },
                                 {
-                                    value: "32",
+                                    value: "NC",
                                     text: "NC"
                                 },
                                 {
-                                    value: "33",
+                                    value: "ND",
                                     text: "ND"
                                 },
                                 {
-                                    value: "34",
+                                    value: "OH",
                                     text: "OH"
                                 },
                                 {
-                                    value: "35",
+                                    value: "OK",
                                     text: "OK"
                                 },
                                 {
-                                    value: "36",
+                                    value: "OR",
                                     text: "OR"
                                 },
                                 {
-                                    value: "37",
+                                    value: "PA",
                                     text: "PA"
                                 },
                                 {
-                                    value: "38",
+                                    value: "RI",
                                     text: "RI"
                                 },
                                 {
-                                    value: "39",
+                                    value: "SC",
                                     text: "SC"
                                 },
                                 {
-                                    value: "40",
+                                    value: "SD",
                                     text: "SD"
                                 },
                                 {
-                                    value: "41",
+                                    value: "TN",
                                     text: "TN"
                                 },
                                 {
-                                    value: "42",
+                                    value: "TX",
                                     text: "TX"
                                 },
                                 {
-                                    value: "43",
+                                    value: "UT",
                                     text: "UT"
                                 },
                                 {
-                                    value: "44",
+                                    value: "VT",
                                     text: "VT"
                                 },
                                 {
-                                    value: "45",
+                                    value: "VA",
                                     text: "VA"
                                 },
                                 {
-                                    value: "46",
+                                    value: "WA",
                                     text: "WA"
                                 },
                                 {
-                                    value: "47",
+                                    value: "WV",
                                     text: "WV"
                                 },
                                 {
-                                    value: "48",
+                                    value: "WI",
                                     text: "WI"
                                 },
                                 {
-                                    value: "49",
+                                    value: "WY",
                                     text: "WY"
                                 },
                                 {
-                                    value: "50",
+                                    value: "DC",
                                     text: "DC"
                                 }
                             ],
@@ -363,14 +349,30 @@
                         }],
                     title: "Report Information"
                 }],
-                sendResultOnPageNext: true
+                sendResultOnPageNext: true,
+                completedHtml: "<h3 class='complete'></h3>"
             }
 
             Survey.Survey.cssType = "bootstrap";
+            Survey.defaultBootstrapCss.navigationButton = "btn";
+            var data = {date: "2017-04-01", time: "10:00", shape: "Triangle", summary: "what_the_fuck", city: "providence", state: "RI"};
             var survey = new Survey.Model(surveyJSON);
             $("#surveyContainer").Survey({
-                model:survey
+                model:survey,
+                data: data,
+                onComplete: getData
             });
+
+            function getData(survey) {
+                //console.log(survey.data);
+
+                $.get('/submit', survey.data, function(response) {
+                    $(".complete").text("Your report may be " + response);
+                    //document.getElementById("result").value = response;
+
+                });
+            };
+
 
     </script>
 

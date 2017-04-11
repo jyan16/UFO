@@ -20,7 +20,7 @@ def get_lat_lng(city, state):
 	return lat,lng
 
 def get_weather(opts, lat, lng):
-	time = opts.y + '-' + opts.m + '-' + opts.d + 'T' + opts.t
+	time = opts.d + 'T' + opts.t + ':00'
 	query =  str(lat) + ',' + str(lng) + ',' + time
 	weather = requests.get(url = weatherField1 + weatherKey + '/' + query + weatherField2).json()
 	weather = weather['currently']
@@ -46,7 +46,7 @@ def test(opts):
 
 	lat, lng = get_lat_lng(opts.c, opts.s)
 	weather_dict = get_weather(opts, lat, lng)
-	numeric_feature = numpy.array([lat, lng, int(opts.t.split(':')[0]), le_shape.transform([opts.shape])[0],
+	numeric_feature = numpy.array([lat, lng, int(opts.t.split(':')[0]), le_shape.transform([opts.shape.lower()])[0],
 			   			 le_weather.transform([weather_dict['summary'].lower()])[0], weather_dict['visibility']])
 	description_feature = vectorizer.transform([opts.sum])
 	summary_svm_result = summary_svm.predict(description_feature)[0]
@@ -92,9 +92,9 @@ def test(opts):
 
 def main():
 	parser = argparse.ArgumentParser()
-	parser.add_argument('-y', required = False, default = '2017', help = 'year')
-	parser.add_argument('-m', required = True, help = 'month')
-	parser.add_argument('-d', required = True, help = 'day')
+	# parser.add_argument('-y', required = False, default = '2017', help = 'year')
+	# parser.add_argument('-m', required = True, help = 'month')
+	parser.add_argument('-d', required = True, help = 'date')
 	parser.add_argument('-t', required = True, help = 'time')
 	parser.add_argument('-sum', required = True, help = 'description')
 	parser.add_argument('-shape', required=True, help='shape')

@@ -20,20 +20,14 @@ app.get('/', function (request, response) {
 app.get('/report', function (request, response) {
    response.render('report.html');
 
-})
+});
 
 //submit report and decide whether it is true
 app.get('/submit', function(request, response) {
-   var year = request.query.year;
-   var month = request.query.month;
-   var day = request.query.day;
-   var time = request.query.time;
-   var summary = request.query.summary;
-   var shape = request.query.shape;
-   var city = request.query.city;
-   var state = request.query.state;
-   var execute = 'python3 code/interactive/fake_detection.py -y ' + year + ' -m ' + month + ' -d' + day
-                 + ' -t ' + time + ' -sum ' + summary + ' -shape ' + shape + ' -c ' + city + ' -s ' + state;
+   console.log(request.query);
+   var data = request.query;
+   var execute = 'python3 code/interactive/fake_detection.py -d ' + data.date + ' -t ' + data.time +
+                 ' -sum ' + data.summary + ' -shape ' + data.shape + ' -c ' + data.city + ' -s ' + data.state;
    exec(execute, function(error, stdout, stderr) {
       response.json(stdout);
       if (error) {
