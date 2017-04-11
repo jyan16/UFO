@@ -17,9 +17,9 @@ app.get('/', function (request, response) {
 });
 
 //visit report html
-app.post('/report', function (request, response) {
+app.get('/report', function (request, response) {
    console.log('fuck!!!123')
-   response.render('report.html')
+   response.render('report.html');
 
 })
 

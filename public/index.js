@@ -3,8 +3,8 @@
  */
 $(document).ready(function(){
     $('#report').click(function() {
-        $.get('/report', {}, function(response) {
-            console.log('what the fuck');
+        $.get('/report',{}, function(response) {
+            console.log(response);
         });
     });
 });
