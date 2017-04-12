@@ -66,36 +66,6 @@
 		<p>
 		Cross_valid_core reflect the whole accuracy of model, while TP / (TP + FN) reflects how many fake reports are detected. By alternating class weight, SVM with RBF Kernel, Logistic Regression and Linear SVM models can solve unbalanced dataset problems better and we use this judge_score to find out best class weight for each model. Finally, we build two kinds of model, for numeric features (lat, lng, time, shape, weather and visibility) and description summary separately:
 		</p>
-		<table border="1", align = "center", style = "font-size:18px", cellpadding="5">
-		<tr>
-		<td>Features</td>
-		<td>Model</td>
-		<td>Best Weight</td>
-		<td>judge_score</td>
-		</tr>
-		<tr>
-		<td rowspan="2">numeric</td>
-		<td>SVM (RBF)</td>
-		<td>10</td>
-		<td>0.487</td>
-		</tr>
-		<tr>
-		<td>SVM (one-class)</td>
-		<td>--</td>
-		<td>0.497</td>
-		</tr>
-		<tr>
-		<td rowspan="2">description</td>
-		<td>Logistic Regression</td>
-		<td>7</td>
-		<td>0.413</td>
-		</tr>
-		<tr>
-		<td>Linear SVM</td>
-		<td>7</td>
-		<td>0.412</td>
-		</tr>
-		</table>
       	<p>
       	Note:
 	  	</p>

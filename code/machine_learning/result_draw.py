@@ -1,20 +1,43 @@
 import matplotlib.pyplot as plt
+import xlrd
 
-#draw cross validation result for weighted svm classifier
-cross_validation_score_mean = [0.9543, 0.9706, 0.9748, 0.9758, 0.9761, 0.9766,
-						  		0.9764, 0.9759, 0.9758, 0.9755, 0.9752, 0.9750, 0.9748]
-cross_validation_score_std = [0.001635, 0.000810, 0.001503, 0.000806, 0.000762, 0.000889,
-							  0.000727, 0.001038, 0.001237, 0.000553, 0.001077, 0.000601, 0.000958]
-x = [1,2,3,4,5,6,7,8,9,10,11,12,13]
 
-fig1, ax1_fig1 = plt.subplots()
-ax2_fig1 = ax1_fig1.twinx()
-ax1_fig1.plot(x, cross_validation_score_mean, linewidth = 3, color = '#BE4B48')
-ax1_fig1.set_ylim([0.95,0.98])
-ax1_fig1.set_ylabel('accuracy mean')
-ax1_fig1.set_xlabel("weight of class '0'")
-ax2_fig1.plot(x, cross_validation_score_std, linewidth = 1, color = '#4A7EBB')
-ax2_fig1.set_ylim([0,0.004])
-ax2_fig1.set_ylabel('accuracy std')
-plt.title('weighted SVM with numeric features')
+#get data from excel
+excel = xlrd.open_workbook('../../documentation/RESULT.xlsx')
+table = excel.sheet_by_index(1)
+
+cross = []
+tp = []
+score = []
+weight = []
+for i in range(1,56):
+	row = table.row_values(i)
+	weight.append(row[1])
+	cross.append(row[6])
+	tp.append(row[7])
+	score.append(row[8])
+
+
+#plot data
+plt.figure(figsize = (10,7))
+plt.subplot(2,2,1)
+plt.plot(weight[0:17], cross[0:17], 'b-')
+plt.plot(weight[0:17], tp[0:17], 'r-')
+plt.plot(weight[0:17], score[0:17], 'g-')
+plt.title('num_svm')
+
+
+plt.subplot(2,2,2)
+plt.plot(weight[17:36], cross[17:36], 'b-')
+plt.plot(weight[17:36], tp[17:36], 'r-')
+plt.plot(weight[17:36], score[17:36], 'g-')
+plt.title('text_log')
+
+ax = plt.subplot(2,2,3)
+a = plt.plot(weight[37:], cross[37:], 'b-')
+b = plt.plot(weight[37:], tp[37:], 'r-')
+c = plt.plot(weight[37:], score[37:], 'g-')
+plt.title('text_svm')
+
+ax.legend(['cross_valid_score', 'recall', 'judge_score'], loc = 1, bbox_to_anchor = (1.9, 0.6), borderaxespad = 0.)
 plt.show()

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+    <title>Blog III</title>
+    <style type="text/css">
+        body, p, h1, h2, h3, h4, h5, li{
+            font-family: 'Roboto', sans-serif;
+        }
+        p {
+            font-size: 15pt;
+            margin-top: 20px;
+            margin-bottom: 15px;
+        }
+        li {
+            font-size: 15pt;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="row" align="justify">
+        <div class="col-md-12">
+            <h1 align="center" style="height: 250px; padding-top:100px;
+        color: #FFF;
+        background:#14468A;
+            background:-webkit-gradient(left, 0 0, 0 100%, from(#14468A), to(#3C8749));
+            background:-moz-linear-gradient(right, #14468A, #3C8749);
+            background:-o-linear-gradient(right, #14468A, #3C8749);
+            background:linear-gradient(to right, #14468A, #3C8749);">
+                Data Science Final Project
+            </h1>
+        </div>
+    </div>
+
+    <div class="row" align="justify">
+        <div class="col-md-12">
+            <h3><a href="https://jyan16.github.io/UFO/">Return to Home Page</a></h3>
+        </div>
+    </div>
+
+    <div class="row" align="justify">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            <h2 align="center" style="color: #3C8749"><b>Model Refreshing</b></h2>
+            <p>
+            	We checked our fake detection models recently, and found some problems. Thus in this blog we refresh our fake detection models. 
+            </p>
+            <p>
+            	The first problem is about data preprocessing. Our original thinking is that by normalizing numeric data into mean=0 and std=1, it is more convenient for SVM with RBF Kernel to training.  However, we mistakenly preprocess fake and true data separately, which makes them have much more different to each other, resulting in better classification result. This time, we first try to preprocessing them together, and then train models without preprocessing. By comparing result, we abandon data preprocessing of numerical data. This time, we alternate judge score as follows:
+<pre>
+judge_score = (cross_valid_score * 0.7 + recall * 0.3)
+</pre>
+            </p>
+            <p>
+                The relationship between class weight and judge score are shown in figure 1, and get the best weight based on judge score, as shown in the following table.
+            <table border="1", align = "center", style = "font-size:18px", cellpadding="5">
+            <tr>
+            <td>Features</td>
+            <td>Model</td>
+            <td>Best Weight</td>
+            <td>judge_score</td>
+            </tr>
+            <tr>
+            <td rowspan="1">numeric</td>
+            <td>SVM (RBF)</td>
+            <td>12</td>
+            <td>0.849</td>
+            </tr>
+            <tr>
+            <td rowspan="2">description</td>
+            <td>Logistic Regression</td>
+            <td>10</td>
+            <td>0.796</td>
+            </tr>
+            <tr>
+            <td>Linear SVM</td>
+            <td>10</td>
+            <td>0.802</td>
+            </tr>
+            </table>
+
+            <h2>add image here</h2>
+            </p>
+            <h2 align="center" style="color: #3C8749"><b>Statistic Analysis</b></h2>
+            <h2 align="center" style="color: #3C8749"><b>Process of Web Application</b></h2>
+            <p>
+                In this blog, we start to design and implement our web application for UFO report. To begin with, our website has two functions: 
+                <ol>
+                    <li>
+                    Let users to report their UFO sighting and give them our comments on their reports, i.e., whether they are fake or not. 
+                    </li>
+                    <li>
+                    Show our statistic result of previous UFO reports, which should be interactive to users.
+                    </li>
+                    <li>
+                    Update our my_ufo.db based on new UFO reports.
+                    </li>
+                </ol>
+                
+            </p>
+            <p>
+            Currently, we let all models vote to determine whether a new UFO report is fake, and use judge_score as the weight of each classifier. The structure of our web application is shown in figure 2. We use Node.js as server to combine front end and back end. We have already acheived fake detection part, as shown in figure 3.
+            <h2>add image here</h2> 
+            </p>
+        </div>
+    </div>
+</div>
+</body>
+</html>
