@@ -30,39 +30,44 @@ def get_weather(opts, lat, lng):
 def test(opts):
 
 	#load models
-	le_shape = joblib.load('./code/models/shape_trans.pkl')
-	le_weather = joblib.load('./code/models/weather_trans.pkl')
-	vectorizer = joblib.load('./code/models/vectorizer.pkl')
-	numeric_svm = joblib.load('./code/models/numeric_svm.pkl')
-	summary_log = joblib.load('./code/models/summary_log.pkl')
-	summary_svm = joblib.load('./code/models/summary_svm.pkl')
+	# le_shape = joblib.load('./code/models/shape_trans.pkl')
+	# le_weather = joblib.load('./code/models/weather_trans.pkl')
+	# vectorizer = joblib.load('./code/models/vectorizer.pkl')
+	# numeric_svm = joblib.load('./code/models/numeric_svm.pkl')
+	# summary_log = joblib.load('./code/models/summary_log.pkl')
+	# summary_svm = joblib.load('./code/models/summary_svm.pkl')
 
-	# le_shape = joblib.load('../models/shape_trans.pkl')
-	# le_weather = joblib.load('../models/weather_trans.pkl')
-	# vectorizer = joblib.load('../models/vectorizer.pkl')
-	# numeric_svm = joblib.load('../models/numeric_svm.pkl')
-	# summary_log = joblib.load('../models/summary_log.pkl')
-	# summary_svm = joblib.load('../models/summary_svm.pkl')
+	le_shape = joblib.load('../models/shape_trans.pkl')
+	le_weather = joblib.load('../models/weather_trans.pkl')
+	vectorizer = joblib.load('../models/vectorizer.pkl')
+	numeric_svm = joblib.load('../models/numeric_svm.pkl')
+	summary_log = joblib.load('../models/summary_log.pkl')
+	summary_svm = joblib.load('../models/summary_svm.pkl')
 
 	lat, lng = get_lat_lng(opts.c, opts.s)
 	weather_dict = get_weather(opts, lat, lng)
 	numeric_feature = numpy.array([lat, lng, int(opts.t.split(':')[0]), le_shape.transform([opts.shape.lower()])[0],
 			   			 le_weather.transform([weather_dict['summary'].lower()])[0], weather_dict['visibility']])
 	description_feature = vectorizer.transform([opts.sum])
-	summary_svm_result = summary_svm.predict(description_feature)[0]
-	summary_log_result = summary_log.predict(description_feature)[0]
-	numeric_svm_result = numeric_svm.predict([numeric_feature])[0]
+	a = summary_svm.predict(description_feature)
+	summary_svm_result = summary_svm.predict_proba(description_feature)
+	for item1, item2 in zip(a, summary_svm_result):
+		print(item1, item2)
+
+
+
+	summary_log_result = summary_log.predict_proba(description_feature)[0][1]
+	b = summary_log.predict(description_feature)
+	numeric_svm_result = numeric_svm.predict_proba([numeric_feature])[0][1]
+	c = numeric_svm.predict([numeric_feature])
 	result = (numeric_svm_result * 850 + summary_log_result * 796 + summary_svm_result * 802) / 2448
-	if result < 0.5:
-		print('fake')
-	else:
-		print('true')
+	print(result)
 
 	#load data to test
 
-	# (training_labels, training_texts) = load_file('../../data/processed/file_ufo_lat.csv')
-	# training_features = vectorizer.transform(training_texts)
-	# training_labels = numpy.array(training_labels)
+	(training_labels, training_texts) = load_file('../../data/processed/file_ufo_lat.csv')
+	training_features = vectorizer.transform(training_texts)
+	training_labels = numpy.array(training_labels)
 	#
 	# # score_sum_svm = summary_svm.score(training_features, training_labels)
 	# # print('summary_svm accuracy: ' + str(score_sum_svm))

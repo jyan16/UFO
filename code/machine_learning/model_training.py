@@ -11,7 +11,6 @@ from sklearn import preprocessing
 from sklearn.model_selection import cross_val_score
 from sklearn.model_selection import ShuffleSplit
 from sklearn.linear_model import LogisticRegression
-
 from sklearn.externals import joblib
 
 
@@ -79,6 +78,7 @@ def classifier_text():
 	training_labels = numpy.array(training_labels)
 
 
+
 	#using logistic regression to train data
 	print('training logistic regression......')
 	classifier_logistic = LogisticRegression(class_weight={0:10})
@@ -90,9 +90,6 @@ def classifier_text():
 	# print('Logistic -- cross validation mean and std:')
 	# print(score.mean(), score.std())
 	predict_result = classifier_logistic.predict(training_features)
-	# for i in range(len(training_labels)):
-	# 	if training_labels[i]==predict_result[i] and training_labels[i]==1:
-	# 		print(training_texts[i])
 	print('Logistic -- confusion matrix:')
 	print(confusion_matrix(training_labels, predict_result))
 	util.print_most_informative_features('log', vectorizer, classifier_logistic)
@@ -102,16 +99,16 @@ def classifier_text():
 	classifier_svm = svm.SVC(class_weight = {0:10}, kernel='linear', probability=True)
 	classifier_svm.fit(training_features, training_labels)
 	joblib.dump(classifier_svm, '../models/summary_svm.pkl')  # save summary svm
-	#
-	# # score = cross_val_score(classifier_svm, training_features, training_labels, scoring='accuracy', cv=cv)
-	# # print(score)
-	# # print('SVM -- cross validation mean and std:')
-	# # print(score.mean(), score.std())
+
+	# score = cross_val_score(classifier_svm, training_features, training_labels, scoring='accuracy', cv=cv)
+	# print(score)
+	# print('SVM -- cross validation mean and std:')
+	# print(score.mean(), score.std())
 	predict_result = classifier_svm.predict(training_features)
 	print('SVM -- confusion matrix:')
 	print(confusion_matrix(training_labels, predict_result))
-	print('***********************************************************************')
-	util.print_most_informative_features('svm', vectorizer, classifier_svm)
+	# print('***********************************************************************')
+	# util.print_most_informative_features('svm', vectorizer, classifier_svm)
 
 def outlier_svm(c):
 	(training_features, novelty_features)= load_database(c)
@@ -144,10 +141,10 @@ def classifier_num(c):
 	classifier_svm.fit(train_features, train_labels)
 	joblib.dump(classifier_svm, '../models/numeric_svm.pkl')  # save numeric svm
 
-	# score = cross_val_score(classifier_svm, train_features, train_labels, scoring='accuracy', cv=cv)
-	# print(score)
-	# print('SVM -- cross validation mean and std:')
-	# print(score.mean(), score.std())
+	score = cross_val_score(classifier_svm, train_features, train_labels, scoring='accuracy', cv=cv)
+	print(score)
+	print('SVM -- cross validation mean and std:')
+	print(score.mean(), score.std())
 	predict_result = classifier_svm.predict(train_features)
 	print('SVM -- confusion matrix:')
 	print(confusion_matrix(train_labels, predict_result))
@@ -158,10 +155,10 @@ def classifier_num(c):
 
 def main():
 	#connect to database
-	conn = sqlite3.connect('../../data/my_ufo.db')
-	c = conn.cursor()
-
-	classifier_num(c)
+	# conn = sqlite3.connect('../../data/my_ufo.db')
+	# c = conn.cursor()
+	#
+	# classifier_num(c)
 	# outlier_svm(c)
 	classifier_text()
 
