@@ -4,7 +4,7 @@
 $(document).ready(function(){
     $('#report').click(function() {
         $.get('/report',{}, function(response) {
-            console.log(response);
+            //console.log(response);
         });
     });
 });

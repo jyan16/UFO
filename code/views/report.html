@@ -355,7 +355,7 @@
 
             Survey.Survey.cssType = "bootstrap";
             Survey.defaultBootstrapCss.navigationButton = "btn";
-            var data = {date: "2017-04-01", time: "10:00", shape: "Triangle", summary: "what_the_fuck", city: "providence", state: "RI"};
+            var data = {date: "2013-07-01", time: "17:00", shape: "Fireball", summary: "strange_ball", city: "newyork", state: "NY"};
             var survey = new Survey.Model(surveyJSON);
             $("#surveyContainer").Survey({
                 model:survey,
@@ -367,7 +367,8 @@
                 //console.log(survey.data);
 
                 $.get('/submit', survey.data, function(response) {
-                    $(".complete").text("Your report may be " + response);
+                    score = (parseFloat(response.substring(0,7))*100).toString().substring(0,5);
+                    $(".complete").text("The possobility for your report to be true is " + score + "%");
                     //document.getElementById("result").value = response;
 
                 });
