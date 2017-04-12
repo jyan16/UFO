@@ -88,35 +88,115 @@ judge_score = (cross_valid_score * 0.7 + recall * 0.3)
                 <div class="col-md-8">
                   <img src="https://raw.githubusercontent.com/jyan16/UFO/master/docs/img/weight.png", class="img-responsive">
                 </div>
-                <div class="col-md-2"></div>
-            </div>
-            </p>
-            <h2 align="center" style="color: #3C8749"><b>Statistic Analysis</b></h2>
-            <h2 align="center" style="color: #3C8749"><b>Process of Web Application</b></h2>
-            <p>
-                In this blog, we start to design and implement our web application for UFO report. To begin with, our website has two functions: 
-                <ol>
-                    <li>
-                    Let users to report their UFO sighting and give them our comments on their reports, i.e., whether they are fake or not. 
-                    </li>
-                    <li>
-                    Show our statistic result of previous UFO reports, which should be interactive to users.
-                    </li>
-                    <li>
-                    Update our my_ufo.db based on new UFO reports.
-                    </li>
-                </ol>
-                
-            </p>
-            <p>
-            Currently, we let all models vote to determine whether a new UFO report is fake, and use judge_score as the weight of each classifier. The structure of our web application is shown in figure 2. We use Node.js as server to combine front end and back end. We have already acheived fake detection part, as shown in figure 3.
             <div class="col-md-2"></div>
-                <div class="col-md-8">
-                  <img src="https://raw.githubusercontent.com/jyan16/UFO/master/docs/img/web_structure.png", class="img-responsive">
-                </div>
-                <div class="col-md-2"></div>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+    <div class="row" align="justify">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            <h2 align="center" style="color: #3C8749"><b>Statistic Analysis</b></h2>
+            <p>
+                UFO's may appear for a different duration of time: some are transient while others last for hours,
+                if not days. Is it possible for us to tell their duration based on the weather conditions?
+                To answer this question, we have performed machine-learning algorithms to determine their relationships.
+                Using each column in our weather data as independent features, we use DecisionTree and Navie Bayes to
+                predict outcome labels --- the duration. The results, however, show little connection between these features
+                and the UFO appearance duration. In the following figure, we provide a table of the accuracy of features vs
+                label (duration), and it shows that the accuracy is mostly unsatisfying.  Based on our weather and UFO data (>90000),
+                we cannot effectively predict the relation between weather features and the duration outcome.
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <img src="https://raw.githubusercontent.com/jyan16/UFO/master/docs/img/weight.png", class="img-responsive">
             </div>
+            <div class="col-md-2"></div>
+
             </p>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+    <div class="row" align="justify">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            <p>
+                We did, nevertheless, find that most of UFO appearance will last 5 minutes, with almost 40% within 60
+                seconds. This gives us insights on a reasonable duration UFOs will appear.
+                A log-transformed histogram is also present to show the relationship between appearance and duration.
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <img src="https://raw.githubusercontent.com/jyan16/UFO/master/docs/img/weight.png", class="img-responsive">
+            </div>
+            <div class="col-md-2"></div>
+
+            </p>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+    <div class="row" align="justify">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            <h2 align="center" style="color: #3C8749"><b>Creating Web Application</b></h2>
+            <p>
+                In this blog, we start to design and implement our web application for UFO report. To begin with, our website has two functions:
+            <ol>
+                <li>
+                    Let users to report their UFO sighting and give them our comments on their reports, i.e., whether they are fake or not.
+                </li>
+                <li>
+                    Show our statistic result of previous UFO reports, which should be interactive to users.
+                </li>
+                <li>
+                    Update our my_ufo.db based on new UFO reports.
+                </li>
+            </ol>
+
+            </p>
+            <p>
+                Currently, we let each model gives out a probability for a new input report, and vote to determine whether a new UFO report is fake, using judge_score as the weight of each classifier. The structure of our web application is shown in figure 2. We use Node.js as server to combine front end and back end. We have already acheived fake detection part, as shown in figure 3.
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <img src="https://raw.githubusercontent.com/jyan16/UFO/master/docs/img/web_structure.png", class="img-responsive">
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+    </div>
+    <div class="row" align="justify">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            <p>
+                In the home page, users may choose view our statistic result or report an UFO sighting:
+            </p>
+
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <img src="https://raw.githubusercontent.com/jyan16/UFO/master/docs/img/homepage.png", class="img-responsive">
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+    </div>
+    <div class="row" align="justify">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            <p>
+                If the user choose 'report', we will give a form to the user:
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <img src="https://raw.githubusercontent.com/jyan16/UFO/master/docs/img/report.png", class="img-responsive">
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+    </div>
+    <div class="row" align="justify">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            <p>
+                After user submit the form, we give the probability that his report is true:
+            </p>
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <img src="https://raw.githubusercontent.com/jyan16/UFO/master/docs/img/fake_result.png", class="img-responsive">
+            </div>
+            <div class="col-md-2"></div>
         </div>
     </div>
 </div>
