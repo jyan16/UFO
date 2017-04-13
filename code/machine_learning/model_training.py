@@ -96,18 +96,46 @@ def load_database(c):
 
 	return (numpy.array(train_labels), numpy.array(train_features))
 
+def classifier_text_svm(training_labels, training_features):
+	print('training svm......')
+	classifier_svm = svm.SVC(class_weight = {0:10}, kernel='linear', probability=True)
+	classifier_svm.fit(training_features, training_labels)
+	joblib.dump(classifier_svm, '../models/summary_svm.pkl')  # save summary svm
+	# score = cross_val_score(classifier_svm, training_features, training_labels, scoring='accuracy')
+	# print(score)
+	# print('SVM -- cross validation mean and std:')
+	# print(score.mean(), score.std())
+	predict_result = classifier_svm.predict(training_features)
+	print('SVM -- confusion matrix:')
+	print(confusion_matrix(training_labels, predict_result))
+	print('***********************************************************************')
+	return classifier_svm
+
+def classifier_text_log(training_labels, training_features):
+	pass
+
 def classifier_text():
 	print('*********The following result is based on UFO description summary**********')
 	#defining cross validation score parameter cv
-	cv = ShuffleSplit(n_splits=5, test_size=0.2)
-	#init data
+	# cv = ShuffleSplit(n_splits=5, test_size=0.2)
+
+	#################
+	#initialize data#
+	#################
 	tokenizer = Tokenizer()
 	vectorizer = CountVectorizer(binary=True, lowercase=True, decode_error='replace', tokenizer=tokenizer)
 	(training_labels, training_texts) = load_file('../../data/processed/file_ufo_lat.csv')
 	training_features = vectorizer.fit_transform(training_texts)
-	# joblib.dump(vectorizer,'../models/vectorizer.pkl') #save vectorizer
-
+	joblib.dump(vectorizer,'../models/vectorizer.pkl') #save vectorizer
 	training_labels = numpy.array(training_labels)
+
+	####################
+	#training svm model#
+	####################
+	classifier_svm = classifier_text_svm(training_labels, training_features)
+	util.print_most_informative_features('svm', vectorizer, classifier_svm)
+
+
 
 	#using logistic regression to train data
 	# print('training logistic regression......')
@@ -185,12 +213,12 @@ def classifier_num(c):
 
 def main():
 	#connect to database
-	conn = sqlite3.connect('../../data/my_ufo.db')
-	c = conn.cursor()
-
-	classifier_num(c)
+	# conn = sqlite3.connect('../../data/my_ufo.db')
+	# c = conn.cursor()
+	#
+	# classifier_num(c)
 	# outlier_svm(c)
-	# classifier_text()
+	classifier_text()
 
 
 
