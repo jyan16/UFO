@@ -13,7 +13,7 @@ from sklearn.model_selection import ShuffleSplit
 from sklearn.linear_model import LogisticRegression
 from sklearn.externals import joblib
 from sklearn.neighbors import KNeighborsClassifier
-
+from sklearn.tree import DecisionTreeClassifier
 
 def load_file(file_path):
 	confidence = []
@@ -72,6 +72,15 @@ def classifier_text_knn(training_labels, training_features):
 	print(confusion_matrix(training_labels, predict_result))
 	return classifier_knn
 
+def classifier_decision(training_labels, training_features):
+	print('training tree......')
+	classifier_decision = DecisionTreeClassifier(class_weight={0:10})
+	classifier_decision.fit(training_features, training_labels)
+	predict_result = classifier_decision.predict(training_features)
+	print('tree -- confusion matrix:')
+	print(confusion_matrix(training_labels, predict_result))
+	return classifier_decision
+
 
 def classifier_text():
 	print('*********The following result is based on UFO description summary**********')
@@ -80,13 +89,15 @@ def classifier_text():
 	(training_labels, training_texts) = load_file('../../data/processed/file_ufo_lat.csv')
 	training_features = vectorizer.fit_transform(training_texts)
 	training_labels = numpy.array(training_labels)
-	classifier_knn = classifier_text_knn(training_labels, training_features)
+	# classifier_knn = classifier_text_knn(training_labels, training_features)
+
+
 
 def classifier_num(c):
 	print('*********The following result is based on UFO numerical features**********')
 	(training_labels, training_features) = load_database(c)
-	classifier_knn = classifier_text_knn(training_labels, training_features)
-
+	# classifier_knn = classifier_text_knn(training_labels, training_features)
+	classifier_decision(training_labels, training_features)
 def main():
 	# classifier_text()
 	conn = sqlite3.connect('../../data/my_ufo.db')
