@@ -103,7 +103,7 @@ def classifier_num(c):
 	# classifier_knn = classifier_text_knn(training_labels, training_features)
 	classifier_decision(training_labels, training_features)
 def main():
-	# classifier_text()
+	classifier_text()
 	conn = sqlite3.connect('../../data/my_ufo.db')
 	c = conn.cursor()
 	classifier_num(c)
