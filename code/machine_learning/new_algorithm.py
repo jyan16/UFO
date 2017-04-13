@@ -79,6 +79,10 @@ def classifier_decision(training_labels, training_features):
 	predict_result = classifier_decision.predict(training_features)
 	print('tree -- confusion matrix:')
 	print(confusion_matrix(training_labels, predict_result))
+	score = cross_val_score(classifier_decision, training_features, training_labels, scoring='accuracy')
+	print(score)
+	print('SVM -- cross validation mean and std:')
+	print(score.mean(), score.std())
 	return classifier_decision
 
 
