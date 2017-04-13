@@ -94,7 +94,7 @@ def classifier_text():
 	training_features = vectorizer.fit_transform(training_texts)
 	training_labels = numpy.array(training_labels)
 	# classifier_knn = classifier_text_knn(training_labels, training_features)
-
+	classifier_decision(training_labels, training_features)
 
 
 def classifier_num(c):

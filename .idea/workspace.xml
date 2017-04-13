@@ -23,8 +23,8 @@
       <file leaf-file-name="model_training.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/code/machine_learning/model_training.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="155">
-              <caret line="162" column="0" lean-forward="false" selection-start-line="162" selection-start-column="0" selection-end-line="163" selection-end-column="23" />
+            <state relative-caret-position="195">
+              <caret line="128" column="0" lean-forward="false" selection-start-line="128" selection-start-column="0" selection-end-line="131" selection-end-column="38" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
               </folding>
@@ -35,8 +35,8 @@
       <file leaf-file-name="new_algorithm.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/code/machine_learning/new_algorithm.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="414">
-              <caret line="99" column="4" lean-forward="false" selection-start-line="99" selection-start-column="4" selection-end-line="99" selection-end-column="4" />
+            <state relative-caret-position="385">
+              <caret line="81" column="103" lean-forward="false" selection-start-line="81" selection-start-column="103" selection-end-line="81" selection-end-column="103" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
               </folding>
@@ -944,8 +944,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/code/machine_learning/model_training.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="155">
-          <caret line="162" column="0" lean-forward="false" selection-start-line="162" selection-start-column="0" selection-end-line="163" selection-end-column="23" />
+        <state relative-caret-position="195">
+          <caret line="128" column="0" lean-forward="false" selection-start-line="128" selection-start-column="0" selection-end-line="131" selection-end-column="38" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
           </folding>
@@ -954,8 +954,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/code/machine_learning/new_algorithm.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="414">
-          <caret line="99" column="4" lean-forward="false" selection-start-line="99" selection-start-column="4" selection-end-line="99" selection-end-column="4" />
+        <state relative-caret-position="385">
+          <caret line="81" column="103" lean-forward="false" selection-start-line="81" selection-start-column="103" selection-end-line="81" selection-end-column="103" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
           </folding>
