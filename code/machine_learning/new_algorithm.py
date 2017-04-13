@@ -82,9 +82,16 @@ def classifier_text():
 	training_labels = numpy.array(training_labels)
 	classifier_knn = classifier_text_knn(training_labels, training_features)
 
-def main():
-	classifier_text()
+def classifier_num(c):
+	print('*********The following result is based on UFO numerical features**********')
+	(training_labels, training_features) = load_database(c)
+	classifier_knn = classifier_text_knn(training_labels, training_features)
 
+def main():
+	# classifier_text()
+	conn = sqlite3.connect('../../data/my_ufo.db')
+	c = conn.cursor()
+	classifier_num(c)
 
 if __name__ == '__main__':
 	main()
