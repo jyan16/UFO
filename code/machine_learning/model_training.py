@@ -12,9 +12,9 @@ from sklearn.model_selection import cross_val_score
 from sklearn.model_selection import ShuffleSplit
 from sklearn.linear_model import LogisticRegression
 from sklearn.externals import joblib
-from sklearn.ensemble import AdaBoostClassifier
 
-#load summary data from file, assign fake labels to event that doesn't have nuforc in summary
+
+#load summary data for text classifier
 def load_file(file_path):
 	confidence = []
 	description = []
@@ -31,38 +31,7 @@ def load_file(file_path):
 				description.append(row[9])
 	return (confidence, description)
 
-#load other data from table weathers and events, with scale and numerical processing
-# def load_database(c):
-# 	summary_list = []
-# 	for row in c.execute('''SELECT distinct summary
-# 	                        FROM weathers'''):
-# 		summary_list.append(row[0].lower())
-# 	le_weather = preprocessing.LabelEncoder().fit(summary_list)
-# 	joblib.dump(le_weather, '../models/weather_trans.pkl') #save le_weather
-#
-# 	shape_list = []
-# 	for row in c.execute('''SELECT distinct shape
-# 	                        FROM events'''):
-# 		shape_list.append(row[0].lower())
-# 	le_shape = preprocessing.LabelEncoder().fit(shape_list)
-# 	joblib.dump(le_shape, '../models/shape_trans.pkl') #save le_shape
-#
-# 	train_features = []
-# 	novelty_features = []
-# 	for row in c.execute('''SELECT e.lat, e.lng, e.time, e.shape, w.summary, w.visibility, e.summary
-# 	                        FROM events e, weathers w
-# 	                        WHERE e.year>=1950 AND e.year<=2017 AND e.event_id=w.event_id
-# 	                     '''):
-# 		text = row[6].lower()
-# 		if 'nuforc' in text or 'hoax' in text:
-# 			novelty_features.append([row[0], row[1], int(row[2].split(':')[0]), le_shape.transform([row[3].lower()])[0],
-# 						  le_weather.transform([row[4].lower()])[0], row[5]])
-# 		else:
-# 			train_features.append([row[0], row[1], int(row[2].split(':')[0]), le_shape.transform([row[3].lower()])[0],
-# 						  le_weather.transform([row[4].lower()])[0], row[5]])
-#
-#
-# 	return (numpy.array(train_features), numpy.array(novelty_features))
+#load database for numerical classifier
 def load_database(c):
 	summary_list = []
 	for row in c.execute('''SELECT distinct summary
@@ -79,7 +48,6 @@ def load_database(c):
 	joblib.dump(le_shape, '../models/shape_trans.pkl') #save le_shape
 
 	train_features = []
-	# novelty_features = []
 	train_labels = []
 	for row in c.execute('''SELECT e.lat, e.lng, e.time, e.shape, w.summary, w.visibility, e.summary
 	                        FROM events e, weathers w
@@ -112,7 +80,18 @@ def classifier_text_svm(training_labels, training_features):
 	return classifier_svm
 
 def classifier_text_log(training_labels, training_features):
-	pass
+	print('training logistic regression......')
+	classifier_logistic = LogisticRegression(class_weight={0:10})
+	classifier_logistic.fit(training_features, training_labels)
+	joblib.dump(classifier_logistic, '../models/summary_log.pkl') #save summary logistic
+	# score = cross_val_score(classifier_logistic, training_features, training_labels, scoring='accuracy', cv=cv)
+	# print(score)
+	# print('Logistic -- cross validation mean and std:')
+	# print(score.mean(), score.std())
+	predict_result = classifier_logistic.predict(training_features)
+	print('Logistic -- confusion matrix:')
+	print(confusion_matrix(training_labels, predict_result))
+	return classifier_logistic
 
 def classifier_text():
 	print('*********The following result is based on UFO description summary**********')
@@ -135,78 +114,46 @@ def classifier_text():
 	classifier_svm = classifier_text_svm(training_labels, training_features)
 	util.print_most_informative_features('svm', vectorizer, classifier_svm)
 
+	####################
+	#training log model#
+	####################
+	classifier_log = classifier_text_log(training_labels, training_features)
+	util.print_most_informative_features('log', vectorizer, classifier_log)
 
 
-	#using logistic regression to train data
-	# print('training logistic regression......')
-	# classifier_logistic = LogisticRegression(class_weight={0:10})
-	# classifier_logistic.fit(training_features, training_labels)
-	# joblib.dump(classifier_logistic, '../models/summary_log.pkl') #save summary logistic
-
-	# score = cross_val_score(classifier_logistic, training_features, training_labels, scoring='accuracy', cv=cv)
-	# print(score)
-	# print('Logistic -- cross validation mean and std:')
-	# print(score.mean(), score.std())
-	# predict_result = classifier_logistic.predict(training_features)
-	# print('Logistic -- confusion matrix:')
-	# print(confusion_matrix(training_labels, predict_result))
-	# util.print_most_informative_features('log', vectorizer, classifier_logistic)
-
-	#using svm to train data
-	# print('training svm......')
-	# classifier_svm = svm.SVC(class_weight = {0:10}, kernel='linear', probability=True)
-	# classifier_svm.fit(training_features, training_labels)
-	# joblib.dump(classifier_svm, '../models/summary_svm.pkl')  # save summary svm
-
-	# score = cross_val_score(classifier_svm, training_features, training_labels, scoring='accuracy', cv=cv)
+def classifier_num_svm(training_labels, training_features):
+	print('training svm......')
+	classifier_svm = svm.SVC(kernel = 'rbf', class_weight={0:12}, probability=True)
+	classifier_svm.fit(training_features, training_labels)
+	joblib.dump(classifier_svm, '../models/numeric_svm.pkl')  # save numeric svm
+	# score = cross_val_score(classifier_svm, train_features, train_labels, scoring='accuracy', cv=cv)
 	# print(score)
 	# print('SVM -- cross validation mean and std:')
 	# print(score.mean(), score.std())
-	# predict_result = classifier_svm.predict(training_features)
-	# print('SVM -- confusion matrix:')
-	# print(confusion_matrix(training_labels, predict_result))
-	# print('***********************************************************************')
-	# util.print_most_informative_features('svm', vectorizer, classifier_svm)
-
-def outlier_svm(c):
-	(training_features, novelty_features)= load_database(c)
-	classifier = svm.OneClassSVM(kernel='rbf')
-	print('train outlier svm......')
-	classifier.fit(training_features)
-	joblib.dump(classifier, '../models/numeric_outlier.pkl')  # save numeric outlier
-
-	predict_result = classifier.predict(numpy.array(list(training_features) + list(novelty_features)))
-	print('Outlier SVM -- confusion matrix:')
-	print(confusion_matrix([1] * len(training_features) + [-1] * len(novelty_features), predict_result))
+	predict_result = classifier_svm.predict(training_features)
+	print('SVM -- confusion matrix:')
+	print(confusion_matrix(training_labels, predict_result))
+	print('parameter:')
+	classifier_svm.get_params()
 	print('***********************************************************************')
+	return classifier_svm
 
 
 	############################################
 	#below we train model with numeric features#
 	############################################
+
 def classifier_num(c):
 	print('*********The following result is based on UFO numerical data**********')
 	#defining cross validation score parameter cv
-	cv = ShuffleSplit(n_splits=5, test_size=0.2)
+	# cv = ShuffleSplit(n_splits=5, test_size=0.2)
 
-	#init data
-	(train_labels, train_features) = load_database(c)
-	# train_labels = [1] * len(true_features) + [0] * len(fake_features)
-	# train_features = numpy.array(list(true_features) + list(fake_features))
+	#################
+	#initialize data#
+	#################
+	(training_labels, training_features) = load_database(c)
 	#svm
-	print('training svm......')
-	classifier_svm = svm.SVC(kernel = 'rbf', class_weight={0:12}, probability=True)
-	classifier_svm.fit(train_features, train_labels)
-	joblib.dump(classifier_svm, '../models/numeric_svm.pkl')  # save numeric svm
-
-	# score = cross_val_score(classifier_svm, train_features, train_labels, scoring='accuracy', cv=cv)
-	# print(score)
-	# print('SVM -- cross validation mean and std:')
-	# print(score.mean(), score.std())
-	predict_result = classifier_svm.predict(train_features)
-	print('SVM -- confusion matrix:')
-	print(confusion_matrix(train_labels, predict_result))
-	print('***********************************************************************')
+	classifier_svm = classifier_num_svm(training_labels, training_features)
 
 	#Since our data is really imbalanced, here we don't even need to try Naive Bayes...
 
