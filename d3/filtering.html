@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>UFO</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/dc.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/index.css"/>
+</head>
+<body>
+
+<div class="container">
+<!-- <script type="text/javascript" src="header.js"></script> -->
+  <div id="chart-ring-shape" style="width:300px; height:300px">
+    <div class="reset" style="visibility: hidden;">selected: <span class="filter"></span>
+      <a href="javascript:shapeRingChart.filterAll();dc.redrawAll();">reset</a>
+    </div>
+  </div>
+  <div id="chart-hist-hour" style="width:600px; height:300px">
+    <div class="reset" style="visibility: hidden;">range: <span class="filter"></span>
+      <a href="javascript:hourHistChart.filterAll();dc.redrawAll();">reset</a>
+    </div>
+  </div>
+  <div id="chart-row-day">
+    <div class="reset" style="visibility: hidden; width:500px; margin-top: 10px;">selected: <span class="filter"></span>
+      <a href="javascript:weekRowChart.filterAll();dc.redrawAll();">reset</a>
+    </div>
+  </div>
+  <div id="chart-line-year">
+    <div class="reset" style="visibility: hidden;">range: <span class="filter"></span>
+      <a href="javascript:yearLineChart.filterAll();dc.redrawAll();">reset</a>
+    </div>
+  </div>
+  <div id="year-range-chart">
+    <div class="reset" style="visibility: hidden;">range: <span class="filter"></span>
+      <a href="javascript:yearLineChart.filterAll();dc.redrawAll();">reset</a>
+    </div>
+  </div>
+
+<script type="text/javascript" src="/js/d3.js"></script>
+<script type="text/javascript" src="/js/crossfilter.js"></script>
+<script type="text/javascript" src="/js/dc.js"></script>
+<script type="text/javascript">
+
+var shapeRingChart   = dc.pieChart("#chart-ring-shape"),
+    yearLineChart = dc.lineChart("#chart-line-year"),
+    weekRowChart = dc.rowChart("#chart-row-day"),
+    hourHistChart  = dc.barChart("#chart-hist-hour"),
+    yearRangeChart = dc.barChart("#year-range-chart");
+
+// use static or load via d3.csv("data.csv", function(error, data) {/* do stuff */});
+var data = [
+    {day: 'Mon', hour: '08', shape: "Ball", date: "1993-11-01T23:29:00Z"},
+    {day: 'Mon', hour: '08', shape: "Ball", date: "1993-11-12T04:00:00Z"},
+    {day: 'Tue', hour: '06', shape: "Circle", date: "1999-11-24T08:15:00Z"},
+    {day: 'Wed', hour: '06', shape: "Light", date: "2001-02-11T00:10:00Z"},
+    {day: 'Thu', hour: '06', shape: "Flash", date: "2001-04-23T19:45:00Z"},
+    {day: 'Fri', hour: '21', shape: "Oval", date: "2001-05-21T01:20:00Z"},
+    {day: 'Sat', hour: '12', shape: "Other", date: "2002-09-12T03:00:00Z"},
+    {day: 'Sun', hour: '19', shape: "Triangle", date: "2003-02-17T19:45:00Z"},
+    {day: 'Sun', hour: '06', shape: "Diamond", date: "1980-10-09T01:30:00Z"},
+    {day: 'Sun', hour: '06', shape: "Diamond", date: "2005-11-12T22:00:00Z"},
+    {day: 'Sun', hour: '23', shape: "Diamond", date: "2000-09-19T23:30:00Z"},
+    {day: 'Tue', hour: '06', shape: "Circle", date: "1999-12-14T08:15:00Z"},
+    {day: 'Wed', hour: '06', shape: "Light", date: "2001-02-11T00:10:00Z"},
+    {day: 'Thu', hour: '06', shape: "Flash", date: "2001-11-23T19:45:00Z"},
+    {day: 'Fri', hour: '21', shape: "Oval", date: "2001-09-21T01:20:00Z"},
+    {day: 'Sat', hour: '12', shape: "Other", date: "2011-10-12T03:00:00Z"},
+    {day: 'Sun', hour: '19', shape: "Triangle", date: "2003-04-17T19:45:00Z"},
+    {day: 'Sun', hour: '06', shape: "Diamond", date: "1980-07-09T01:30:00Z"},
+    {day: 'Sun', hour: '06', shape: "Diamond", date: "2001-10-12T22:00:00Z"},
+    {day: 'Mon', hour: '08', shape: "Ball", date: "1993-11-01T23:29:00Z"},
+    {day: 'Mon', hour: '08', shape: "Ball", date: "1993-03-02T04:00:00Z"},
+    {day: 'Tue', hour: '06', shape: "Circle", date: "1999-06-24T08:15:00Z"},
+    {day: 'Wed', hour: '06', shape: "Light", date: "2001-02-11T00:10:00Z"},
+    {day: 'Thu', hour: '06', shape: "Flash", date: "2001-04-20T19:45:00Z"},
+    {day: 'Fri', hour: '21', shape: "Oval", date: "2001-08-21T01:20:00Z"},
+    {day: 'Sat', hour: '12', shape: "Other", date: "2011-09-12T03:00:00Z"},
+    {day: 'Sun', hour: '19', shape: "Triangle", date: "2003-11-17T19:45:00Z"},
+    {day: 'Sun', hour: '06', shape: "Diamond", date: "1980-10-14T01:30:00Z"},
+    {day: 'Mon', hour: '08', shape: "Ball", date: "1993-11-01T23:29:00Z"},
+    {day: 'Mon', hour: '08', shape: "Ball", date: "1993-11-12T04:00:00Z"},
+    {day: 'Tue', hour: '06', shape: "Circle", date: "1999-11-24T08:15:00Z"},
+    {day: 'Wed', hour: '06', shape: "Light", date: "2001-02-11T00:10:00Z"},
+    {day: 'Thu', hour: '06', shape: "Flash", date: "2001-04-23T19:45:00Z"},
+    {day: 'Fri', hour: '21', shape: "Oval", date: "2001-05-21T01:20:00Z"},
+    {day: 'Sat', hour: '12', shape: "Other", date: "2000-09-12T03:00:00Z"},
+    {day: 'Sun', hour: '19', shape: "Triangle", date: "2003-02-17T19:45:00Z"},
+    {day: 'Sun', hour: '06', shape: "Diamond", date: "1981-10-09T01:30:00Z"},
+    {day: 'Sun', hour: '06', shape: "Diamond", date: "2005-11-13T22:00:00Z"},
+    {day: 'Sun', hour: '23', shape: "Diamond", date: "2004-09-19T23:30:00Z"},
+    {day: 'Tue', hour: '06', shape: "Circle", date: "1999-12-14T08:15:00Z"},
+    {day: 'Wed', hour: '06', shape: "Light", date: "2001-02-11T00:10:00Z"},
+    {day: 'Thu', hour: '06', shape: "Flash", date: "2001-11-23T19:45:00Z"},
+    {day: 'Fri', hour: '21', shape: "Oval", date: "2001-09-21T01:20:00Z"},
+    {day: 'Sat', hour: '12', shape: "Other", date: "2011-10-12T03:00:00Z"},
+    {day: 'Sun', hour: '19', shape: "Triangle", date: "2003-04-17T19:45:00Z"},
+    {day: 'Sun', hour: '06', shape: "Diamond", date: "1980-07-19T01:30:00Z"},
+    {day: 'Sun', hour: '06', shape: "Diamond", date: "2004-10-12T22:00:00Z"},
+    {day: 'Mon', hour: '08', shape: "Ball", date: "1993-11-01T23:29:00Z"},
+    {day: 'Mon', hour: '08', shape: "Ball", date: "1993-03-12T04:00:00Z"},
+    {day: 'Tue', hour: '06', shape: "Circle", date: "1999-06-24T08:15:00Z"},
+    {day: 'Wed', hour: '06', shape: "Light", date: "2001-02-21T00:10:00Z"},
+    {day: 'Thu', hour: '06', shape: "Flash", date: "2001-04-20T19:45:00Z"},
+    {day: 'Fri', hour: '21', shape: "Oval", date: "2001-08-21T01:20:00Z"},
+    {day: 'Sat', hour: '12', shape: "Other", date: "2011-09-12T03:00:00Z"},
+    {day: 'Sun', hour: '19', shape: "Triangle", date: "2003-11-17T19:45:00Z"},
+    {day: 'Sun', hour: '06', shape: "Diamond", date: "1980-10-14T01:30:00Z"},
+];
+
+// normalize/parse data
+// hourData.forEach(function(d) {
+//     d.Hour = d.Hour.match(/\d+/);
+// });
+
+var dateFormat = d3.time.format('%Y-%m-%dT%H:%M:%SZ');
+data.forEach(function(d) {
+  d.dd = dateFormat.parse(d.date);
+  d.month = d3.time.month(d.dd);
+});
+
+// set crossfilter
+var ndx = crossfilter(data),
+    shapeDim  = ndx.dimension(function(d) {return d.shape;}),
+    hourDim = ndx.dimension(function(d) {
+      var hour = d.dd.getHours();
+      return hour;
+    }),
+    weekDim  = ndx.dimension(function(d) {
+      var day = d.dd.getDay();
+      var name = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+      return day + '.' + name[day];
+    }),
+    yearDim = ndx.dimension(function(d) {
+      return d.month;
+    }),
+    countPerShape = shapeDim.group().reduceCount(),
+    countPerDay = weekDim.group().reduceCount(),
+    hourHist = hourDim.group().reduceCount(),
+    yearGroup = yearDim.group().reduceCount(),
+    weekGroup = weekDim.group();
+
+
+
+shapeRingChart
+    .dimension(shapeDim)
+    .group(countPerShape)
+    .innerRadius(50)
+    .controlsUseVisibility(true);
+
+
+hourHistChart
+    .dimension(hourDim)
+    .group(hourHist)
+    .x(d3.scale.linear().domain([0, 24]))
+    .renderHorizontalGridLines(true)
+    // .elasticX(true)
+    .elasticY(true)
+    .controlsUseVisibility(true)
+    .xAxis()
+    .ticks(12);
+
+hourHistChart.xAxis().tickFormat(function(d) {
+
+    if (d < 12) {
+      return d + "AM";
+    } else if (d == 12) {
+      return d + "PM";
+    } else {
+      return (d - 12) + "PM";
+    }
+}); // convert time
+hourHistChart.yAxis().tickFormat(d3.format("d"));
+hourHistChart.yAxis().ticks(3);
+hourHistChart.filter([0, 24]);
+
+var weekDic = {"Sun": "a", "Mon": "b", "Tue": "c", "Wed": "d", "Thu": "e", "Fri": "f", "Sat": "g"};
+
+weekRowChart
+    .dimension(weekDim)
+    .group(weekGroup)
+    .elasticX(true)
+    .controlsUseVisibility(true)
+    .ordering(function(d) {
+      return weekDic[d.key.split('.')[1]];
+    })
+    .label(function(d) {
+      return d.key.split('.')[1];
+    })
+    .xAxis().ticks(3);
+
+weekRowChart.xAxis().tickFormat(d3.format("d"));
+
+  function show_empty_message(chart) {
+      var is_empty = d3.sum(chart.group().all().map(chart.valueAccessor())) === 0;
+      var data = is_empty ? [1] : [];
+      var empty = chart.svg().selectAll('.empty-message').data(data);
+      empty.enter().append('text')
+          .text('NO DATA!')
+          .attr({
+              'text-anchor': 'middle',
+              'alignment-baseline': 'middle',
+              class: 'empty-message',
+              x: chart.margins().left + chart.effectiveWidth()/2,
+              y: chart.margins().top + chart.effectiveHeight()/2
+          })
+          .style('opacity', 0);
+      empty.transition().duration(1000).style('opacity', 1);
+      empty.exit().remove();
+  }
+
+yearLineChart
+    .renderArea(true)
+    .width(990)
+    .height(200)
+    .transitionDuration(1000)
+    .margins({top: 30, right: 50, bottom: 25, left: 40})
+    .dimension(yearDim)
+    .mouseZoomable(true)
+    .rangeChart(yearRangeChart)
+    .x(d3.time.scale().domain([new Date(1985, 0, 1), new Date(2012, 11, 31)]))
+    .round(d3.time.month.round)
+  //  .xUnites(d3.time.months)
+    .elasticY(true)
+    .renderHorizontalGridLines(true)
+    .legend(dc.legend().x(800).y(10).itemHeight(13).gap(5))
+    .brushOn(false)
+    .group(yearGroup, "Total Number of UFO Reports");
+
+yearLineChart.yAxis().tickFormat(d3.format("d"));
+
+yearRangeChart
+    .width(990)
+    .height(40)
+    .margins({top: 0, right: 50, bottom: 20, left: 40})
+    .dimension(yearDim)
+    .group(yearGroup)
+    .centerBar(true)
+    .gap(1)
+    .x(d3.time.scale().domain([new Date(1985, 0, 1), new Date(2012, 11, 31)]))
+    .round(d3.time.month.round)
+    .alwaysUseRounding(true)
+    .xUnits(d3.time.months);
+    
+yearRangeChart.yAxis().tickValues([]);
+
+
+
+  hourHistChart.on('pretransition', show_empty_message);
+  weekRowChart.on('pretransition', show_empty_message);
+
+dc.renderAll();
+
+</script>
+
+</div>
+</body>
+</html>
