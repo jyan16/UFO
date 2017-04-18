@@ -63,19 +63,16 @@ def load_database(c):
 	return (numpy.array(train_labels), numpy.array(train_features))
 
 
-def classifier_text_knn(training_labels, training_features):
-	print('training KNN......')
-	classifier_knn = KNeighborsClassifier(n_neighbors=10)
-	classifier_knn.fit(training_features, training_labels)
-	predict_result = classifier_knn.predict(training_features)
-	print('KNN -- confusion matrix:')
-	print(confusion_matrix(training_labels, predict_result))
-	return classifier_knn
-
-def classifier_decision(training_labels, training_features):
+def classifier_decision(training_labels, training_features, type):
 	print('training tree......')
 	classifier_decision = DecisionTreeClassifier(class_weight={0:10})
 	classifier_decision.fit(training_features, training_labels)
+	if type == 'numeric':
+		joblib.dump(classifier_decision, '../models/numeric_tree.pkl')
+		print(classifier_decision.predict_proba(training_features))
+	if type == 'summary':
+		joblib.dump(classifier_decision, '../models/summary_tree.pkl')
+
 	predict_result = classifier_decision.predict(training_features)
 	print('tree -- confusion matrix:')
 	print(confusion_matrix(training_labels, predict_result))
@@ -93,15 +90,13 @@ def classifier_text():
 	(training_labels, training_texts) = load_file('../../data/processed/file_ufo_lat.csv')
 	training_features = vectorizer.fit_transform(training_texts)
 	training_labels = numpy.array(training_labels)
-	# classifier_knn = classifier_text_knn(training_labels, training_features)
-	classifier_decision(training_labels, training_features)
+	classifier_decision(training_labels, training_features, 'summary')
 
 
 def classifier_num(c):
 	print('*********The following result is based on UFO numerical features**********')
 	(training_labels, training_features) = load_database(c)
-	# classifier_knn = classifier_text_knn(training_labels, training_features)
-	classifier_decision(training_labels, training_features)
+	classifier_decision(training_labels, training_features, 'numeric')
 def main():
 	classifier_text()
 	conn = sqlite3.connect('../../data/my_ufo.db')

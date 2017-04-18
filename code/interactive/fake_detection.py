@@ -71,7 +71,8 @@ def test(opts):
 	vectorizer = joblib.load('./code/models/vectorizer.pkl')
 	numeric_svm = joblib.load('./code/models/numeric_svm.pkl')
 	summary_log = joblib.load('./code/models/summary_log.pkl')
-	summary_svm = joblib.load('./code/models/summary_svm.pkl')
+	numeric_tree = joblib.load('./code/models/numeric_tree.pkl')
+	summary_tree = joblib.load('./code/models/summary_tree.pkl')
 
 	# le_shape = joblib.load('../models/shape_trans.pkl')
 	# le_weather = joblib.load('../models/weather_trans.pkl')
@@ -79,57 +80,34 @@ def test(opts):
 	# numeric_svm = joblib.load('../models/numeric_svm.pkl')
 	# summary_log = joblib.load('../models/summary_log.pkl')
 	# summary_svm = joblib.load('../models/summary_svm.pkl')
+	# numeric_tree = joblib.load('../models/numeric_tree.pkl')
+	# summary_tree = joblib.load('../models/summary_tree.pkl')
 
 	lat, lng = get_lat_lng(opts.c, opts.s)
 	weather_dict = get_weather(opts, lat, lng)
 	numeric_feature = numpy.array([lat, lng, int(opts.t.split(':')[0]), le_shape.transform([opts.shape.lower()])[0],
 			   			 le_weather.transform([weather_dict['summary'].lower()])[0], weather_dict['visibility']])
 	description_feature = vectorizer.transform([opts.sum])
-	# a = summary_svm.predict(description_feature)
-	# summary_svm_result = summary_svm.predict_proba(description_feature)
-	summary_log_result = summary_log.predict_proba(description_feature)[0][1]
-	# b = summary_log.predict(description_feature)
-	numeric_svm_result = numeric_svm.predict_proba([numeric_feature])[0][1]
-	# d = numeric_svm.predict([numeric_feature])
-	# result = (numeric_svm_result * 850 + summary_log_result * 796 + summary_svm_result * 802) / 2448
-	result = (numeric_svm_result * 850 + summary_log_result * 796) / 1646
+
+
+	summary_log_prob = summary_log.predict_proba(description_feature)
+	# summary_log_result = summary_log.predict(description_feature)
+	# print('log_summary', summary_log_result, summary_log_prob)
+
+	summary_tree_prob = summary_tree.predict_proba(description_feature)
+	# summary_tree_result = summary_tree.predict(description_feature)
+	# print('tree_summary', summary_tree_result, summary_tree_prob)
+
+	numeric_svm_prob = numeric_svm.predict_proba([numeric_feature])
+	# numeric_svm_result = numeric_svm.predict([numeric_feature])
+	# print('svm_numeric', numeric_svm_result, numeric_svm_prob)
+
+	numeric_tree_prob = numeric_tree.predict_proba([numeric_feature])
+	# numeric_tree_result = numeric_tree.predict([numeric_feature])
+	# print('tree_numeric', numeric_tree_result, numeric_tree_prob)
+
+	result = (summary_log_prob[0][1] + summary_tree_prob[0][1] + numeric_svm_prob[0][1] + numeric_tree_prob[0][1]) / 4
 	print(result)
-
-	#load data to test
-
-	# (training_labels, training_texts) = load_file('../../data/processed/file_ufo_lat.csv')
-	# training_features = vectorizer.transform(training_texts)
-	# training_labels = numpy.array(training_labels)
-	#
-	# # score_sum_svm = summary_svm.score(training_features, training_labels)
-	# # print('summary_svm accuracy: ' + str(score_sum_svm))
-	# predict_result = summary_svm.predict(training_features)
-	# print('summary_svm -- confusion matrix:')
-	# print(confusion_matrix(training_labels, predict_result))
-	#
-	#
-	#
-	# # score_sum_log = summary_log.score(training_features, training_labels)
-	# # print('summary_log accuracy: ' + str(score_sum_log))
-	# predict_result = summary_log.predict(training_features)
-	# print('summary_log -- confusion matrix:')
-	# print(confusion_matrix(training_labels, predict_result))
-	#
-	#
-	# #load data to test
-	# conn = sqlite3.connect('../../data/my_ufo.db')
-	# c = conn.cursor()
-	# (true_features, fake_features, event_id) = load_database(c)
-	# train_labels = [1] * len(true_features) + [0] * len(fake_features)
-	# train_features = numpy.array(list(true_features) + list(fake_features))
-	# # # score_num_svm = numeric_svm.score(train_features, train_labels)
-	# # # print('numeric_svm accuracy: ' + str(score_num_svm))
-	# predict_result = numeric_svm.predict(train_features)
-	# for i in range(0, len(predict_result)):
-	# 	if predict_result[i]==0:
-	# 		print(i)
-	# print('numeric_svm -- confusion matrix:')
-	# print(confusion_matrix(train_labels, predict_result))
 
 
 def main():
