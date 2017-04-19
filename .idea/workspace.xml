@@ -2,24 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6d041bbd-bfed-46bf-af4b-cd4b657ecc18" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/codeStyleSettings.xml" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/code/data_clean/check.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/code/data_clean/duration_clean.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/code/data_clean/load.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/code/machine_learning/porter_stemmer.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/code/models/numeric_svm.pkl" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/code/models/numeric_tree.pkl" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/code/models/summary_log.pkl" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/code/models/summary_svm.pkl" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/code/models/summary_tree.pkl" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/code/models/vectorizer.pkl" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/code/models/shape_trans.pkl" afterPath="$PROJECT_DIR$/code/models/shape_trans.pkl" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/code/machine_learning/porter_stemmer.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/code/data_clean/load_final.py" afterPath="$PROJECT_DIR$/code/data_clean/load_final.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/code/machine_learning/model_training.py" afterPath="$PROJECT_DIR$/code/machine_learning/model_training.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/code/machine_learning/tokenizer.py" afterPath="$PROJECT_DIR$/code/machine_learning/tokenizer.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data/my_ufo.db" afterPath="$PROJECT_DIR$/data/my_ufo.db" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/hint" afterPath="$PROJECT_DIR$/documentation/hint" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -37,14 +22,46 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="model_training.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="clean_final.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/code/data_clean/clean_final.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="38">
+              <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="40" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="tokenizer.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/code/machine_learning/tokenizer.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="396">
+              <caret line="21" column="30" lean-forward="false" selection-start-line="21" selection-start-column="30" selection-end-line="21" selection-end-column="30" />
+              <folding>
+                <element signature="e#0#40#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="model_training.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/code/machine_learning/model_training.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-72">
-              <caret line="207" column="0" lean-forward="false" selection-start-line="207" selection-start-column="0" selection-end-line="207" selection-end-column="0" />
+            <state relative-caret-position="3135">
+              <caret line="165" column="12" lean-forward="true" selection-start-line="165" selection-start-column="12" selection-end-line="165" selection-end-column="12" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="text.py" pinned="false" current-in-tab="false">
+        <entry file="file://$USER_HOME$/anaconda/lib/python3.6/site-packages/sklearn/feature_extraction/text.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="175">
+              <caret line="829" column="0" lean-forward="false" selection-start-line="829" selection-start-column="0" selection-end-line="829" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -75,7 +92,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/code/web-show/GoogleMap.js" />
         <option value="$PROJECT_DIR$/docs/js/map_year_count.js" />
         <option value="$PROJECT_DIR$/docs/midterm.html" />
         <option value="$PROJECT_DIR$/docs/js/pie_shape.js" />
@@ -124,8 +140,9 @@
         <option value="$PROJECT_DIR$/code/machine_learning/find_weight.py" />
         <option value="$PROJECT_DIR$/code/data_clean/load_final.py" />
         <option value="$PROJECT_DIR$/code/machine_learning/model_training.py" />
-        <option value="$PROJECT_DIR$/code/machine_learning/tokenizer.py" />
         <option value="$PROJECT_DIR$/documentation/hint" />
+        <option value="$PROJECT_DIR$/code/machine_learning/test.py" />
+        <option value="$PROJECT_DIR$/code/machine_learning/tokenizer.py" />
       </list>
     </option>
   </component>
@@ -401,25 +418,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.model_training">
-    <configuration default="false" name="result_draw" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/code/machine_learning" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="UFO" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/code/machine_learning/result_draw.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <method />
-    </configuration>
+  <component name="RunManager" selected="Python.test">
     <configuration default="false" name="total_count_regression" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -492,6 +491,24 @@
       <option name="EMULATE_TERMINAL" value="false" />
       <method />
     </configuration>
+    <configuration default="false" name="test" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/code/machine_learning" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="UFO" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/code/machine_learning/test.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <method />
+    </configuration>
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -558,17 +575,18 @@
       <method />
     </configuration>
     <list size="5">
-      <item index="0" class="java.lang.String" itemvalue="Python.result_draw" />
-      <item index="1" class="java.lang.String" itemvalue="Python.total_count_regression" />
-      <item index="2" class="java.lang.String" itemvalue="Python.clean_final" />
-      <item index="3" class="java.lang.String" itemvalue="Python.load_final" />
-      <item index="4" class="java.lang.String" itemvalue="Python.model_training" />
+      <item index="0" class="java.lang.String" itemvalue="Python.total_count_regression" />
+      <item index="1" class="java.lang.String" itemvalue="Python.clean_final" />
+      <item index="2" class="java.lang.String" itemvalue="Python.load_final" />
+      <item index="3" class="java.lang.String" itemvalue="Python.model_training" />
+      <item index="4" class="java.lang.String" itemvalue="Python.test" />
     </list>
     <recent_temporary>
-      <list size="3">
-        <item index="0" class="java.lang.String" itemvalue="Python.model_training" />
-        <item index="1" class="java.lang.String" itemvalue="Python.load_final" />
-        <item index="2" class="java.lang.String" itemvalue="Python.clean_final" />
+      <list size="4">
+        <item index="0" class="java.lang.String" itemvalue="Python.test" />
+        <item index="1" class="java.lang.String" itemvalue="Python.model_training" />
+        <item index="2" class="java.lang.String" itemvalue="Python.load_final" />
+        <item index="3" class="java.lang.String" itemvalue="Python.clean_final" />
       </list>
     </recent_temporary>
   </component>
@@ -614,6 +632,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32891566" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="DB Browser" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -623,7 +642,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32891566" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20843373" sideWeight="0.49427754" order="14" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24578314" sideWeight="0.4892704" order="17" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1795422" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1795422" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24947146" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3325301" sideWeight="0.49713877" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
@@ -666,28 +685,21 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/code/machine_learning/tokenizer.py</url>
+          <line>45</line>
+          <option name="timeStamp" value="186" />
+        </line-breakpoint>
+      </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="185" />
+      <option name="time" value="188" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/data/raw_csv_data/file_ufo_clean.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/location_raw/location_1_info.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/anaconda/lib/python3.6/json/decoder.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="296">
@@ -898,16 +910,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/code/data_clean/event_clean.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1121">
-          <caret line="59" column="0" lean-forward="false" selection-start-line="59" selection-start-column="0" selection-end-line="59" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#10#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/data/processed/file_ufo_lat.csv">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -948,30 +950,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/code/data_clean/clean_final.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="338">
-          <caret line="72" column="67" lean-forward="false" selection-start-line="72" selection-start-column="67" selection-end-line="72" selection-end-column="67" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/code/machine_learning/find_weight.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="361">
-          <caret line="105" column="26" lean-forward="false" selection-start-line="105" selection-start-column="26" selection-end-line="105" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/code/machine_learning/new_algorithm.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="364">
           <caret line="98" column="70" lean-forward="true" selection-start-line="98" selection-start-column="4" selection-end-line="98" selection-end-column="70" />
           <folding>
-            <element signature="e#0#31#0" expanded="true" />
+            <element signature="e#0#31#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -984,24 +968,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/code/machine_learning/tokenizer.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#1#10#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/processed/file_ufo_most_clean.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/documentation/hint">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="228">
@@ -1010,12 +976,70 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/code/data_clean/event_clean.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1064">
+          <caret line="59" column="0" lean-forward="false" selection-start-line="59" selection-start-column="0" selection-end-line="59" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/code/machine_learning/find_weight.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="74">
+          <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/code/data_clean/clean_final.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="38">
+          <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/anaconda/lib/python3.6/site-packages/sklearn/feature_extraction/text.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="175">
+          <caret line="829" column="0" lean-forward="false" selection-start-line="829" selection-start-column="0" selection-end-line="829" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/code/machine_learning/test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="7" column="65" lean-forward="false" selection-start-line="7" selection-start-column="65" selection-end-line="7" selection-end-column="65" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/code/machine_learning/model_training.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-72">
-          <caret line="207" column="0" lean-forward="false" selection-start-line="207" selection-start-column="0" selection-end-line="207" selection-end-column="0" />
+        <state relative-caret-position="3135">
+          <caret line="165" column="12" lean-forward="true" selection-start-line="165" selection-start-column="12" selection-end-line="165" selection-end-column="12" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/processed/file_ufo_most_clean.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/code/machine_learning/tokenizer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="21" column="30" lean-forward="false" selection-start-line="21" selection-start-column="30" selection-end-line="21" selection-end-column="30" />
+          <folding>
+            <element signature="e#0#40#0" expanded="true" />
           </folding>
         </state>
       </provider>
