@@ -1,4 +1,4 @@
-from porter_stemmer import PorterStemmer
+
 import re
 import string
 
@@ -13,15 +13,15 @@ class Tokenizer(object):
         return len(word)>2 and not word.isdigit()
 
     def process_tweet(self, tweet):
-        # TODO: Change the text processing here
-        # HINT: Refer to porter_stemmer_example.py to see how to use PorterStemmer
-        tweet = re.sub(r'\(\(.*\)\)','', tweet[2:])
-        tweet = re.sub(r'\W', ' ', tweet)
-        tweet_list = tweet.split()
-        tweet_list = list(filter(lambda x : x not in stop, tweet_list))
-        tweet_list = list(filter(lambda x: x[0]<'0' or x[0]>'9', tweet_list))
-        tweet_list = [PorterStemmer().stem(word, 0, len(word) - 1) for word in tweet_list]
-        tweet = ' '.join(tweet_list)
+        # # TODO: Change the text processing here
+        # # HINT: Refer to porter_stemmer_example.py to see how to use PorterStemmer
+        # tweet = re.sub(r'\(\(.*\)\)','', tweet[2:])
+        # tweet = re.sub(r'\W', ' ', tweet)
+        # tweet_list = tweet.split()
+        # tweet_list = list(filter(lambda x : x not in stop, tweet_list))
+        # tweet_list = list(filter(lambda x: x[0]<'0' or x[0]>'9', tweet_list))
+        # tweet_list = [PorterStemmer().stem(word, 0, len(word) - 1) for word in tweet_list]
+        # tweet = ' '.join(tweet_list)
         return tweet
 
     def __call__(self, tweet):

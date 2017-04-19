@@ -84,7 +84,7 @@ def load():
             c.execute('''
                         INSERT INTO weathers
                         VALUES (?,?,?,?,?,?,?,?,?,?,?)''',
-                      (int(row['event_id']), row['summary'], row['icon'], float(row['temperature']),
+                      (int(row['event_id']), row['summary'].lower(), row['icon'], float(row['temperature']),
                        float(row['apparentTemperature']), float(row['dewPoint']), float(row['humidity']),
                        float(row['windSpeed']), int(row['windBearing']), float(row['visibility']), float(row['pressure'])))
         except:
