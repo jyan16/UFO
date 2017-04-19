@@ -9,4 +9,4 @@ for web app:
 
 add detialed description of why we give a certain classification to users, like forms, charts, probabilities
 draw corresponding D3 chart
-
+send json from python to web

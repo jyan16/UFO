@@ -24,21 +24,6 @@ def load_summary(c):
 		confidence.append(row[1])
 	return confidence, description
 
-# def load_file(file_path):
-# 	confidence = []
-# 	description = []
-# 	with open(file_path, 'r', encoding='latin1') as file_reader:
-# 		reader = csv.reader(file_reader, delimiter=',', quotechar='"')
-# 		next(reader, None)
-# 		for row in reader:
-# 			text = row[9].lower()
-# 			if 'nuforc' in text or 'hoax' in text:
-# 				confidence.append(0)
-# 				description.append(row[9])
-# 			else:
-# 				confidence.append(1)
-# 				description.append(row[9])
-# 	return (confidence, description)
 
 #load database for numerical classifier
 def load_numeric(c):
@@ -69,54 +54,6 @@ def load_numeric(c):
 							   le_weather.transform([row[4].lower()])[0], row[5]])
 		train_labels.append(int(row[6]))
 	return numpy.array(train_labels), numpy.array(train_features)
-
-# def load_database(c):
-# 	summary_list = []
-# 	for row in c.execute('''SELECT distinct summary
-# 	                        FROM weathers'''):
-# 		summary_list.append(row[0].lower())
-# 	le_weather = preprocessing.LabelEncoder().fit(summary_list)
-# 	joblib.dump(le_weather, '../models/weather_trans.pkl') #save le_weather
-#
-# 	shape_list = []
-# 	for row in c.execute('''SELECT distinct shape
-# 	                        FROM events'''):
-# 		shape_list.append(row[0].lower())
-# 	le_shape = preprocessing.LabelEncoder().fit(shape_list)
-# 	joblib.dump(le_shape, '../models/shape_trans.pkl') #save le_shape
-#
-# 	train_features = []
-# 	train_labels = []
-# 	for row in c.execute('''SELECT e.lat, e.lng, e.time, e.shape, w.summary, w.visibility, e.summary
-# 	                        FROM events e, weathers w
-# 	                        WHERE e.year>=1950 AND e.year<=2017 AND e.event_id=w.event_id
-# 	                     '''):
-# 		text = row[6].lower()
-# 		train_features.append([row[0], row[1], int(row[2].split(':')[0]), le_shape.transform([row[3].lower()])[0],
-# 							   le_weather.transform([row[4].lower()])[0], row[5]])
-# 		if 'nuforc' in text or 'hoax' in text:
-# 			train_labels.append(0)
-# 		else:
-# 			train_labels.append(1)
-#
-#
-# 	return (numpy.array(train_labels), numpy.array(train_features))
-
-# def classifier_text_svm(training_labels, training_features):
-# 	print('training svm......')
-# 	classifier_svm = svm.SVC(class_weight = {0:10}, kernel='linear', probability=True)
-# 	classifier_svm.fit(training_features, training_labels)
-# 	joblib.dump(classifier_svm, '../models/summary_svm.pkl')  # save summary svm
-# 	# score = cross_val_score(classifier_svm, training_features, training_labels, scoring='accuracy')
-# 	# print(score)
-# 	# print('SVM -- cross validation mean and std:')
-# 	# print(score.mean(), score.std())
-# 	predict_result = classifier_svm.predict(training_features)
-# 	print('SVM -- confusion matrix:')
-# 	print(confusion_matrix(training_labels, predict_result))
-# 	print('***********************************************************************')
-# 	return classifier_svm
-
 
 
 def classifier_decision(training_labels, training_features, type):

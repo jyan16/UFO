@@ -1,5 +1,5 @@
 from __future__ import division
-
+from porter_stemmer import PorterStemmer
 import csv
 import numpy
 from sklearn.externals import joblib
@@ -8,46 +8,14 @@ import requests
 import json
 from sklearn import preprocessing
 import sqlite3
-
+import re
 
 googleField = 'https://maps.googleapis.com/maps/api/geocode/json?'
 googleKey = 'AIzaSyD_VpEeAmvHVFRb94Pz1LF7l_SoLHepnow'
 weatherKey = 'd9dcaa3fac6a59b265ee62ad1e45aa3b'
 weatherField1 = 'https://api.darksky.net/forecast/'
 weatherField2 = '?exclude=hourly,flags,isd-stations,daily'
-
-def load_database(c):
-	summary_list = []
-	for row in c.execute('''SELECT distinct summary
-	                        FROM weathers'''):
-		summary_list.append(row[0].lower())
-	le_weather = preprocessing.LabelEncoder().fit(summary_list)
-	joblib.dump(le_weather, '../models/weather_trans.pkl') #save le_weather
-
-	shape_list = []
-	for row in c.execute('''SELECT distinct shape
-	                        FROM events'''):
-		shape_list.append(row[0].lower())
-	le_shape = preprocessing.LabelEncoder().fit(shape_list)
-	joblib.dump(le_shape, '../models/shape_trans.pkl') #save le_shape
-
-	train_features = []
-	# novelty_features = []
-	train_label = []
-	for row in c.execute('''SELECT e.lat, e.lng, e.time, e.shape, w.summary, w.visibility, e.summary
-	                        FROM events e, weathers w
-	                        WHERE e.year>=1950 AND e.year<=2017 AND e.event_id=w.event_id
-	                     '''):
-		text = row[6].lower()
-		train_features.append([row[0], row[1], int(row[2].split(':')[0]), le_shape.transform([row[3].lower()])[0],
-							   le_weather.transform([row[4].lower()])[0], row[5]])
-		if 'nuforc' in text or 'hoax' in text:
-			train_label.append(0)
-		else:
-			train_label.append(1)
-
-
-	return (numpy.array(train_label), numpy.array(train_features))
+stop = {'the', 'is', 'on', 'a', 'to', 'of', 's'}
 
 def get_lat_lng(city, state):
 	j = requests.get(url=googleField + 'address=' + city + ',' + state + '&key=' + googleKey).json()
@@ -57,37 +25,46 @@ def get_lat_lng(city, state):
 
 def get_weather(opts, lat, lng):
 	time = opts.d + 'T' + opts.t + ':00'
-	query =  str(lat) + ',' + str(lng) + ',' + time
+	query = str(lat) + ',' + str(lng) + ',' + time
 	weather = requests.get(url = weatherField1 + weatherKey + '/' + query + weatherField2).json()
 	weather = weather['currently']
 	return weather
 
-
+def clean_summary(summary):
+	summary = ' '.join(summary.lower().split('_'))
+	summary = re.sub(r'\(\(.*\)\)', '', summary)
+	summary = re.sub(r'\W', ' ', summary)
+	summary_list = summary.split()
+	summary_list = list(filter(lambda x: x not in stop, summary_list))
+	summary_list = list(filter(lambda x: x[0] < '0' or x[0] > '9', summary_list))
+	summary_list = [PorterStemmer().stem(word, 0, len(word) - 1) for word in summary_list]
+	summary = ' '.join(summary_list)
+	return summary
 def test(opts):
 
 	#load models
-	le_shape = joblib.load('./code/models/shape_trans.pkl')
-	le_weather = joblib.load('./code/models/weather_trans.pkl')
-	vectorizer = joblib.load('./code/models/vectorizer.pkl')
-	numeric_svm = joblib.load('./code/models/numeric_svm.pkl')
-	summary_log = joblib.load('./code/models/summary_log.pkl')
-	numeric_tree = joblib.load('./code/models/numeric_tree.pkl')
-	summary_tree = joblib.load('./code/models/summary_tree.pkl')
+	# le_shape = joblib.load('./code/models/shape_trans.pkl')
+	# le_weather = joblib.load('./code/models/weather_trans.pkl')
+	# vectorizer = joblib.load('./code/models/vectorizer.pkl')
+	# numeric_svm = joblib.load('./code/models/numeric_svm.pkl')
+	# summary_log = joblib.load('./code/models/summary_log.pkl')
+	# numeric_tree = joblib.load('./code/models/numeric_tree.pkl')
+	# summary_tree = joblib.load('./code/models/summary_tree.pkl')
 
-	# le_shape = joblib.load('../models/shape_trans.pkl')
-	# le_weather = joblib.load('../models/weather_trans.pkl')
-	# vectorizer = joblib.load('../models/vectorizer.pkl')
-	# numeric_svm = joblib.load('../models/numeric_svm.pkl')
-	# summary_log = joblib.load('../models/summary_log.pkl')
-	# summary_svm = joblib.load('../models/summary_svm.pkl')
-	# numeric_tree = joblib.load('../models/numeric_tree.pkl')
-	# summary_tree = joblib.load('../models/summary_tree.pkl')
+	le_shape = joblib.load('../models/shape_trans.pkl')
+	le_weather = joblib.load('../models/weather_trans.pkl')
+	vectorizer = joblib.load('../models/vectorizer.pkl')
+	numeric_svm = joblib.load('../models/numeric_svm.pkl')
+	summary_log = joblib.load('../models/summary_log.pkl')
+	numeric_tree = joblib.load('../models/numeric_tree.pkl')
+	summary_tree = joblib.load('../models/summary_tree.pkl')
 
 	lat, lng = get_lat_lng(opts.c, opts.s)
 	weather_dict = get_weather(opts, lat, lng)
 	numeric_feature = numpy.array([lat, lng, int(opts.t.split(':')[0]), le_shape.transform([opts.shape.lower()])[0],
 			   			 le_weather.transform([weather_dict['summary'].lower()])[0], weather_dict['visibility']])
-	description_feature = vectorizer.transform([opts.sum])
+	summary = clean_summary(opts.sum)
+	description_feature = vectorizer.transform([summary])
 
 
 	summary_log_prob = summary_log.predict_proba(description_feature)
@@ -121,7 +98,7 @@ def main():
 	parser.add_argument('-c', required = True, help = 'city name')
 	parser.add_argument('-s', required = True, help = 'state name')
 	opts = parser.parse_args()
-	opts.sum = ' '.join(opts.sum.lower().split('_'))
+	# opts.sum = ' '.join(opts.sum.lower().split('_'))
 	test(opts)
 
 
