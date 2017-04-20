@@ -94,3 +94,8 @@
     text-align: center;
     font-size:  30px;
 }
+
+#resultContainer text {
+    font: 20px sans-serif;
+    font-weight: bold;
+}

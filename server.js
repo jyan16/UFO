@@ -26,16 +26,22 @@ app.get('/report', function (request, response) {
 app.get('/submit', function(request, response) {
    console.log(request.query);
    var data = request.query;
+   var summary = data.summary.split(' ').join('_');
    var execute = 'python3 code/interactive/fake_detection.py -d ' + data.date + ' -t ' + data.time +
-                 ' -sum ' + data.summary + ' -shape ' + data.shape + ' -c ' + data.city + ' -s ' + data.state;
+                 ' -sum ' + summary + ' -shape ' + data.shape + ' -c ' + data.city + ' -s ' + data.state;
    exec(execute, function(error, stdout, stderr) {
+      //response.render('result.html', stdout);
       response.json(stdout);
       if (error) {
          console.log('stderr' + stderr);
       }
    });
 });
+//show google map for user
+app.get('/google', function(request, response) {
+   response.sendFile('/lat_lng_google.json');
 
+});
 app.listen(8080);
 
 
