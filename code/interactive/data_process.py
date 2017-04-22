@@ -6,7 +6,18 @@ import random
 
 conn = sqlite3.connect('../../data/my_ufo.db')
 c = conn.cursor()
-
+def report_map_show():
+    report_show = []
+    for row in c.execute('''SELECT lat, lng, count(*)
+                            FROM events
+                            GROUP BY city, state'''):
+        tmp = {}
+        tmp["lat"] = row[0]
+        tmp["lng"] = row[1]
+        tmp["num"] = row[2]
+        report_show.append(tmp)
+    with open("../../data/json/report_show.json", 'w') as outfile:
+        json.dump(report_show, outfile, indent = 4)
 def count_by_year():
     year_count_result = {}
     for row in c.execute('''SELECT year, state, count(*)
@@ -120,7 +131,7 @@ def shape_count():
     with open("../../data/shape_all.json", 'w') as outfile:
         json.dump(result, outfile, indent = 4)
 if __name__ == '__main__':
-    shape_count()
+    report_map_show()
 
 
 

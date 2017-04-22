@@ -30,7 +30,6 @@ app.get('/submit', function(request, response) {
    var execute = 'python3 code/interactive/fake_detection.py -d ' + data.date + ' -t ' + data.time +
                  ' -sum ' + summary + ' -shape ' + data.shape + ' -c ' + data.city + ' -s ' + data.state;
    exec(execute, function(error, stdout, stderr) {
-      //response.render('result.html', stdout);
       response.json(stdout);
       if (error) {
          console.log('stderr' + stderr);
@@ -39,7 +38,7 @@ app.get('/submit', function(request, response) {
 });
 //show google map for user
 app.get('/google', function(request, response) {
-   response.sendFile('/lat_lng_google.json');
+   response.sendFile(__dirname + '/data/json/report_show.json');
 
 });
 app.listen(8080);

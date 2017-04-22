@@ -59,14 +59,19 @@ def test(opts):
 	# numeric_tree = joblib.load('../models/numeric_tree.pkl')
 	# summary_tree = joblib.load('../models/summary_tree.pkl')
 
+	result = {}
 	lat, lng = get_lat_lng(opts.c, opts.s)
+	result['lat'] = lat
+	result['lng'] = lng
 	weather_dict = get_weather(opts, lat, lng)
+	result['weather'] = weather_dict['summary']
+	result['visibility'] = weather_dict['visibility']
 	numeric_feature = numpy.array([lat, lng, int(opts.t.split(':')[0]), le_shape.transform([opts.shape.lower()])[0],
 			   			 le_weather.transform([weather_dict['summary'].lower()])[0], weather_dict['visibility']])
 	summary = clean_summary(opts.sum)
 	description_feature = vectorizer.transform([summary])
 
-	result = {}
+
 	summary_log_prob = summary_log.predict_proba(description_feature)
 	result['sum_log'] = summary_log_prob[0][1]
 	# summary_log_result = summary_log.predict(description_feature)

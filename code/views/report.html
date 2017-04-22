@@ -22,8 +22,13 @@
         <div class="col-md-10 col-md-offset-1">
 
             <div id="surveyContainer"></div>
-            <div id="resultContainer"></div>
+            <div id="tableContainer"></div>
+            <div id="chartContainer"></div>
+            <div id="labelContainer"></div>
+            <div id="map"></div>
+            <script src="/report.js"></script>
         </div>
+    </div>
     </div>
 </div>
 
@@ -358,7 +363,7 @@
 
             Survey.Survey.cssType = "bootstrap";
             Survey.defaultBootstrapCss.navigationButton = "btn";
-            var data = {date: "2015-07-03", time: "20:29", shape: "Circle", summary: "it is fake!", city: "Anchorage", state: "AK"};
+            var data = {date: "2015-07-03", time: "20:29", shape: "Circle", summary: "it is fake!", city: "Providence", state: "RI"};
             var survey = new Survey.Model(surveyJSON);
             $("#surveyContainer").Survey({
                 model:survey,

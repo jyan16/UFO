@@ -95,7 +95,15 @@
     font-size:  30px;
 }
 
-#resultContainer text {
+.chart text {
     font: 20px sans-serif;
     font-weight: bold;
+}
+
+#map {
+    height: 500px;
+    width: 750px;
+    text-align: center;
+    visibility: hidden;
+    margin: 0 auto;
 }
