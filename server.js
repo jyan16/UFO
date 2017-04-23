@@ -11,6 +11,10 @@ app.set('views', __dirname + '/code/views'); //directory of html
 app.set('view engine', 'html');
 app.use(express.static('public'));
 
+
+var sqlite3 = require('any-db');
+var conn = sqlite3.createConnection('sqlite3://data/my_ufo.db');
+
 //visit home html
 app.get('/', function (request, response) {
     response.render('index.html');
@@ -24,7 +28,6 @@ app.get('/report', function (request, response) {
 
 //submit report and decide whether it is true
 app.get('/submit', function(request, response) {
-   console.log(request.query);
    var data = request.query;
    var summary = data.summary.split(' ').join('_');
    var execute = 'python3 code/interactive/fake_detection.py -d ' + data.date + ' -t ' + data.time +
@@ -36,10 +39,27 @@ app.get('/submit', function(request, response) {
       }
    });
 });
+
 //show google map for user
 app.get('/google', function(request, response) {
    response.sendFile(__dirname + '/data/json/report_show.json');
 
+});
+
+//show database
+app.get('/datapage', function(request, response) {
+    response.render('database.html');
+});
+app.get('/database_event', function(request, response) {
+    conn.query('SELECT month, day, icon, city, state, shape, e.summary' +
+        ' FROM events e, weathers w WHERE e.year=2017 and e.label=1 and e.event_id=w.event_id', function(err, data) {
+        response.json(data);
+    })
+});
+app.get('/database_state', function(request, response) {
+    conn.query('SELECT p.state, area, population FROM populations p, areas a WHERE p.year=2016 and p.state=a.state', function(err, data) {
+        response.json(data);
+    })
 });
 app.listen(8080);
 

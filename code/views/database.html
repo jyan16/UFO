@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Database</title>
+    <!-- javascript source-->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="/database.js"></script>
+
+    <!-- css source -->
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.css">
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<nav class="nav">
+<ul>
+    <li style="float:right"><a href="/">Home</a></li>
+    <li><a href="/report">Report</a></li>
+    <li><a href="/statistic">Statistic</a></li>
+    <li><a class="active" href="/datapage">Database</a></li>
+    <li><a href="/about">About</a></li>
+</ul>
+</nav>
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <div style="height: 70px;">
+                <p class="infoTitle">
+                    UFO Reports This Year
+                </p>
+            </div>
+            <div id="eventTableContainer"></div>
+            <div style="height: 30px;"></div>
+            <div style="height: 70px;">
+                <p class="infoTitle">
+                    U.S. State Information
+                </p>
+            </div>
+            <div id="stateTableContainer"></div>
+            <div style="height: 150px;"></div>
+
+        </div>
+    </div>
+</div>
+<footer>
+    <h3>Jin Yan, Lei Tian, Yao Yao, Jing Qian @ cs1951a project</h3>
+</footer>
+</body>
+</html>

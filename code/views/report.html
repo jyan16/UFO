@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Home</title>
+    <title>Report</title>
 
     <!-- javascript source-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
@@ -16,7 +16,15 @@
     <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-
+<nav class="nav">
+<ul>
+    <li style="float:right"><a href="/">Home</a></li>
+    <li><a href="/report" class="active">Report</a></li>
+    <li><a href="/statistic">Statistic</a></li>
+    <li><a href="/datapage">Database</a></li>
+    <li><a href="/About">About</a></li>
+</ul>
+</nav>
 <div class="container">
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
@@ -27,6 +35,7 @@
             <div id="labelContainer"></div>
             <div id="map"></div>
             <script src="/report.js"></script>
+            <div style="height: 150px;">
         </div>
     </div>
     </div>
@@ -51,7 +60,12 @@
                             title: "When did you see? (time)",
                             startWithNewLine: false
                         },
-                    {
+                        {
+                            type: "text",
+                            name: "duration",
+                            title: "Duration/s",
+                        },
+                        {
                         type: "dropdown",
                             choices: [
                                 {
@@ -136,12 +150,8 @@
                                 }
                             ],
                             name: "shape",
-                            title: "Shape"
-                    },
-                    {
-                            type: "text",
-                            name: "summary",
-                            title: "Summary"
+                            title: "Shape",
+                            startWithNewLine: false
                     },
                     {
                             type: "text",
@@ -353,8 +363,15 @@
                                 }
                             ],
                             name: "state",
-                            title: "State"
-                        }],
+                            title: "State",
+                            startWithNewLine: false
+                        },
+                        {
+                            type: "text",
+                            name: "summary",
+                            title: "Summary"
+                        }
+                        ],
                     title: "Report Information"
                 }],
                 sendResultOnPageNext: true,
@@ -363,7 +380,7 @@
 
             Survey.Survey.cssType = "bootstrap";
             Survey.defaultBootstrapCss.navigationButton = "btn";
-            var data = {date: "2015-07-03", time: "20:29", shape: "Circle", summary: "it is fake!", city: "Providence", state: "RI"};
+            var data = {date: "2015-07-03", time: "20:29", duration: "10", shape: "Circle", summary: "it is fake!", city: "Providence", state: "RI"};
             var survey = new Survey.Model(surveyJSON);
             $("#surveyContainer").Survey({
                 model:survey,
@@ -373,6 +390,8 @@
 
 
     </script>
-
+<footer>
+    <h3>Jin Yan, Lei Tian, Yao Yao, Jing Qian @ cs1951a project</h3>
+</footer>
 </body>
 </html>

@@ -99,7 +99,11 @@
     font: 20px sans-serif;
     font-weight: bold;
 }
-
+.infoTitle {
+    font: 30px sans-serif;
+    text-align: center;
+    text-anchor: middle;
+}
 #map {
     height: 500px;
     width: 750px;
@@ -107,3 +111,41 @@
     visibility: hidden;
     margin: 0 auto;
 }
+footer {
+    padding: 1em;
+    color: white;
+    background-color: royalblue;
+    clear: left;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+.nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: royalblue;
+}
+
+.nav li {
+    float: left;
+}
+.nav li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font: 20px sans-serif;
+}
+.nav li a:hover {
+    background-color: #111;
+}
+.nav .active {
+    background-color: #4CAF50;
+}
+/*.about {*/
+    /*font: 20px sans-serif;*/
+/*}*/

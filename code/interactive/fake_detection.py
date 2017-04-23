@@ -9,6 +9,10 @@ import json
 from sklearn import preprocessing
 import sqlite3
 import re
+############################################################
+#this script gives back probability of new sighting events,#
+#and insert this new events into my_ufo.db under ../data/  #
+############################################################
 
 googleField = 'https://maps.googleapis.com/maps/api/geocode/json?'
 googleKey = 'AIzaSyD_VpEeAmvHVFRb94Pz1LF7l_SoLHepnow'
@@ -17,6 +21,31 @@ weatherField1 = 'https://api.darksky.net/forecast/'
 weatherField2 = '?exclude=hourly,flags,isd-stations,daily'
 stop = {'the', 'is', 'on', 'a', 'to', 'of', 's'}
 
+def insert_db(result, weather_dict, summary, opts):
+	conn = sqlite3.connect('./data/my_ufo.db')
+	c = conn.cursor()
+	for row in c.execute('''SELECT max(event_id) FROM events'''):
+		index = row[0]
+	index += 1
+	date = opts.d.split('-')
+	time = opts.t + ':00'
+
+	score = (result['sum_log'] + result['sum_tree'] + result['num_svm'] + result['num_tree']) / 4
+	if score >=0.5:
+		label = 1
+	else:
+		label = 0
+
+	insert_event = [index, date[0], date[1], date[2], time, opts.c, opts.s,
+					opts.shape, opts.dur, summary, result['lat'], result['lng'], label]
+
+	insert_weather = [index, weather_dict['summary'].lower(), weather_dict['icon'], weather_dict['temperature'],
+					  weather_dict['apparentTemperature'], weather_dict['dewPoint'], weather_dict['humidity'],
+					  weather_dict['windSpeed'], weather_dict['windBearing'], weather_dict['visibility'], weather_dict['pressure']]
+	c.execute('''INSERT INTO events VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)''', tuple(insert_event))
+	c.execute('''INSERT INTO weathers VALUES (?,?,?,?,?,?,?,?,?,?,?)''', tuple(insert_weather))
+	conn.commit()
+	conn.close()
 def get_lat_lng(city, state):
 	j = requests.get(url=googleField + 'address=' + city + ',' + state + '&key=' + googleKey).json()
 	lat = j['results'][0]['geometry']['location']['lat']
@@ -71,7 +100,6 @@ def test(opts):
 	summary = clean_summary(opts.sum)
 	description_feature = vectorizer.transform([summary])
 
-
 	summary_log_prob = summary_log.predict_proba(description_feature)
 	result['sum_log'] = summary_log_prob[0][1]
 	# summary_log_result = summary_log.predict(description_feature)
@@ -94,9 +122,11 @@ def test(opts):
 	# numeric_tree_result = numeric_tree.predict([numeric_feature])
 	# print('tree_numeric', numeric_tree_result, numeric_tree_prob)
 	# result = (summary_log_prob[0][1] + summary_tree_prob[0][1] + numeric_svm_prob[0][1] + numeric_tree_prob[0][1]) / 4
-	result = str(result)
-	result = re.sub("'",'"',result)
-	print(result)
+
+	tmp = str(result)
+	tmp = re.sub("'", '"', tmp)
+	print(tmp)
+	insert_db(result, weather_dict, summary, opts)
 
 
 def main():
@@ -109,8 +139,10 @@ def main():
 	parser.add_argument('-shape', required=True, help='shape')
 	parser.add_argument('-c', required = True, help = 'city name')
 	parser.add_argument('-s', required = True, help = 'state name')
+	parser.add_argument('-dur', required = False, help = 'duration')
 	opts = parser.parse_args()
 	# opts.sum = ' '.join(opts.sum.lower().split('_'))
+
 	test(opts)
 
 

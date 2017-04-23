@@ -10,3 +10,12 @@ for web app:
 add detialed description of why we give a certain classification to users, like forms, charts, probabilities
 draw corresponding D3 chart
 send json from python to web
+
+above solved
+
+update database
+
+sbove solved by python, all back-end work should be done by python if possible. Also, to facilitate the front-end, the code
+first print out predict result, then update database
+
+

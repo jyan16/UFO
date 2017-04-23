@@ -42,7 +42,7 @@ function getData(survey) {
             var marker = new google.maps.Marker({
                 position: {lat: info.lat, lng: info.lng},
                 map: map,
-                title: 'Hello World!'
+                title: 'I am here!'
             });
             var data = createData(response);
             var heatmap = new google.maps.visualization.HeatmapLayer({
