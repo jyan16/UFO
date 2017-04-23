@@ -61,6 +61,17 @@ app.get('/database_state', function(request, response) {
         response.json(data);
     })
 });
+//show statistic page
+app.get('/statistic', function(request, response) {
+    response.render('statistic.html');
+});
+
+//get statistic data for d3 graph
+app.get('/statistic_data', function(request, response) {
+    response.sendFile(__dirname + '/data/json/statistic_data.json');
+});
+
+
 app.listen(8080);
 
 

@@ -1,0 +1,27 @@
+#year-range-chart svg g g.axis.y { display: none; }
+
+.container {
+    width: 90%;
+}
+#chart-ring-shape {
+    margin: 50px 50px 50px 50px;
+}
+#chart-ring-weather {
+    margin: 50px 50px 50px 50px;
+}
+#chart-hist-hour {
+    margin: 50px 50px 50px 50px;
+}
+
+#chart-row-day {
+    margin: auto;
+
+}
+
+#chart-line-year {
+    margin: auto;
+}
+
+#year-range-chart {
+    margin: auto;
+}

@@ -4,9 +4,50 @@
     <meta charset="UTF-8">
     <title>statistic</title>
 
+    <link rel="stylesheet" type="text/css" href="/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/dc.css"/>
+    <link rel="stylesheet" type="text/css" href="/index.css"/>
+
+    <script type="text/javascript" src="/d3.js"></script>
+    <script type="text/javascript" src="/crossfilter.js"></script>
+    <script type="text/javascript" src="/dc.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://surveyjs.azureedge.net/0.12.5/survey.jquery.min.js"></script>
     <script src="/statistic.js"></script>
 </head>
 <body>
-
+    <div class="container">
+        <!-- <script type="text/javascript" src="header.js"></script> -->
+        <div id="chart-ring-shape" style="width:300px; height:300px">
+            <div class="reset" style="visibility: hidden;">selected: <span class="filter"></span>
+                <a href="javascript:shapeRingChart.filterAll();dc.redrawAll();">reset</a>
+            </div>
+        </div>
+        <div id="chart-ring-weather" style="width:300px; height:300px">
+          <div class="reset" style="visibility: hidden;">selected: <span class="filter"></span>
+            <a href="javascript:weatherRingChart.filterAll();dc.redrawAll();">reset</a>
+          </div>
+        </div>
+        <div id="chart-hist-hour" style="width:600px; height:300px">
+            <div class="reset" style="visibility: hidden;">range: <span class="filter"></span>
+                <a href="javascript:hourHistChart.filterAll();dc.redrawAll();">reset</a>
+            </div>
+        </div>
+        <div id="chart-row-day">
+            <div class="reset" style="visibility: hidden; width:500px; margin-top: 10px;">selected: <span class="filter"></span>
+                <a href="javascript:weekRowChart.filterAll();dc.redrawAll();">reset</a>
+            </div>
+        </div>
+        <div id="chart-line-year">
+            <div class="reset" style="visibility: hidden;">range: <span class="filter"></span>
+                <a href="javascript:yearLineChart.filterAll();dc.redrawAll();">reset</a>
+            </div>
+        </div>
+        <div id="year-range-chart">
+            <div class="reset" style="visibility: hidden;">range: <span class="filter"></span>
+                <a href="javascript:yearLineChart.filterAll();dc.redrawAll();">reset</a>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
