@@ -18,4 +18,7 @@ update database
 sbove solved by python, all back-end work should be done by python if possible. Also, to facilitate the front-end, the code
 first print out predict result, then update database
 
+for machine learning:
 
+feature selection by sklearn can make some sense in final report
+statistic analysis may calculate the possibility of appear UFO under certain condition by Bayes Rule
