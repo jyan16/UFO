@@ -6,6 +6,23 @@ import random
 
 conn = sqlite3.connect('../../data/my_ufo.db')
 c = conn.cursor()
+def statistic_data():
+    result = []
+    for row in c.execute('''SELECT e.year, e.month, e.day, e.time, e.shape, w.icon
+                            FROM events e, weathers w
+                            WHERE e.label=1 AND e.event_id=w.event_id
+                        '''):
+        tmp = {}
+        date = row[0] + '-' + row[1] + '-' + row[2] + 'T' + row[3] + 'Z'
+        shape = row[4]
+        weather = row[5]
+        tmp['shape'] = shape
+        tmp['date'] = date
+        tmp['weather'] = weather
+        result.append(tmp)
+    with open("../../data/json/statistic_data.json", 'w') as outfile:
+        json.dump(result, outfile, indent = 4)
+
 def report_map_show():
     report_show = []
     for row in c.execute('''SELECT lat, lng, count(*)
@@ -131,7 +148,7 @@ def shape_count():
     with open("../../data/shape_all.json", 'w') as outfile:
         json.dump(result, outfile, indent = 4)
 if __name__ == '__main__':
-    report_map_show()
+    statistic_data()
 
 
 
