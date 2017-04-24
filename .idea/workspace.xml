@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6d041bbd-bfed-46bf-af4b-cd4b657ecc18" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/img/statistic.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data/my_ufo.db" afterPath="$PROJECT_DIR$/data/my_ufo.db" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/blog4.html" afterPath="$PROJECT_DIR$/docs/blog4.html" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -26,8 +24,8 @@
       <file leaf-file-name="blog4.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/docs/blog4.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="459">
-              <caret line="111" column="15" lean-forward="true" selection-start-line="111" selection-start-column="15" selection-end-line="111" selection-end-column="15" />
+            <state relative-caret-position="675">
+              <caret line="125" column="75" lean-forward="false" selection-start-line="125" selection-start-column="75" selection-end-line="125" selection-end-column="75" />
               <folding>
                 <element signature="n#head#0;n#html#0;n#!!top" expanded="false" />
                 <element signature="n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
@@ -478,12 +476,12 @@
       <workItem from="1492984657156" duration="2731000" />
       <workItem from="1492994787821" duration="274000" />
       <workItem from="1492999583917" duration="1648000" />
-      <workItem from="1493042360719" duration="6975000" />
+      <workItem from="1493042360719" duration="7269000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="111211000" />
+    <option name="totallyTimeSpent" value="111505000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -840,8 +838,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/docs/blog4.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="111" column="15" lean-forward="true" selection-start-line="111" selection-start-column="15" selection-end-line="111" selection-end-column="15" />
+        <state relative-caret-position="675">
+          <caret line="125" column="75" lean-forward="false" selection-start-line="125" selection-start-column="75" selection-end-line="125" selection-end-column="75" />
           <folding>
             <element signature="n#head#0;n#html#0;n#!!top" expanded="false" />
             <element signature="n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
