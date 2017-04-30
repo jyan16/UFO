@@ -1,16 +1,13 @@
-
 var express = require('express'); //build server framework
 var engines = require('consolidate'); //send html like a file, not a string
 var exec = require('child_process').exec;
 var app = express();
-
 
 // setting app
 app.engine('html', engines.hogan); // since items on html can change, we need to interpret html in another way, say hogan
 app.set('views', __dirname + '/code/views'); //directory of html
 app.set('view engine', 'html');
 app.use(express.static('public'));
-
 
 var sqlite3 = require('any-db');
 var conn = sqlite3.createConnection('sqlite3://data/my_ufo.db');
@@ -47,7 +44,7 @@ app.get('/google', function(request, response) {
 });
 
 //show database
-app.get('/datapage', function(request, response) {
+app.get('/database', function(request, response) {
     response.render('database.html');
 });
 app.get('/database_event', function(request, response) {
