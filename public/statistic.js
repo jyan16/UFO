@@ -51,7 +51,7 @@ $(document).ready(function(){
                 .dimension(stateDim)
                 .group(countPerState)
                 .colors(d3.scale.quantize().range(["#E2F2FF", "#C4E4FF", "#9ED2FF", "#81C5FF", "#6BBAFF", "#51AEFF", "#36A2FF", "#1E96FF", "#0089FF", "#0061B5"]))
-                .colorDomain([0, 200])
+                .colorDomain([0, 11147])
                 .colorCalculator(function (d) { return d ? geoMapChart.colors()(d) : '#ccc'; })
                 .overlayGeoJson(statesJson.features, "state", function (d) {
                     return d.properties.name;
