@@ -49,41 +49,51 @@
     </nav>
 
     <div class="container" style="margin-top: 100px;margin-bottom: 50px;">
-        <div class="row">
-            <div class="col-md-10 col-md-offset-2">
-                <!-- <script type="text/javascript" src="header.js"></script> -->
-                <div id="chart-ring-shape" style="width:300px; height:300px">
-                    <div class="reset" style="visibility: hidden;">selected: <span class="filter"></span>
-                        <a href="javascript:shapeRingChart.filterAll();dc.redrawAll();">reset</a>
-                    </div>
-                </div>
-                <div id="chart-ring-weather" style="width:300px; height:300px">
-                    <div class="reset" style="visibility: hidden;">selected: <span class="filter"></span>
-                        <a href="javascript:weatherRingChart.filterAll();dc.redrawAll();">reset</a>
-                    </div>
-                </div>
-                <div id="chart-hist-hour" style="width:600px; height:300px">
-                    <div class="reset" style="visibility: hidden;">range: <span class="filter"></span>
-                        <a href="javascript:hourHistChart.filterAll();dc.redrawAll();">reset</a>
-                    </div>
-                </div>
-                <div id="chart-row-day">
-                    <div class="reset" style="visibility: hidden; width:500px; margin-top: 10px;">selected: <span class="filter"></span>
-                        <a href="javascript:weekRowChart.filterAll();dc.redrawAll();">reset</a>
-                    </div>
-                </div>
-                <div id="chart-line-year">
-                    <div class="reset" style="visibility: hidden;">range: <span class="filter"></span>
-                        <a href="javascript:yearLineChart.filterAll();dc.redrawAll();">reset</a>
-                    </div>
-                </div>
-                <div id="year-range-chart">
-                    <div class="reset" style="visibility: hidden;">range: <span class="filter"></span>
-                        <a href="javascript:yearLineChart.filterAll();dc.redrawAll();">reset</a>
-                    </div>
+            
+            <!-- <script type="text/javascript" src="header.js"></script> -->
+            <div class="row">
+                <div id="chart-geo-map" style="width:1300px; height:300px">
+                    <strong>Numbers of UFO events across the country</strong>
+                    <a class="reset" href="javascript:geoMapChart.filterAll();dc.redrawAll();">reset</a>
+                    <div>selected: <span class="filter"></span></div>
                 </div>
             </div>
-        </div>
+            <div class="row row1">
+                <div id="chart-ring-shape" style="width:300px; height:300px">
+                    <strong>Shapes</strong>
+                    <a href="javascript:shapeRingChart.filterAll();dc.redrawAll();">reset</a>
+                    <div>selected: <span class="filter"></span></div>
+                </div>
+                <div id="chart-ring-weather" style="width:300px; height:300px">
+                    <strong>Weathers</strong>
+                    <a href="javascript:weatherRingChart.filterAll();dc.redrawAll();">reset</a>
+                    <div>selected: <span class="filter"></span></div>
+                </div>
+                <div id="chart-row-day" style="width:600px; height:250px">
+                    <strong>Day of Week</strong>
+                    <a href="javascript:weekRowChart.filterAll();dc.redrawAll();">reset</a>
+                    <div>selected: <span class="filter"></span></div>
+                </div>
+            </div>
+            <div class="row row2">
+                <div id="chart-hist-hour" style="width:600px; height:300px">
+                    <strong>Dayly numbers of UFO reports</strong>
+                    <a href="javascript:hourHistChart.filterAll();dc.redrawAll();">reset</a>
+            <!--         <div>selected: <span class="filter"></span></div> -->
+                </div>
+
+                <div id="chart-line-year">
+                    <strong>Yearly numbers of UFO reports</strong>
+                    <a href="javascript:yearLineChart.filterAll();dc.redrawAll();">reset</a>
+                    <div>selected: <span class="filter"></span></div>
+                </div>
+                <div id="year-range-chart">
+<!--                     <div class="reset" style="visibility: hidden;">range: <span class="filter"></span>
+                        <a href="javascript:yearLineChart.filterAll();dc.redrawAll();">reset</a>
+                    </div> -->
+                </div>
+            </div>
+        
     </div>
 
     <div id="footer">

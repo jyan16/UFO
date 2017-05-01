@@ -69,6 +69,10 @@ app.get('/statistic_data', function(request, response) {
     response.sendFile(__dirname + '/data/json/statistic_data.json');
 });
 
+// get states path to draw d3 map
+app.get('/us-states', function(request, response) {
+    response.sendFile(__dirname + '/data/json/us-states.json');
+});
 
 app.listen(8080);
 

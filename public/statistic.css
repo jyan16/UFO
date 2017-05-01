@@ -1,24 +1,37 @@
 #year-range-chart svg g g.axis.y { display: none; }
 
+#chart-geo-map {
+	margin-top: 20px;
+    margin-left: 22%;
+}
 #chart-ring-shape {
-    margin: 50px 50px 50px 50px;
+   margin-left: 10%
 }
 #chart-ring-weather {
-    margin: 50px 50px 50px 50px;
-}
-#chart-hist-hour {
-    margin: 50px 50px 50px 50px;
+    margin-left:10%;
 }
 
 #chart-row-day {
-    margin: auto;
-
+	margin-left:10%;
+	margin-top: 20px;
+}
+#chart-hist-hour {
+   margin-left: 5%;
 }
 
 #chart-line-year {
-    margin: auto;
+    margin-left: 40px;
 }
 
 #year-range-chart {
-    margin: auto;
+    margin-left: 40px;
+    margin-top: 20px;
+}
+
+.row1 {
+	margin-top: 280px;
+}
+
+.row2 {
+	margin-top: 100px;
 }
