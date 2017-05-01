@@ -2,396 +2,848 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Report</title>
 
     <!-- javascript source-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
     <script src="https://surveyjs.azureedge.net/0.12.5/survey.jquery.min.js"></script>
     <script type="text/javascript" src="https://d3js.org/d3.v4.min.js"></script>
     <script src="/report.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDLN-xK0p13MpS8RQffOVRbwtqYEdv6YZg&libraries=visualization&callback=initMap"
             async defer></script>
-    <!-- css source-->
-    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/style.css">
-</head>
-<body>
-<nav class="nav">
-<ul>
-    <li style="float:right"><a href="/">Home</a></li>
-    <li><a href="/report" class="active">Report</a></li>
-    <li><a href="/statistic">Statistic</a></li>
-    <li><a href="/datapage">Database</a></li>
-    <li><a href="/About">About</a></li>
-</ul>
-</nav>
-<div class="container">
-    <div class="row">
-        <div class="col-md-10 col-md-offset-1">
 
-            <div id="surveyContainer"></div>
-            <div id="tableContainer"></div>
-            <div id="chartContainer"></div>
-            <div id="labelContainer"></div>
-            <div id="map"></div>
-            <script src="/report.js"></script>
-            <div style="height: 150px;">
+    <!-- css source-->
+    <link rel="stylesheet" href="/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/bootstrap-3.3.7-dist/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/nivo-lightbox/nivo-lightbox.css">
+    <link rel="stylesheet" href="/nivo-lightbox/default.css">
+    <link rel="stylesheet" href="/style.css">
+
+    <style>
+        .btn{
+            text-transform: uppercase;
+            color: #fff;
+            background-color: #34ad95;
+            border: 0;
+            margin: 0;
+            font-size: 16px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            border-radius: 5px;
+            transition: all 0.5s;
+        }
+        .btn:hover, .btn:focus, .btn.focus, .btn:active, .btn.active {
+            background-color: #34ad95;
+        }
+        .complete{
+            text-align: center;
+        }
+    </style>
+
+</head>
+
+<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+    <nav id="menu" class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" class="navbar-toggle collapsed">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button><a href="/" class="navbar-brand page-scroll">UFO Sighting Checker</a>
+            </div>
+
+            <div id="bs-example-navbar-collapse-1" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/">Home</a></li>
+                    <li class="active"><a href="/report">Report</a></li>
+                    <li><a href="/statistic">Statistic</a></li>
+                    <li><a href="/datapage">Database</a></li>
+                    <li><a href="/about">About</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+
+                <div id="surveyContainer" style="margin-top: 150px;"></div>
+                <div id="tableContainer"></div>
+                <div id="chartContainer"></div>
+                <div id="labelContainer"></div>
+                <div id="map"></div>
+                <script src="/report.js"></script>
+                <div style="height: 150px;">
+                </div>
+            </div>
         </div>
     </div>
-    </div>
-</div>
 
     <script>
         var surveyJSON = { pages: [
-                {   name: "report",
-                    navigationButtonsVisibility: "iherit",
-                    questions: [
-                        {
-                            type: "text",
-                            inputType: "date",
-                            name: "date",
-                            title: "When did you see? (date)"
+            {   name: "report",
+                navigationButtonsVisibility: "iherit",
+                questions: [
+                    {
+                        type: "text",
+                        inputType: "date",
+                        name: "date",
+                        title: "When did you see? (date)"
 
-                        },
-                        {
-                            type: "text",
-                            inputType: "time",
-                            name: "time",
-                            title: "When did you see? (time)",
-                            startWithNewLine: false
-                        },
-                        {
-                            type: "text",
-                            name: "duration",
-                            title: "Duration/s",
-                        },
-                        {
+                    },
+                    {
+                        type: "text",
+                        inputType: "time",
+                        name: "time",
+                        title: "When did you see? (time)",
+                        startWithNewLine: false
+                    },
+                    {
+                        type: "text",
+                        name: "duration",
+                        title: "Duration/s",
+                    },
+                    {
                         type: "dropdown",
-                            choices: [
-                                {
-                                    value: "Light",
-                                    text: "Light"
-                                },
-                                {
-                                    value: "Circle",
-                                    text: "Circle"
-                                },
-                                {
-                                    value: "Triangle",
-                                    text: "Triangle"
-                                },
-                                {
-                                    value: "Fireball",
-                                    text: "Fireball"
-                                },
-                                {
-                                    value: "Sphere",
-                                    text: "Sphere"
-                                },
-                                {
-                                    value: "Disk",
-                                    text: "Disk"
-                                },
-                                {
-                                    value: "Oval",
-                                    text: "Oval"
-                                },
-                                {
-                                    value: "Formation",
-                                    text: "Formation"
-                                },
-                                {
-                                    value: "Changing",
-                                    text: "Changing"
-                                },
-                                {
-                                    value: "Cigar",
-                                    text: "Cigar"
-                                },
-                                {
-                                    value: "Flash",
-                                    text: "Flash"
-                                },
-                                {
-                                    value: "Rectangle",
-                                    text: "Rectangle"
-                                },
-                                {
-                                    value: "Cylinder",
-                                    text: "Cylinder"
-                                },
-                                {
-                                    value: "Diamond",
-                                    text: "Diamond"
-                                },
-                                {
-                                    value: "Chevron",
-                                    text: "Chevron"
-                                },
-                                {
-                                    value: "Teardrop",
-                                    text: "Teardrop"
-                                },
-                                {
-                                    value: "Egg",
-                                    text: "Egg"
-                                },
-                                {
-                                    value: "Cone",
-                                    text: "Cone"
-                                },
-                                {
-                                    value: "Cross",
-                                    text: "Cross"
-                                },
-                                {
-                                    value: "Unknown",
-                                    text: "Unknown"
-                                }
-                            ],
-                            name: "shape",
-                            title: "Shape",
-                            startWithNewLine: false
-                    },
-                    {
-                            type: "text",
-                            name: "city",
-                            title: "City"
-                    },
-                    {
-                            type: "dropdown",
-                            choices: [
-                                {
-                                    value: "AL",
-                                    text: "AL"
-                                },
-                                {
-                                    value: "AK",
-                                    text: "AK"
-                                },
-                                {
-                                    value: "AZ",
-                                    text: "AZ"
-                                },
-                                {
-                                    value: "AR",
-                                    text: "AR"
-                                },
-                                {
-                                    value: "CA",
-                                    text: "CA"
-                                },
-                                {
-                                    value: "CO",
-                                    text: "CO"
-                                },
-                                {
-                                    value: "CT",
-                                    text: "CT"
-                                },
-                                {
-                                    value: "DE",
-                                    text: "DE"
-                                },
-                                {
-                                    value: "FL",
-                                    text: "FL"
-                                },
-                                {
-                                    value: "GA",
-                                    text: "GA"
-                                },
-                                {
-                                    value: "HI",
-                                    text: "HI"
-                                },
-                                {
-                                    value: "ID",
-                                    text: "ID"
-                                },
-                                {
-                                    value: "IL",
-                                    text: "IL"
-                                },
-                                {
-                                    value: "IA",
-                                    text: "IA"
-                                },
-                                {
-                                    value: "KS",
-                                    text: "KS"
-                                },
-                                {
-                                    value: "KY",
-                                    text: "KY"
-                                },
-                                {
-                                    value: "LA",
-                                    text: "LA"
-                                },
-                                {
-                                    value: "ME",
-                                    text: "ME"
-                                },
-                                {
-                                    value: "MD",
-                                    text: "MD"
-                                },
-                                {
-                                    value: "MA",
-                                    text: "MA"
-                                },
-                                {
-                                    value: "MI",
-                                    text: "MI"
-                                },
-                                {
-                                    value: "MN",
-                                    text: "MN"
-                                },
-                                {
-                                    value: "MS",
-                                    text: "MS"
-                                },
-                                {
-                                    value: "MO",
-                                    text: "MO"
-                                },
-                                {
-                                    value: "MT",
-                                    text: "MT"
-                                },
-                                {
-                                    value: "NE",
-                                    text: "NE"
-                                },
-                                {
-                                    value: "NV",
-                                    text: "NV"
-                                },
-                                {
-                                    value: "NH",
-                                    text: "NH"
-                                },
-                                {
-                                    value: "NJ",
-                                    text: "NJ"
-                                },
-                                {
-                                    value: "NM",
-                                    text: "NM"
-                                },
-                                {
-                                    value: "NY",
-                                    text: "NY"
-                                },
-                                {
-                                    value: "NC",
-                                    text: "NC"
-                                },
-                                {
-                                    value: "ND",
-                                    text: "ND"
-                                },
-                                {
-                                    value: "OH",
-                                    text: "OH"
-                                },
-                                {
-                                    value: "OK",
-                                    text: "OK"
-                                },
-                                {
-                                    value: "OR",
-                                    text: "OR"
-                                },
-                                {
-                                    value: "PA",
-                                    text: "PA"
-                                },
-                                {
-                                    value: "RI",
-                                    text: "RI"
-                                },
-                                {
-                                    value: "SC",
-                                    text: "SC"
-                                },
-                                {
-                                    value: "SD",
-                                    text: "SD"
-                                },
-                                {
-                                    value: "TN",
-                                    text: "TN"
-                                },
-                                {
-                                    value: "TX",
-                                    text: "TX"
-                                },
-                                {
-                                    value: "UT",
-                                    text: "UT"
-                                },
-                                {
-                                    value: "VT",
-                                    text: "VT"
-                                },
-                                {
-                                    value: "VA",
-                                    text: "VA"
-                                },
-                                {
-                                    value: "WA",
-                                    text: "WA"
-                                },
-                                {
-                                    value: "WV",
-                                    text: "WV"
-                                },
-                                {
-                                    value: "WI",
-                                    text: "WI"
-                                },
-                                {
-                                    value: "WY",
-                                    text: "WY"
-                                },
-                                {
-                                    value: "DC",
-                                    text: "DC"
-                                }
-                            ],
-                            name: "state",
-                            title: "State",
-                            startWithNewLine: false
-                        },
-                        {
-                            type: "text",
-                            name: "summary",
-                            title: "Summary"
-                        }
+                        choices: [
+                            {
+                                value: "Light",
+                                text: "Light"
+                            },
+                            {
+                                value: "Circle",
+                                text: "Circle"
+                            },
+                            {
+                                value: "Triangle",
+                                text: "Triangle"
+                            },
+                            {
+                                value: "Fireball",
+                                text: "Fireball"
+                            },
+                            {
+                                value: "Sphere",
+                                text: "Sphere"
+                            },
+                            {
+                                value: "Disk",
+                                text: "Disk"
+                            },
+                            {
+                                value: "Oval",
+                                text: "Oval"
+                            },
+                            {
+                                value: "Formation",
+                                text: "Formation"
+                            },
+                            {
+                                value: "Changing",
+                                text: "Changing"
+                            },
+                            {
+                                value: "Cigar",
+                                text: "Cigar"
+                            },
+                            {
+                                value: "Flash",
+                                text: "Flash"
+                            },
+                            {
+                                value: "Rectangle",
+                                text: "Rectangle"
+                            },
+                            {
+                                value: "Cylinder",
+                                text: "Cylinder"
+                            },
+                            {
+                                value: "Diamond",
+                                text: "Diamond"
+                            },
+                            {
+                                value: "Chevron",
+                                text: "Chevron"
+                            },
+                            {
+                                value: "Teardrop",
+                                text: "Teardrop"
+                            },
+                            {
+                                value: "Egg",
+                                text: "Egg"
+                            },
+                            {
+                                value: "Cone",
+                                text: "Cone"
+                            },
+                            {
+                                value: "Cross",
+                                text: "Cross"
+                            },
+                            {
+                                value: "Unknown",
+                                text: "Unknown"
+                            }
                         ],
-                    title: "Report Information"
-                }],
-                sendResultOnPageNext: true,
-                completedHtml: "<h3 class='complete'></h3>"
-            };
+                        name: "shape",
+                        title: "Shape",
+                        startWithNewLine: false
+                    },
+                    {
+                        type: "text",
+                        name: "city",
+                        title: "City"
+                    },
+                    {
+                        type: "dropdown",
+                        choices: [
+                            {
+                                value: "AL",
+                                text: "AL"
+                            },
+                            {
+                                value: "AK",
+                                text: "AK"
+                            },
+                            {
+                                value: "AZ",
+                                text: "AZ"
+                            },
+                            {
+                                value: "AR",
+                                text: "AR"
+                            },
+                            {
+                                value: "CA",
+                                text: "CA"
+                            },
+                            {
+                                value: "CO",
+                                text: "CO"
+                            },
+                            {
+                                value: "CT",
+                                text: "CT"
+                            },
+                            {
+                                value: "DE",
+                                text: "DE"
+                            },
+                            {
+                                value: "FL",
+                                text: "FL"
+                            },
+                            {
+                                value: "GA",
+                                text: "GA"
+                            },
+                            {
+                                value: "HI",
+                                text: "HI"
+                            },
+                            {
+                                value: "ID",
+                                text: "ID"
+                            },
+                            {
+                                value: "IL",
+                                text: "IL"
+                            },
+                            {
+                                value: "IA",
+                                text: "IA"
+                            },
+                            {
+                                value: "KS",
+                                text: "KS"
+                            },
+                            {
+                                value: "KY",
+                                text: "KY"
+                            },
+                            {
+                                value: "LA",
+                                text: "LA"
+                            },
+                            {
+                                value: "ME",
+                                text: "ME"
+                            },
+                            {
+                                value: "MD",
+                                text: "MD"
+                            },
+                            {
+                                value: "MA",
+                                text: "MA"
+                            },
+                            {
+                                value: "MI",
+                                text: "MI"
+                            },
+                            {
+                                value: "MN",
+                                text: "MN"
+                            },
+                            {
+                                value: "MS",
+                                text: "MS"
+                            },
+                            {
+                                value: "MO",
+                                text: "MO"
+                            },
+                            {
+                                value: "MT",
+                                text: "MT"
+                            },
+                            {
+                                value: "NE",
+                                text: "NE"
+                            },
+                            {
+                                value: "NV",
+                                text: "NV"
+                            },
+                            {
+                                value: "NH",
+                                text: "NH"
+                            },
+                            {
+                                value: "NJ",
+                                text: "NJ"
+                            },
+                            {
+                                value: "NM",
+                                text: "NM"
+                            },
+                            {
+                                value: "NY",
+                                text: "NY"
+                            },
+                            {
+                                value: "NC",
+                                text: "NC"
+                            },
+                            {
+                                value: "ND",
+                                text: "ND"
+                            },
+                            {
+                                value: "OH",
+                                text: "OH"
+                            },
+                            {
+                                value: "OK",
+                                text: "OK"
+                            },
+                            {
+                                value: "OR",
+                                text: "OR"
+                            },
+                            {
+                                value: "PA",
+                                text: "PA"
+                            },
+                            {
+                                value: "RI",
+                                text: "RI"
+                            },
+                            {
+                                value: "SC",
+                                text: "SC"
+                            },
+                            {
+                                value: "SD",
+                                text: "SD"
+                            },
+                            {
+                                value: "TN",
+                                text: "TN"
+                            },
+                            {
+                                value: "TX",
+                                text: "TX"
+                            },
+                            {
+                                value: "UT",
+                                text: "UT"
+                            },
+                            {
+                                value: "VT",
+                                text: "VT"
+                            },
+                            {
+                                value: "VA",
+                                text: "VA"
+                            },
+                            {
+                                value: "WA",
+                                text: "WA"
+                            },
+                            {
+                                value: "WV",
+                                text: "WV"
+                            },
+                            {
+                                value: "WI",
+                                text: "WI"
+                            },
+                            {
+                                value: "WY",
+                                text: "WY"
+                            },
+                            {
+                                value: "DC",
+                                text: "DC"
+                            }
+                        ],
+                        name: "state",
+                        title: "State",
+                        startWithNewLine: false
+                    },
+                    {
+                        type: "text",
+                        name: "summary",
+                        title: "Summary"
+                    }
+                ],
+                title: "Report Information"
+            }],
+            sendResultOnPageNext: true,
+            completedHtml: "<h3 class='complete'></h3>"
+        };
 
-            Survey.Survey.cssType = "bootstrap";
-            Survey.defaultBootstrapCss.navigationButton = "btn";
-            var data = {date: "2015-07-03", time: "20:29", duration: "10", shape: "Circle", summary: "it is fake!", city: "Providence", state: "RI"};
-            var survey = new Survey.Model(surveyJSON);
-            $("#surveyContainer").Survey({
-                model:survey,
-                data: data,
-                onComplete: getData
-            });
-
-
+        Survey.Survey.cssType = "bootstrap";
+        Survey.defaultBootstrapCss.navigationButton = "btn";
+        var data = {date: "2015-07-03", time: "20:29", duration: "10", shape: "Circle", summary: "it is fake!", city: "Providence", state: "RI"};
+        var survey = new Survey.Model(surveyJSON);
+        $("#surveyContainer").Survey({
+            model:survey,
+            data: data,
+            onComplete: getData
+        });
     </script>
-<footer>
-    <h3>Jin Yan, Lei Tian, Yao Yao, Jing Qian @ cs1951a project</h3>
-</footer>
+
+    <div id="footer">
+        <div class="container text-center">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <h3>Contact Info</h3>
+                <div class="contact-item">
+                    <p>ufosightingchecker@gmail.com</p>
+                </div>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+        <div class="container-fluid text-center copyrights">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="social">
+                    <ul>
+                        <li><a href="https://twitter.com/intent/follow?original_referer=http%3A%2F%2Fwww.nationalsobering.org%2Fmap-and-links.html&amp;ref_src=twsrc%5Etfw&amp;region=follow_link&amp;screen_name=NationalSober&amp;tw_p=followbutton">Follow Us<i class="fa fa-twitter"></i></a></li>
+                    </ul>
+                </div>
+                <p>
+                    &copy; 2017 UFO Sighting Checker
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="/SmoothScroll.js"></script>
+    <script type="text/javascript" src="/nivo-lightbox.js"></script>
+    <script type="text/javascript" src="/jquery.isotope.js"></script>
+    <script type="text/javascript" src="/jqBootstrapValidation.js"></script>
+    <script type="text/javascript" src="/main.js"></script>
+
 </body>
 </html>
+
+<!--<body>-->
+<!--<nav class="nav">-->
+<!--<ul>-->
+    <!--<li style="float:right"><a href="/">Home</a></li>-->
+    <!--<li><a href="/report" class="active">Report</a></li>-->
+    <!--<li><a href="/statistic">Statistic</a></li>-->
+    <!--<li><a href="/datapage">Database</a></li>-->
+    <!--<li><a href="/About">About</a></li>-->
+<!--</ul>-->
+<!--</nav>-->
+<!--<div class="container">-->
+    <!--<div class="row">-->
+        <!--<div class="col-md-10 col-md-offset-1">-->
+
+            <!--<div id="surveyContainer"></div>-->
+            <!--<div id="tableContainer"></div>-->
+            <!--<div id="chartContainer"></div>-->
+            <!--<div id="labelContainer"></div>-->
+            <!--<div id="map"></div>-->
+            <!--<script src="/report.js"></script>-->
+            <!--<div style="height: 150px;">-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+<!--</div>-->
+
+    <!--<script>-->
+        <!--var surveyJSON = { pages: [-->
+                <!--{   name: "report",-->
+                    <!--navigationButtonsVisibility: "iherit",-->
+                    <!--questions: [-->
+                        <!--{-->
+                            <!--type: "text",-->
+                            <!--inputType: "date",-->
+                            <!--name: "date",-->
+                            <!--title: "When did you see? (date)"-->
+
+                        <!--},-->
+                        <!--{-->
+                            <!--type: "text",-->
+                            <!--inputType: "time",-->
+                            <!--name: "time",-->
+                            <!--title: "When did you see? (time)",-->
+                            <!--startWithNewLine: false-->
+                        <!--},-->
+                        <!--{-->
+                            <!--type: "text",-->
+                            <!--name: "duration",-->
+                            <!--title: "Duration/s",-->
+                        <!--},-->
+                        <!--{-->
+                        <!--type: "dropdown",-->
+                            <!--choices: [-->
+                                <!--{-->
+                                    <!--value: "Light",-->
+                                    <!--text: "Light"-->
+                                <!--},-->
+                                <!--{-->
+                                    <!--value: "Circle",-->
+                                    <!--text: "Circle"-->
+                                <!--},-->
+                                <!--{-->
+                                    <!--value: "Triangle",-->
+                                    <!--text: "Triangle"-->
+                                <!--},-->
+                                <!--{-->
+                                    <!--value: "Fireball",-->
+                                    <!--text: "Fireball"-->
+                                <!--},-->
+                                <!--{-->
+                                    <!--value: "Sphere",-->
+                                    <!--text: "Sphere"-->
+                                <!--},-->
+                                <!--{-->
+                                    <!--value: "Disk",-->
+                                    <!--text: "Disk"-->
+                                <!--},-->
+                                <!--{-->
+                                    <!--value: "Oval",-->
+                                    <!--text: "Oval"-->
+                                <!--},-->
+                                <!--{-->
+                                    <!--value: "Formation",-->
+                                    <!--text: "Formation"-->
+                                <!--},-->
+                                <!--{-->
+                                    <!--value: "Changing",-->
+                                    <!--text: "Changing"-->
+                                <!--},-->
+                                <!--{-->
+                                    <!--value: "Cigar",-->
+                                    <!--text: "Cigar"-->
+                                <!--},-->
+                                <!--{-->
+                                    <!--value: "Flash",-->
+                                    <!--text: "Flash"-->
+                                <!--},-->
+                                <!--{-->
+                                    <!--value: "Rectangle",-->
+                                    <!--text: "Rectangle"-->
+                                <!--},-->
+                                <!--{-->
+                                    <!--value: "Cylinder",-->
+                                    <!--text: "Cylinder"-->
+                                <!--},-->
+                                <!--{-->
+                                    <!--value: "Diamond",-->
+                                    <!--text: "Diamond"-->
+                                <!--},-->
+                                <!--{-->
+                                    <!--value: "Chevron",-->
+                                    <!--text: "Chevron"-->
+                                <!--},-->
+                                <!--{-->
+                                    <!--value: "Teardrop",-->
+                                    <!--text: "Teardrop"-->
+                                <!--},-->
+                                <!--{-->
+                                    <!--value: "Egg",-->
+                                    <!--text: "Egg"-->
+                                <!--},-->
+                                <!--{-->
+                                    <!--value: "Cone",-->
+                                    <!--text: "Cone"-->
+                                <!--},-->
+                                <!--{-->
+                                    <!--value: "Cross",-->
+                                    <!--text: "Cross"-->
+                                <!--},-->
+                                <!--{-->
+                                    <!--value: "Unknown",-->
+                                    <!--text: "Unknown"-->
+                                <!--}-->
+                            <!--],-->
+                            <!--name: "shape",-->
+                            <!--title: "Shape",-->
+                            <!--startWithNewLine: false-->
+                    <!--},-->
+                    <!--{-->
+                            <!--type: "text",-->
+                            <!--name: "city",-->
+                            <!--title: "City"-->
+                    <!--},-->
+                    <!--{-->
+                            <!--type: "dropdown",-->
+                            <!--choices: [-->
+                                <!--{-->
+                                    <!--value: "AL",-->
+                                    <!--text: "AL"-->
+                                <!--},-->
+                                <!--{-->
+                                    <!--value: "AK",-->
+                                    <!--text: "AK"-->
+                                <!--},-->
+                                <!--{-->
+                                    <!--value: "AZ",-->
+                                    <!--text: "AZ"-->
+                                <!--},-->
+                                <!--{-->
+                                    <!--value: "AR",-->
+                                    <!--text: "AR"-->
+                                <!--},-->
+                                <!--{-->
+                                    <!--value: "CA",-->
+                                    <!--text: "CA"-->
+                                <!--},-->
+                                <!--{-->
+                                    <!--value: "CO",-->
+                                    <!--text: "CO"-->
+                                <!--},-->
+                                <!--{-->
+                                    <!--value: "CT",-->
+                                    <!--text: "CT"-->
+                                <!--},-->
+                                <!--{-->
+                                    <!--value: "DE",-->
+                                    <!--text: "DE"-->
+                                <!--},-->
+                                <!--{-->
+                                    <!--value: "FL",-->
+                                    <!--text: "FL"-->
+                                <!--},-->
+                                <!--{-->
+                                    <!--value: "GA",-->
+                                    <!--text: "GA"-->
+                                <!--},-->
+                                <!--{-->
+                                    <!--value: "HI",-->
+                                    <!--text: "HI"-->
+                                <!--},-->
+                                <!--{-->
+                                    <!--value: "ID",-->
+                                    <!--text: "ID"-->
+                                <!--},-->
+                                <!--{-->
+                                    <!--value: "IL",-->
+                                    <!--text: "IL"-->
+                                <!--},-->
+                                <!--{-->
+                                    <!--value: "IA",-->
+                                    <!--text: "IA"-->
+                                <!--},-->
+                                <!--{-->
+                                    <!--value: "KS",-->
+                                    <!--text: "KS"-->
+                                <!--},-->
+                                <!--{-->
+                                    <!--value: "KY",-->
+                                    <!--text: "KY"-->
+                                <!--},-->
+                                <!--{-->
+                                    <!--value: "LA",-->
+                                    <!--text: "LA"-->
+                                <!--},-->
+                                <!--{-->
+                                    <!--value: "ME",-->
+                                    <!--text: "ME"-->
+                                <!--},-->
+                                <!--{-->
+                                    <!--value: "MD",-->
+                                    <!--text: "MD"-->
+                                <!--},-->
+                                <!--{-->
+                                    <!--value: "MA",-->
+                                    <!--text: "MA"-->
+                                <!--},-->
+                                <!--{-->
+                                    <!--value: "MI",-->
+                                    <!--text: "MI"-->
+                                <!--},-->
+                                <!--{-->
+                                    <!--value: "MN",-->
+                                    <!--text: "MN"-->
+                                <!--},-->
+                                <!--{-->
+                                    <!--value: "MS",-->
+                                    <!--text: "MS"-->
+                                <!--},-->
+                                <!--{-->
+                                    <!--value: "MO",-->
+                                    <!--text: "MO"-->
+                                <!--},-->
+                                <!--{-->
+                                    <!--value: "MT",-->
+                                    <!--text: "MT"-->
+                                <!--},-->
+                                <!--{-->
+                                    <!--value: "NE",-->
+                                    <!--text: "NE"-->
+                                <!--},-->
+                                <!--{-->
+                                    <!--value: "NV",-->
+                                    <!--text: "NV"-->
+                                <!--},-->
+                                <!--{-->
+                                    <!--value: "NH",-->
+                                    <!--text: "NH"-->
+                                <!--},-->
+                                <!--{-->
+                                    <!--value: "NJ",-->
+                                    <!--text: "NJ"-->
+                                <!--},-->
+                                <!--{-->
+                                    <!--value: "NM",-->
+                                    <!--text: "NM"-->
+                                <!--},-->
+                                <!--{-->
+                                    <!--value: "NY",-->
+                                    <!--text: "NY"-->
+                                <!--},-->
+                                <!--{-->
+                                    <!--value: "NC",-->
+                                    <!--text: "NC"-->
+                                <!--},-->
+                                <!--{-->
+                                    <!--value: "ND",-->
+                                    <!--text: "ND"-->
+                                <!--},-->
+                                <!--{-->
+                                    <!--value: "OH",-->
+                                    <!--text: "OH"-->
+                                <!--},-->
+                                <!--{-->
+                                    <!--value: "OK",-->
+                                    <!--text: "OK"-->
+                                <!--},-->
+                                <!--{-->
+                                    <!--value: "OR",-->
+                                    <!--text: "OR"-->
+                                <!--},-->
+                                <!--{-->
+                                    <!--value: "PA",-->
+                                    <!--text: "PA"-->
+                                <!--},-->
+                                <!--{-->
+                                    <!--value: "RI",-->
+                                    <!--text: "RI"-->
+                                <!--},-->
+                                <!--{-->
+                                    <!--value: "SC",-->
+                                    <!--text: "SC"-->
+                                <!--},-->
+                                <!--{-->
+                                    <!--value: "SD",-->
+                                    <!--text: "SD"-->
+                                <!--},-->
+                                <!--{-->
+                                    <!--value: "TN",-->
+                                    <!--text: "TN"-->
+                                <!--},-->
+                                <!--{-->
+                                    <!--value: "TX",-->
+                                    <!--text: "TX"-->
+                                <!--},-->
+                                <!--{-->
+                                    <!--value: "UT",-->
+                                    <!--text: "UT"-->
+                                <!--},-->
+                                <!--{-->
+                                    <!--value: "VT",-->
+                                    <!--text: "VT"-->
+                                <!--},-->
+                                <!--{-->
+                                    <!--value: "VA",-->
+                                    <!--text: "VA"-->
+                                <!--},-->
+                                <!--{-->
+                                    <!--value: "WA",-->
+                                    <!--text: "WA"-->
+                                <!--},-->
+                                <!--{-->
+                                    <!--value: "WV",-->
+                                    <!--text: "WV"-->
+                                <!--},-->
+                                <!--{-->
+                                    <!--value: "WI",-->
+                                    <!--text: "WI"-->
+                                <!--},-->
+                                <!--{-->
+                                    <!--value: "WY",-->
+                                    <!--text: "WY"-->
+                                <!--},-->
+                                <!--{-->
+                                    <!--value: "DC",-->
+                                    <!--text: "DC"-->
+                                <!--}-->
+                            <!--],-->
+                            <!--name: "state",-->
+                            <!--title: "State",-->
+                            <!--startWithNewLine: false-->
+                        <!--},-->
+                        <!--{-->
+                            <!--type: "text",-->
+                            <!--name: "summary",-->
+                            <!--title: "Summary"-->
+                        <!--}-->
+                        <!--],-->
+                    <!--title: "Report Information"-->
+                <!--}],-->
+                <!--sendResultOnPageNext: true,-->
+                <!--completedHtml: "<h3 class='complete'></h3>"-->
+            <!--};-->
+
+            <!--Survey.Survey.cssType = "bootstrap";-->
+            <!--Survey.defaultBootstrapCss.navigationButton = "btn";-->
+            <!--var data = {date: "2015-07-03", time: "20:29", duration: "10", shape: "Circle", summary: "it is fake!", city: "Providence", state: "RI"};-->
+            <!--var survey = new Survey.Model(surveyJSON);-->
+            <!--$("#surveyContainer").Survey({-->
+                <!--model:survey,-->
+                <!--data: data,-->
+                <!--onComplete: getData-->
+            <!--});-->
+
+
+    <!--</script>-->
+<!--<footer>-->
+    <!--<h3>Jin Yan, Lei Tian, Yao Yao, Jing Qian @ cs1951a project</h3>-->
+<!--</footer>-->
+<!--</body>-->
+<!--</html>-->
