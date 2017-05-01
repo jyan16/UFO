@@ -1,8 +1,5 @@
 #year-range-chart svg g g.axis.y { display: none; }
 
-.container {
-    width: 90%;
-}
 #chart-ring-shape {
     margin: 50px 50px 50px 50px;
 }

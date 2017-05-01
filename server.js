@@ -44,9 +44,10 @@ app.get('/google', function(request, response) {
 });
 
 //show database
-app.get('/database', function(request, response) {
+app.get('/datapage', function(request, response) {
     response.render('database.html');
 });
+
 app.get('/database_event', function(request, response) {
     conn.query('SELECT month, day, icon, city, state, shape, e.summary' +
         ' FROM events e, weathers w WHERE e.year=2017 and e.label=1 and e.event_id=w.event_id', function(err, data) {
