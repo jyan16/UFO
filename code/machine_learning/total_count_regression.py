@@ -5,7 +5,8 @@ from mpl_toolkits.mplot3d import Axes3D
 from sklearn import preprocessing
 from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import cross_val_score
-
+import numpy as np
+import math
 #This script fit the number of sightings with year, population and area of a state
 
 
@@ -15,17 +16,29 @@ c = conn.cursor()
 
 #getting data
 
-data_list = []
-x_train = []
+
+
+year = []
 y_train = []
+x_train = []
+for row in c.execute('''SELECT e.year, count(*) 
+						FROM events e
+						WHERE CAST(e.year AS SIGNED)>=1980 AND CAST(e.year AS SIGNED)<=2016
+						GROUP BY e.year
+						ORDER BY e.year asc'''):
+	year.append([int(row[0])])
+	y_train.append(row[1])
 
-for row in c.execute('''SELECT e.year, population, area, count(*)
-                        FROM events e, populations p, areas a
-                        WHERE e.year>=1980 AND e.year<=2016 AND e.state=p.state AND e.state=a.state
-                        GROUP BY e.state, e.year'''):
+population = []
+for row in c.execute('''SELECT sum(population)
+						FROM populations
+						WHERE year>=1980 AND year<=2016
+						GROUP BY year
+						ORDER BY year asc'''):
+	population.append([math.log(row[0])])
 
-	x_train.append([row[0], row[1], row[2]])
-	y_train.append(row[3])
+for item1, item2 in zip(year, population):
+	x_train.append(item1 + item2)
 
 
 
@@ -36,13 +49,3 @@ regressor.fit(X_train_transform, y_train)
 #xx_quadratic = quadratic_featurizer.transform(np.array(x_list).reshape(np.array(x_list).shape[0], 1))
 print(regressor.score(X_train_transform, y_train))
 
-'''
-#le_state = preprocessing.LabelEncoder().fit(list(set(x_list)))
-#x_list = le_state.transform(x_list)
-#train_data_list = [[item1, item2] for item1, item2 in zip(x_list, y_list)]
-train_data_list = y_list
-quadratic_featurizer = preprocessing.PolynomialFeatures(degree=3)
-quadratic_feature = quadratic_featurizer.fit(train_data_list)
-regressor = LinearRegression()
-regressor.fit(quadratic_feature, z_list)
-print(regressor.score(quadratic_feature, z_list))'''

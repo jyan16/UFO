@@ -5,6 +5,8 @@ from sklearn.externals import joblib
 from sklearn import tree
 from sklearn.datasets import load_iris
 import pydotplus
+import sqlite3
+import numpy as np
 #get data from excel
 def draw_score():
 	excel = xlrd.open_workbook('../../documentation/RESULT.xlsx')
@@ -56,5 +58,41 @@ def draw_tree():
 									special_characters=True)
 	graph = pydotplus.graph_from_dot_data(dot_data)
 	Image(graph.create_png())
+def draw_regression():
+	conn = sqlite3.connect('../../data/my_ufo.db')
+	c = conn.cursor()
+	year = []
+	count_year = []
+	for row in c.execute('''SELECT e.year, count(*) 
+							FROM events e
+							WHERE CAST(e.year AS SIGNED)>=1980 AND CAST(e.year AS SIGNED)<=2016
+							GROUP BY e.year
+							ORDER BY e.year asc'''):
+		year.append(int(row[0]))
+		count_year.append(row[1])
+
+
+	population = []
+	for row in c.execute('''SELECT sum(population)
+							FROM populations
+							WHERE year>=1980 AND year<=2016
+							GROUP BY year
+							ORDER BY year asc'''):
+		population.append(row[0])
+
+	population = list(np.log(population))
+	fig = plt.figure()
+
+	ax1 = fig.add_subplot(111)
+	ax1.plot(year, count_year)
+	ax1.set_ylabel('Sighting Number')
+	ax1.set_ylim(min(count_year), max(count_year))
+	
+	ax2 = ax1.twinx()
+	ax2.plot(year, population, 'r')
+	ax2.set_ylabel('Population')
+	ax2.set_ylim(min(population), max(population))
+
+	plt.show()
 if __name__=='__main__':
-	draw_tree()
+	draw_regression()

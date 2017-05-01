@@ -8,9 +8,9 @@ conn = sqlite3.connect('../../data/my_ufo.db')
 c = conn.cursor()
 def statistic_data():
     result = []
-    for row in c.execute('''SELECT e.year, e.month, e.day, e.time, e.shape, w.icon
+    for row in c.execute('''SELECT e.year, e.month, e.day, e.time, e.shape, w.icon, e.state, e.duration
                             FROM events e, weathers w
-                            WHERE e.label=1 AND e.event_id=w.event_id
+                            WHERE e.label=1 AND e.event_id=w.event_id 
                         '''):
         tmp = {}
         date = row[0] + '-' + row[1] + '-' + row[2] + 'T' + row[3] + 'Z'
@@ -19,6 +19,8 @@ def statistic_data():
         tmp['shape'] = shape
         tmp['date'] = date
         tmp['weather'] = weather
+        tmp['state'] = row[6]
+        tmp['duration'] = row[7]
         result.append(tmp)
     with open("../../data/json/statistic_data.json", 'w') as outfile:
         json.dump(result, outfile, indent = 4)
