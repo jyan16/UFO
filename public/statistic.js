@@ -30,7 +30,8 @@ $(document).ready(function(){
             weekDim  = ndx.dimension(function(d) {
                 var day = d.dd.getDay();
                 var name = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-                return day + '.' + name[day];
+                //return day + '.' + name[day];
+                return name[day];
             }),
             yearDim = ndx.dimension(function(d) {
                 return d.month;
@@ -109,10 +110,12 @@ $(document).ready(function(){
                 .elasticX(true)
                 .controlsUseVisibility(true)
                 .ordering(function(d) {
-                    return weekDic[d.key.split('.')[1]];
+                    //return weekDic[d.key.split('.')[1]];
+                    return weekDic[d.key];
                 })
                 .label(function(d) {
-                    return d.key.split('.')[1];
+                    //return d.key.split('.')[1];
+                    return d.key;
                 })
                 .xAxis().ticks(3);
 
