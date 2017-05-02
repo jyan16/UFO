@@ -87,12 +87,30 @@ def draw_regression():
 	ax1.plot(year, count_year)
 	ax1.set_ylabel('Sighting Number')
 	ax1.set_ylim(min(count_year), max(count_year))
-	
+	ax1.set_xlabel('year')
 	ax2 = ax1.twinx()
 	ax2.plot(year, population, 'r')
 	ax2.set_ylabel('Population')
 	ax2.set_ylim(min(population), max(population))
 
+	plt.show()
+def draw_duration():
+	excel = xlrd.open_workbook('../../documentation/RESULT.xlsx')
+	table = excel.sheet_by_index(2)
+	state = []
+	x = range(1,56)
+	margin_mean = []
+
+	for i in range(0, 55):
+		row = table.row_values(i)
+		state.append(row[0])
+		margin_mean.append(row[1])
+
+	plt.scatter(x, margin_mean, marker='o', color='c')
+	plt.plot(x, margin_mean)
+	plt.xticks(x, state, fontsize=5)
+	plt.xlabel('state name')
+	plt.ylabel('estimated marginal means')
 	plt.show()
 if __name__=='__main__':
 	draw_regression()
