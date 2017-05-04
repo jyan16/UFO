@@ -10,70 +10,83 @@ from sklearn.metrics import confusion_matrix
 from sklearn import preprocessing
 from sklearn.model_selection import cross_val_score
 from sklearn.model_selection import ShuffleSplit
-from sklearn.linear_model import LogisticRegression
-import random
-from sklearn.externals import joblib
+
+from sklearn.tree import DecisionTreeClassifier
 import argparse
 
 #connect to database
-conn = sqlite3.connect('../../data/my_ufo.db')
+conn = sqlite3.connect('../../data/processed/my_ufo.db')
 c = conn.cursor()
 
 #load summary data from file, assign fake labels to event that doesn't have nuforc in summary
-def load_file(file_path):
+def load_summary(c):
 	confidence = []
 	description = []
-	with open(file_path, 'r', encoding='latin1') as file_reader:
-		reader = csv.reader(file_reader, delimiter=',', quotechar='"')
-		next(reader, None)
-		for row in reader:
-			text = row[9].lower()
-			if 'nuforc' in text or 'hoax' in text:
-				confidence.append(0)
-				description.append(row[9])
-			else:
-				confidence.append(1)
-				description.append(row[9])
-	return (confidence, description)
+	for row in c.execute('''SELECT summary, label
+	                        FROM events'''):
+		description.append(row[0])
+		confidence.append(row[1])
+	return confidence, description
 
 #load other data from table weathers and events, with scale and numerical processing
-def load_database(c):
+#load database for numerical classifier
+def load_numeric(c):
+	# save weather translator
 	summary_list = []
 	for row in c.execute('''SELECT distinct summary
 	                        FROM weathers'''):
-		summary_list.append(row[0].lower())
+		summary_list.append(row[0])
 	le_weather = preprocessing.LabelEncoder().fit(summary_list)
 
+
+	# save shape translator
 	shape_list = []
 	for row in c.execute('''SELECT distinct shape
 	                        FROM events'''):
-		shape_list.append(row[0].lower())
+		shape_list.append(row[0])
 	le_shape = preprocessing.LabelEncoder().fit(shape_list)
 
+
+	# load features and labels
 	train_features = []
-	novelty_features = []
-	for row in c.execute('''SELECT e.lat, e.lng, e.time, e.shape, w.summary, w.visibility, e.summary
+	train_labels = []
+	for row in c.execute('''SELECT e.lat, e.lng, e.time, e.shape, w.summary, w.visibility, e.label
 	                        FROM events e, weathers w
 	                        WHERE e.year>=1950 AND e.year<=2017 AND e.event_id=w.event_id
 	                     '''):
-		text = row[6].lower()
-		if 'nuforc' in text or 'hoax' in text:
-			novelty_features.append([row[0], row[1], int(row[2].split(':')[0]), le_shape.transform([row[3].lower()])[0],
-						  le_weather.transform([row[4].lower()])[0], row[5]])
-		else:
-			train_features.append([row[0], row[1], int(row[2].split(':')[0]), le_shape.transform([row[3].lower()])[0],
-						  le_weather.transform([row[4].lower()])[0], row[5]])
+		train_features.append([row[0], row[1], int(row[2].split(':')[0]), le_shape.transform([row[3].lower()])[0],
+							   le_weather.transform([row[4].lower()])[0], row[5]])
+		train_labels.append(int(row[6]))
+	return numpy.array(train_labels), numpy.array(train_features)
 
-	# le_scale = preprocessing.StandardScaler().fit(train_features + novelty_features)
-	#
-	# train_features = le_scale.transform(train_features)
-	# novelty_features = le_scale.transform(novelty_features)
+def classifier_decision(training_labels, training_features, i):
+	print(i)
+	classifier_decision = DecisionTreeClassifier(class_weight={0:i})
+	classifier_decision.fit(training_features, training_labels)
+	predict_result = classifier_decision.predict(training_features)
+	print('tree -- confusion matrix:')
+	print(confusion_matrix(training_labels, predict_result))
+	score = cross_val_score(classifier_decision, training_features, training_labels, scoring='accuracy')
+	print(score)
+	print('cross validation mean and std:')
+	print(score.mean(), score.std())
 
-	# train_features = preprocessing.scale(train_features)
-	# novelty_features = preprocessing.scale(novelty_features)
 
-	return (numpy.array(train_features), numpy.array(novelty_features))
+def check_decision_tree_summary():
+	print('*********The following result is based on UFO description data**********')
+	tokenizer = Tokenizer()
+	vectorizer = CountVectorizer(binary=True, lowercase=True, decode_error='replace', tokenizer=tokenizer)
+	(training_labels, training_texts) = load_summary(c)
+	training_features = vectorizer.fit_transform(training_texts)
+	training_labels = numpy.array(training_labels)
+	for i in range(1, 5):
+		classifier_decision(training_labels, training_features, i)
 
+def check_decision_tree_numeric():
+	print('*********The following result is based on UFO numeric data**********')
+	(training_labels, training_features) = load_numeric(c)
+	for i in range(1, 20):
+		classifier_decision(training_labels, training_features, i)
 def check():
 	parser = argparse.ArgumentParser()
 	parser.add_argument('-i', required=True, help='Path to training data')
@@ -84,7 +97,7 @@ def check():
 	cv = ShuffleSplit(n_splits=5, test_size=0.2)
 
 	#init data
-	(true_features, fake_features) = load_database(c)
+	(true_features, fake_features) = load_numeric(c)
 	train_labels = [1] * len(true_features) + [0] * len(fake_features)
 	train_features = numpy.array(list(true_features) + list(fake_features))
 	print('training svm with weight: ' + opts.i + '......')
@@ -180,4 +193,5 @@ def check():
 
 
 if __name__ == '__main__':
-	check()
+	# check_decision_tree_summary()
+	check_decision_tree_numeric()
