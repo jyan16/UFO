@@ -112,7 +112,7 @@ def check():
 	print(confusion_matrix(train_labels, predict_result))
 	print('******************************************************************')
 
-	#logistic regression
+	# # logistic regression
 	# for i in range(10, 20):
 	# 	print('training logistic regression with weight: ' + str(i) + '......')
 	# 	classifier_lr = LogisticRegression(class_weight={0:i})
@@ -125,7 +125,7 @@ def check():
 	# 	print('confusion matrix:')
 	# 	print(confusion_matrix(train_labels, predict_result))
 	# 	print('******************************************************************')
-	#svm
+	# # svm
 	# for i in range(15, 25):
 	# 	print('training svm with weight: ' + str(i) + '......')
 	# 	classifier_svm = svm.SVC(kernel = 'rbf', class_weight={0:i})
@@ -138,7 +138,7 @@ def check():
 	# 	print('confusion matrix:')
 	# 	print(confusion_matrix(train_labels, predict_result))
 	# 	print('******************************************************************')
-
+	#
 	# print('*********The following result is based on UFO description summary**********')
 	# #defining cross validation score parameter cv
 	# cv = ShuffleSplit(n_splits=5, test_size=0.2)

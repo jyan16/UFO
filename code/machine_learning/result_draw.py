@@ -16,7 +16,7 @@ def draw_score():
 	tp = []
 	score = []
 	weight = []
-	for i in range(1,56):
+	for i in range(1,51):
 		row = table.row_values(i)
 		weight.append(row[1])
 		cross.append(row[6])
@@ -40,7 +40,7 @@ def draw_score():
 	plt.title('text_log')
 
 	ax = plt.subplot(2,2,3)
-	a = plt.plot(weight[37:], cross[37:], 'b-')
+	a = plt.plot(weight[36:], cross[37:], 'b-')
 	b = plt.plot(weight[37:], tp[37:], 'r-')
 	c = plt.plot(weight[37:], score[37:], 'g-')
 	plt.title('text_svm')
@@ -113,4 +113,4 @@ def draw_duration():
 	plt.ylabel('estimated marginal means')
 	plt.show()
 if __name__=='__main__':
-	draw_regression()
+	draw_score()

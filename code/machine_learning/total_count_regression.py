@@ -46,6 +46,7 @@ featurizer = preprocessing.PolynomialFeatures(degree=4)
 X_train_transform = featurizer.fit_transform(x_train)
 regressor = LinearRegression()
 regressor.fit(X_train_transform, y_train)
-#xx_quadratic = quadratic_featurizer.transform(np.array(x_list).reshape(np.array(x_list).shape[0], 1))
 print(regressor.score(X_train_transform, y_train))
+X_test = featurizer.transform([2017, 19.60386])
+print(regressor.predict(X_test))
 
