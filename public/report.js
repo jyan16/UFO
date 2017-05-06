@@ -6,6 +6,7 @@ var map;
 var margin = {top: 19.5, right: 19.5, bottom: 19.5, left: 39.5};
 
 function initMap() {
+    console.log("initMap!");
     var myLatLng = {lat: 40.78, lng: -97.21};
 
     // Create a map object and specify the DOM element for display.
@@ -24,7 +25,7 @@ function getData(survey) {
     ///////////////////////////
 
     $.get('/submit', survey.data, function(response) {
-        response = JSON.parse(response)
+        response = JSON.parse(response);
         var info = [];
         var prob = [];
         for (var key in response) {
@@ -45,27 +46,16 @@ function getData(survey) {
                 title: 'I am here!'
             });
             var data = createData(response);
+            console.log("heatmap!");
+            console.log(data);
             var heatmap = new google.maps.visualization.HeatmapLayer({
                 data: data,
                 map: map
             });
         })
     });
-
-
 }
-function draw_map_label() {
-    var svg = d3.select("#labelContainer").append("svg")
-        .attr("class", "chart")
-        .attr("width", 1000)
-        .attr("height", 50)
-    var label = svg.append("text")
-        .attr("x", 450)
-        .attr("y", 25)
-        .style("text-anchor", "middle")
-        .style("font", "30px sans-serif")
-        .text("Accumulative UFO Sighting Distribution of U.S.")
-}
+
 function createData(response) {
     var result = [];
     for (item in response) {
@@ -76,6 +66,22 @@ function createData(response) {
     }
     return result;
 }
+
+function draw_map_label() {
+    var svg = d3.select("#labelContainer").append("svg")
+        .attr("class", "chart")
+        .attr("width", 1000)
+        .attr("height", 50);
+    var label = svg.append("text")
+        .attr("x", 450)
+        .attr("y", 25)
+        .style("text-anchor", "middle")
+        .style("font", "30px sans-serif")
+        .text("Accumulative UFO Sighting Distribution of U.S.")
+}
+
+
+
 function draw_table(response) {
 
     /////////////////////////////////////
@@ -124,7 +130,6 @@ function draw_table(response) {
 
 }
 
-
 function draw_d3(response) {
 
     ///////////////////////////////
@@ -135,7 +140,7 @@ function draw_d3(response) {
 
     var score = (summary + numeric)/2;
     if (score >= 0.5) {
-        $(".complete").text("Congratulations!! The true possibility is " + (score*100).toString().substring(0,5) + "%");
+        $(".complete").text("Congratulations! The true possibility is " + (score*100).toString().substring(0,5) + "%!");
     } else {
         $(".complete").text("Sorry, the true possibility is " + (score*100).toString().substring(0,5) + "%");
     }

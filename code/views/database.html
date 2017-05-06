@@ -5,35 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Database</title>
 
-    <!-- javascript source-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-    <script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.js"></script>
-    <script type="text/javascript" src="https://d3js.org/d3.v4.min.js"></script>
-    <script src="/database.js"></script>
-    <script src="/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
-
-
     <!-- css source -->
     <link rel="stylesheet" href="/bootstrap-3.3.7-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/bootstrap-3.3.7-dist/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="/font-awesome-4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/nivo-lightbox/nivo-lightbox.css">
-    <link rel="stylesheet" href="/nivo-lightbox/default.css">
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.13/css/dataTables.bootstrap.min.css">
     <link rel="stylesheet" href="/style.css">
-    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.css">
-    <link rel="stylesheet" href="/style.css">
+
+    <!-- javascript source-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.13/js/dataTables.bootstrap.min.js"></script>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+    <style>
+        p.infoTitle{
+            color: #000;
+            font-size: 25px;
+            font-weight: 300;
+            text-align: center;
+        }
+    </style>
 </head>
 
 <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
     <nav id="menu" class="navbar navbar-default navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
-                <button type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" class="navbar-toggle collapsed">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button><a href="/" class="navbar-brand page-scroll">UFO Sighting Checker</a>
+                <a href="/" class="navbar-brand page-scroll">UFO Sighting Analysis</a>
             </div>
 
             <div id="bs-example-navbar-collapse-1" class="collapse navbar-collapse">
@@ -56,15 +55,35 @@
                         UFO Reports This Year
                     </p>
                 </div>
-                <div id="eventTableContainer"></div>
+                <table id="eventTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                    <thead>
+                    <tr>
+                        <th>month</th>
+                        <th>day</th>
+                        <th>icon</th>
+                        <th>city</th>
+                        <th>state</th>
+                        <th>shape</th>
+                        <th>summary</th>
+                    </tr>
+                    </thead>
+                </table>
                 <div style="height: 30px;"></div>
                 <div style="height: 70px;">
                     <p class="infoTitle">
                         U.S. State Information
                     </p>
                 </div>
-                <div id="stateTableContainer"></div>
-                <div style="height: 150px;"></div>
+                <table id="stateTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                    <thead>
+                    <tr>
+                        <th>state</th>
+                        <th>area</th>
+                        <th>population</th>
+                    </tr>
+                    </thead>
+                </table>
+                <!--<div style="height: 150px;"></div>-->
 
             </div>
         </div>
@@ -76,7 +95,7 @@
             <div class="col-md-4">
                 <h3>Contact Info</h3>
                 <div class="contact-item">
-                    <p>ufosightingchecker@gmail.com</p>
+                    <p>ufosightinganalysis@gmail.com</p>
                 </div>
             </div>
             <div class="col-md-4"></div>
@@ -85,59 +104,61 @@
             <div class="col-md-8 col-md-offset-2">
                 <div class="social">
                     <ul>
-                        <li><a href="https://twitter.com/intent/follow?original_referer=http%3A%2F%2Fwww.nationalsobering.org%2Fmap-and-links.html&amp;ref_src=twsrc%5Etfw&amp;region=follow_link&amp;screen_name=NationalSober&amp;tw_p=followbutton">Follow Us<i class="fa fa-twitter"></i></a></li>
+                        <li><a href="https://github.com/jyan16/UFO">Follow Us<i class="fa fa-github"></i></a></li>
                     </ul>
                 </div>
                 <p>
-                    &copy; 2017 UFO Sighting Checker
+                    &copy; 2017 UFO Sighting Analysis
                 </p>
             </div>
         </div>
     </div>
 
     <script type="text/javascript" src="/SmoothScroll.js"></script>
-    <script type="text/javascript" src="/nivo-lightbox.js"></script>
     <script type="text/javascript" src="/jquery.isotope.js"></script>
     <script type="text/javascript" src="/jqBootstrapValidation.js"></script>
     <script type="text/javascript" src="/main.js"></script>
 
+    <script>
+        $(document).ready( function () {
+            $('#eventTable').DataTable({
+                "ajax": {
+                    "url": "/database_event",
+                    "dataSrc": function (d) {
+                        var dataSet = new Array();
+                        for (var i = 0; i < d.rows.length; i++) {
+                                var item = new Array();
+                                item.push(d.rows[i].month);
+                                item.push(d.rows[i].day);
+                                item.push(d.rows[i].icon);
+                                item.push(d.rows[i].city);
+                                item.push(d.rows[i].state);
+                                item.push(d.rows[i].shape);
+                                item.push(d.rows[i].summary);
+                                dataSet.push(item);
+                            }
+                        return dataSet;
+                    }
+                }
+            });
+            $('#stateTable').DataTable({
+                "ajax": {
+                    "url": "/database_state",
+                    "dataSrc": function (d) {
+                        var dataSet = new Array();
+                        for (var i = 0; i < d.rows.length; i++) {
+                                var item = new Array();
+                                item.push(d.rows[i].state);
+                                item.push(d.rows[i].area);
+                                item.push(d.rows[i].population);
+                                dataSet.push(item);
+                            }
+                        return dataSet;
+                    }
+                }
+            });
+        });
+    </script>
+
 </body>
 </html>
-
-<!--<body>-->
-<!--<nav class="nav">-->
-<!--<ul>-->
-    <!--<li style="float:right"><a href="/">Home</a></li>-->
-    <!--<li><a href="/report">Report</a></li>-->
-    <!--<li><a href="/statistic">Statistic</a></li>-->
-    <!--<li><a class="active" href="/datapage">Database</a></li>-->
-    <!--<li><a href="/about">About</a></li>-->
-<!--</ul>-->
-<!--</nav>-->
-<!--<div class="container">-->
-
-    <!--<div class="row">-->
-        <!--<div class="col-md-10 col-md-offset-1">-->
-            <!--<div style="height: 70px;">-->
-                <!--<p class="infoTitle">-->
-                    <!--UFO Reports This Year-->
-                <!--</p>-->
-            <!--</div>-->
-            <!--<div id="eventTableContainer"></div>-->
-            <!--<div style="height: 30px;"></div>-->
-            <!--<div style="height: 70px;">-->
-                <!--<p class="infoTitle">-->
-                    <!--U.S. State Information-->
-                <!--</p>-->
-            <!--</div>-->
-            <!--<div id="stateTableContainer"></div>-->
-            <!--<div style="height: 150px;"></div>-->
-
-        <!--</div>-->
-    <!--</div>-->
-<!--</div>-->
-<!--<footer>-->
-    <!--<h3>Jin Yan, Lei Tian, Yao Yao, Jing Qian @ cs1951a project</h3>-->
-<!--</footer>-->
-<!--</body>-->
-<!--</html>-->
