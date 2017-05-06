@@ -6,11 +6,10 @@ var map;
 var margin = {top: 19.5, right: 19.5, bottom: 19.5, left: 39.5};
 
 function initMap() {
-    console.log("initMap!");
     var myLatLng = {lat: 40.78, lng: -97.21};
 
     // Create a map object and specify the DOM element for display.
-    map = new google.maps.Map(document.getElementById('map'), {
+    map = new google.maps.Map(document.getElementById("map"), {
         center: myLatLng,
         scrollwheel: false,
         zoom: 4,
@@ -46,8 +45,6 @@ function getData(survey) {
                 title: 'I am here!'
             });
             var data = createData(response);
-            console.log("heatmap!");
-            console.log(data);
             var heatmap = new google.maps.visualization.HeatmapLayer({
                 data: data,
                 map: map
@@ -236,7 +233,7 @@ function draw_d3(response) {
         .data(data).enter()
         .append("g")
         .attr("transform", function(d, i) {
-            return "translate(0," + (i * barHeight + 30) + ")";
+            return "translate(-50," + (i * barHeight + 30) + ")";
         });
     var x = d3.scaleLinear()
         .range([0, (width - margin.right - margin.left)/2])
