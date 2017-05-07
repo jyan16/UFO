@@ -38,9 +38,9 @@
         }
         .complete{
             text-align: center;
-            color: #000;
-            font-size: 25px;
-            font-weight: 500;
+            color: #34ad95;
+            font-size: 40px;
+            font-weight: 700;
         }
         svg{
             margin-left: 50px;
@@ -60,7 +60,7 @@
     <nav id="menu" class="navbar navbar-default navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
-                <a href="/" class="navbar-brand page-scroll">UFO Sighting Analysis</a>
+                <a href="/" class="navbar-brand page-scroll">UFO Sighting Dashboard</a>
             </div>
 
             <div id="bs-example-navbar-collapse-1" class="collapse navbar-collapse">
@@ -69,7 +69,6 @@
                     <li class="active"><a href="/report">Report</a></li>
                     <li><a href="/statistic">Statistic</a></li>
                     <li><a href="/datapage">Database</a></li>
-                    <li><a href="/about">About</a></li>
                 </ul>
             </div>
         </div>
@@ -78,17 +77,21 @@
     <div class="container">
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
-
                 <div id="surveyContainer" style="margin-top: 150px;"></div>
                 <div id="tableContainer" style="text-align:center;"></div>
-                <div id="chartContainer" style="text-align:center;"></div>
-                <div id="labelContainer" style="text-align:center;"></div>
-                <div id="map"></div>
                 <script src="/report.js"></script>
                 <div style="height:100px"></div>
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div id="chartContainer" style="text-align:center;"></div>
+        </div>
+        <div class="row">
+            <div id="labelContainer" style="text-align:center;"></div>
+            <div id="map"></div>
+        </div>
+
     </div>
 
     <script>

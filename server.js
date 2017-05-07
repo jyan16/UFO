@@ -16,6 +16,9 @@ var conn = sqlite3.createConnection('sqlite3://data/my_ufo.db');
 app.get('/', function (request, response) {
     response.render('index.html');
 });
+app.get('/final_report', function (request, response) {
+    response.sendFile(__dirname + '/docs/final_report.pdf');
+});
 
 //visit report html
 app.get('/report', function (request, response) {
