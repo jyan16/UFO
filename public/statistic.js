@@ -148,7 +148,7 @@ $(document).ready(function(){
                 .dimension(yearDim)
                 .mouseZoomable(true)
                 .rangeChart(yearRangeChart)
-                .x(d3.time.scale().domain([new Date(1985, 0, 1), new Date(2012, 11, 31)]))
+                .x(d3.time.scale().domain([new Date(1985, 0, 1), new Date(2017, 11, 31)]))
                 .round(d3.time.month.round)
                 //  .xUnites(d3.time.months)
                 .elasticY(true)
@@ -167,7 +167,7 @@ $(document).ready(function(){
                 .group(yearGroup)
                 .centerBar(true)
                 .gap(1)
-                .x(d3.time.scale().domain([new Date(1985, 0, 1), new Date(2012, 11, 31)]))
+                .x(d3.time.scale().domain([new Date(1985, 0, 1), new Date(2017, 11, 31)]))
                 .round(d3.time.month.round)
                 .alwaysUseRounding(true)
                 .xUnits(d3.time.months);
