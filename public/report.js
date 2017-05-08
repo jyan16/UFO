@@ -91,7 +91,8 @@ function draw_table(response) {
         .append("svg")
         .attr("class", "chart")
         .attr("width", width)
-        .attr("height", height);
+        .attr("height", height)
+        .style("text-align", "center");
     var label = svg.append("text")
         .attr("x", width / 2 - 30)
         .attr("y", height / 4)
@@ -114,12 +115,13 @@ function draw_table(response) {
     head.append("text")
         .attr("x", 0)
         .attr("y", 0)
-        .text(function (d) {return d.name;});
+        .text(function (d) {return d.name;})
+        .style("font-weight", "500");;
 
     head.append("text")
         .attr("x", 0)
         .attr("dy", 25)
-        .style("font_weight", "normal")
+        .style("font_size", "15pt")
         .text(function (d) {
             if (d.name=="lat" || d.name=="lng") {
                 return d.value.toString().substring(0,6);
