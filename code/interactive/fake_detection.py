@@ -112,10 +112,10 @@ def test(opts):
 	# print('tree_summary', summary_tree_result, summary_tree_prob)
 
 
-	numeric_svm_prob = numeric_svm.predict_proba([numeric_feature])
-	result['num_svm'] = numeric_svm_prob[0][1]
-	# numeric_svm_result = numeric_svm.predict([numeric_feature])
-	# print('svm_numeric', numeric_svm_result, numeric_svm_prob)
+	# numeric_svm_prob = numeric_svm.predict_proba([numeric_feature])
+	# result['num_svm'] = numeric_svm_prob[0][1]
+	numeric_svm_result = numeric_svm.predict([numeric_feature])
+	result['num_svm'] = numeric_svm_result[0]
 
 	numeric_tree_prob = numeric_tree.predict_proba([numeric_feature])
 	result['num_tree'] = numeric_tree_prob[0][1]

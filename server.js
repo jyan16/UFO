@@ -30,8 +30,9 @@ app.get('/report', function (request, response) {
 app.get('/submit', function(request, response) {
    var data = request.query;
    var summary = data.summary.split(' ').join('_');
+   var city = data.city.split(' ').join('_')
    var execute = 'python3 code/interactive/fake_detection.py -d ' + data.date + ' -t ' + data.time +
-                 ' -sum ' + summary + ' -shape ' + data.shape + ' -c ' + data.city + ' -s ' + data.state;
+                 ' -sum ' + summary + ' -shape ' + data.shape + ' -c ' + city + ' -s ' + data.state;
    exec(execute, function(error, stdout, stderr) {
       response.json(stdout);
       if (error) {
